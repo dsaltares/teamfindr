@@ -1,0 +1,15 @@
+{
+  "port": 5000,
+  "authentication": {
+    "facebook": {
+      "clientID": "FACEBOOK_CLIENT_ID",
+      "clientSecret": "FACEBOOK_CLIENT_SECRET"
+    },
+    "twitter": {
+      "clientID": "TWITTER_CLIENT_ID",
+      "clientSecret": "TWITTER_CLIENT_ID"
+    }
+  },
+  "databaseURI": "DATABASE_URI",
+  "cookieKey": "COOKIE_KEY"
+}
