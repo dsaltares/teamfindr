@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  description: API for the TeamPickr app
+  version: '1.0.0'
+  title: TeamPickr
+  contact:
+    email: david.saltares@gmail.com
+  license:
+    name: MIT
+    url: 'https://github.com/dsaltares/teamfindr/blob/main/LICENSE'
+tags:
+  - name: developers
+    description: operations available to regular developers
+paths:
+  /auth/verify:
+    get:
+      tags:
+        - developers
+      summary: verifies that the session for the user is valid
+      operationId: verifyUser
+      responses:
+        '200':
+          description: authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifySuccessResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth/logout:
+    get:
+      tags:
+        - developers
+      summary: logs the user out
+      operationId: logOut
+      responses:
+        '301':
+          description: redirect to the application
+
+components:
+  schemas:
+    VerifySuccessResponse:
+      type: object
+      required:
+        - user
+        - cookies
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        cookies:
+          $ref: '#/components/schemas/Cookies'
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - name
+        - createdAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        avatar:
+          type: string
+    Cookies:
+      type: object
+      required:
+        - session
+        - session.sig
+      properties:
+        session:
+          type: string
+        session.sig:
+          type: string

@@ -3,6 +3,8 @@ const cors = require('cors');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const OpenApiValidator = require('express-openapi-validator');
 
 const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
 
@@ -23,6 +25,26 @@ const setupApp = (config) => {
     })
   );
   app.use(cookieParser());
+  app.use(bodyParser.json());
+  app.use(
+    OpenApiValidator.middleware({
+      apiSpec: './api.yaml',
+      validateRequests: true,
+      validateResponses: true,
+      ignorePaths: (path) => {
+        const ignoredPaths = [
+          '/auth/failed',
+          '/auth/twitter',
+          '/auth/twitter/redirect',
+          '/auth/facebook',
+          '/auth/facebook/redirect',
+          '/auth/google',
+          '/auth/google/redirect',
+        ];
+        return ignoredPaths.includes(path);
+      },
+    })
+  );
   app.use(passport.initialize());
   app.use(passport.session());
 

@@ -12,6 +12,7 @@ const authRoutes = {
       method: 'get',
       path: 'verify',
       controller: VerifyController,
+      requiresAuthentication: true,
     },
     {
       method: 'get',

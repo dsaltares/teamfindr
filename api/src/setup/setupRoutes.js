@@ -1,19 +1,29 @@
 const rootRoutes = require('../routes/root');
 const authRoutes = require('../routes/auth');
 const makeController = require('./makeController');
+const withAuthenticatedUser = require('../utils/withAuthenticatedUser');
+
+const getController = ({ route, services }) => {
+  if (route.controller) {
+    let controller = route.controller(services);
+    if (route.requiresAuthentication) {
+      controller = withAuthenticatedUser(controller);
+    }
+    return makeController({ controller, services });
+  } else {
+    return route.handler;
+  }
+};
 
 const addRoutes = ({ app, basePath, routes, services }) => {
   routes.forEach((route) => {
     const fullPath = `${basePath}/${route.path}`;
-    const controller = route.controller
-      ? makeController(route.controller(services))
-      : route.handler;
 
     services.logger.info('setting up route', {
       method: route.method,
       path: fullPath,
     });
-    app[route.method](fullPath, controller);
+    app[route.method](fullPath, getController({ route, services }));
   });
 };
 
