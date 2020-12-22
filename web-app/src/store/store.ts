@@ -21,7 +21,7 @@ const store = createStore<StoreModel>({
   login: thunk(async (actions) => {
     actions.loginStart();
     try {
-      const response = await axios.get('http://localhost:5000/auth/success', {
+      const response = await axios.get('http://localhost:5000/auth/verify', {
         withCredentials: true,
         headers: {
           Accept: 'application/json',

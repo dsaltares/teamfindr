@@ -1,5 +1,5 @@
 const passport = require('passport');
-const SuccessController = require('../controllers/auth/success');
+const VerifyController = require('../controllers/auth/verify');
 const FailedController = require('../controllers/auth/failed');
 const LogoutController = require('../controllers/auth/logout');
 
@@ -10,8 +10,8 @@ const authRoutes = {
   routes: [
     {
       method: 'get',
-      path: 'success',
-      controller: SuccessController,
+      path: 'verify',
+      controller: VerifyController,
     },
     {
       method: 'get',

@@ -1,4 +1,4 @@
-const successController = () => (req) => {
+const verifyController = () => (req) => {
   if (req.user) {
     return {
       status: 200,
@@ -15,4 +15,4 @@ const successController = () => (req) => {
   };
 };
 
-module.exports = successController;
+module.exports = verifyController;
