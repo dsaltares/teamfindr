@@ -1,3 +1,5 @@
+const passportVerifier = require('./passportVerifier');
+
 const profileToUserParams = (profile) => {
   const email = profile.emails[0].value;
   const name = profile.displayName;
@@ -16,21 +18,6 @@ const profileToUserParams = (profile) => {
   };
 };
 
-const verifyTwitter = ({ getUserByEmail, createUser }) => async (
-  _accessToken,
-  _refreshToken,
-  profile,
-  done
-) => {
-  const params = profileToUserParams(profile);
-  const existingUser = await getUserByEmail(params.email);
-  if (existingUser) {
-    done(null, existingUser);
-    return;
-  }
-
-  const newUser = await createUser(params);
-  done(null, newUser);
-};
+const verifyTwitter = passportVerifier(profileToUserParams);
 
 module.exports = verifyTwitter;
