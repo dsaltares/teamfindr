@@ -12,6 +12,9 @@ function App() {
   const handleLoginViaFacebook = useStoreActions(
     (actions) => actions.loginViaFacebook
   );
+  const handleLoginViaGoogle = useStoreActions(
+    (actions) => actions.loginViaGoogle
+  );
   const handleLogout = useStoreActions((actions) => actions.logout);
   const login = useStoreActions((actions) => actions.login);
 
@@ -28,6 +31,7 @@ function App() {
       <ul>
         <li onClick={() => handleLoginViaTwitter()}>Login via Twitter</li>
         <li onClick={() => handleLoginViaFacebook()}>Login via Facebook</li>
+        <li onClick={() => handleLoginViaGoogle()}>Login via Google</li>
       </ul>
     );
   }

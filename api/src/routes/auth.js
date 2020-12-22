@@ -49,6 +49,19 @@ const authRoutes = {
         failureRedirect: '/auth/failed',
       }),
     },
+    {
+      method: 'get',
+      path: 'google',
+      handler: passport.authenticate('google', { scope: ['email', 'profile'] }),
+    },
+    {
+      method: 'get',
+      path: 'google/redirect',
+      handler: passport.authenticate('google', {
+        successRedirect: CLIENT_HOME_PAGE_URL,
+        failureRedirect: '/auth/failed',
+      }),
+    },
   ],
 };
 

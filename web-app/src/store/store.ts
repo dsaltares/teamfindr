@@ -50,6 +50,9 @@ const store = createStore<StoreModel>({
   loginViaFacebook: action((state) => {
     window.open('http://localhost:5000/auth/facebook', '_self');
   }),
+  loginViaGoogle: action((state) => {
+    window.open('http://localhost:5000/auth/google', '_self');
+  }),
   logout: action((state) => {
     window.open('http://localhost:5000/auth/logout', '_self');
     state.user = undefined;

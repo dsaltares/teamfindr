@@ -13,6 +13,7 @@ interface StoreModel {
   login: Thunk<StoreModel>;
   loginViaTwitter: Action<StoreModel>;
   loginViaFacebook: Action<StoreModel>;
+  loginViaGoogle: Action<StoreModel>;
   logout: Action<StoreModel>;
 }
 
