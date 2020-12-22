@@ -1,5 +1,6 @@
 {
   "port": 5000,
+  "clientUrl": "http://localhost:3000",
   "authentication": {
     "facebook": {
       "clientID": "FACEBOOK_CLIENT_ID",
