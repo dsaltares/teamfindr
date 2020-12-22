@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development nodemon ./src/server.js",
     "start": "node ./src/server.js",
     "lint": "eslint ./src/**/* --ext .js, && prettier --check ./src",
-    "prettier": "prettier --write ./src"
+    "prettier": "prettier --write ./src",
+    "test": "jest --collect-coverage"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
@@ -33,5 +34,12 @@
     "passport-facebook": "^3.0.0",
     "passport-twitter": "^1.0.4",
     "uuid": "^8.3.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
   }
 }
