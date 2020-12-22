@@ -9,7 +9,10 @@ const addRoutes = ({ app, basePath, routes, services }) => {
       ? makeController(route.controller(services))
       : route.handler;
 
-    console.log('method:', route.method, 'fullPath:', fullPath);
+    services.logger.info('setting up route', {
+      method: route.method,
+      path: fullPath,
+    });
     app[route.method](fullPath, controller);
   });
 };

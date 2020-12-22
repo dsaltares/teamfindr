@@ -2,7 +2,6 @@ const makeController = (controller) => async (req, res) => {
   try {
     const response = await controller(req);
     const { status, body, redirect } = response;
-    console.log(response);
     if (status) {
       res.status(status);
     }

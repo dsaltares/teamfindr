@@ -1,12 +1,13 @@
 const { v4: uuid } = require('uuid');
 const formatMongoRecord = require('../utils/formatMongoRecord');
 
-const createUser = ({ userCollection }) => async (userParams) => {
+const createUser = ({ logger, userCollection }) => async (userParams) => {
   const mongoFields = {
     _id: uuid(),
     createdAt: new Date(),
     ...userParams,
   };
+  logger.info('creating user', { email: userParams.email });
   await userCollection.insertOne(mongoFields);
 
   return formatMongoRecord(mongoFields);

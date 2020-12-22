@@ -1,4 +1,5 @@
 const getConfig = require('./getConfig');
+const setupLogger = require('./setupLogger');
 const setupServices = require('./setupServices');
 const setupPassport = require('./setupPassport');
 const setupApp = require('./setupApp');
@@ -6,14 +7,15 @@ const setupRoutes = require('./setupRoutes');
 
 const startServer = async () => {
   const config = await getConfig();
-  const services = await setupServices(config);
-  const app = setupApp(config);
+  const logger = setupLogger(config);
+  const services = await setupServices({ config, logger });
+  const app = setupApp({ config, logger });
 
   setupPassport(services);
   setupRoutes({ app, services });
 
-  const port = services.config.port;
-  app.listen(port, () => console.log(`server running on port ${port}`));
+  const port = config.port;
+  app.listen(port, () => logger.info(`server started on port ${config.port}`));
 };
 
 module.exports = startServer;
