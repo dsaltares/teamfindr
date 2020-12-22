@@ -1,62 +1,9 @@
-import { createStore, thunk, action, computed } from 'easy-peasy';
-import axios from 'axios';
-import StoreModel from './model';
+import { createStore } from 'easy-peasy';
+import model from './models';
+import services from './services';
 
-const store = createStore<StoreModel>({
-  user: undefined,
-  status: undefined,
-  authenticated: computed((state) => !!state.user),
-  authenticating: computed((state) => state.status === 'Authenticating'),
-  loginStart: action((state) => {
-    state.status = 'Authenticating';
-  }),
-  loginSuccess: action((state, user) => {
-    state.status = 'Success';
-    state.user = user;
-  }),
-  loginError: action((state) => {
-    state.status = 'Error';
-    state.user = undefined;
-  }),
-  login: thunk(async (actions) => {
-    actions.loginStart();
-    try {
-      const response = await axios.get('http://localhost:5000/auth/verify', {
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-        },
-      });
-
-      actions.loginSuccess(response.data.user);
-
-      axios.get('http://localhost:5000/', {
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-        },
-      });
-    } catch (error) {
-      actions.loginError();
-    }
-  }),
-  loginViaTwitter: action((state) => {
-    window.open('http://localhost:5000/auth/twitter', '_self');
-  }),
-  loginViaFacebook: action((state) => {
-    window.open('http://localhost:5000/auth/facebook', '_self');
-  }),
-  loginViaGoogle: action((state) => {
-    window.open('http://localhost:5000/auth/google', '_self');
-  }),
-  logout: action((state) => {
-    window.open('http://localhost:5000/auth/logout', '_self');
-    state.user = undefined;
-  }),
+const store = createStore(model, {
+  injections: services,
 });
 
 export default store;

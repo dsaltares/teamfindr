@@ -1,2 +1,3 @@
 export { default } from './store';
-export { useStoreActions, useStoreState, useStoreDispatch } from './hooks';
+export * as hooks from './hooks';
+export * from './types';

@@ -1,22 +1,17 @@
 import { useEffect } from 'react';
-import './App.css';
-import { useStoreState, useStoreActions } from './store';
+import Counter from './components/Counter';
+import { auth } from './store/hooks';
 
 function App() {
-  const authenticated = useStoreState((state) => state.authenticated);
-  const authenticating = useStoreState((state) => state.authenticating);
-  const user = useStoreState((state) => state.user);
-  const handleLoginViaTwitter = useStoreActions(
-    (actions) => actions.loginViaTwitter
-  );
-  const handleLoginViaFacebook = useStoreActions(
-    (actions) => actions.loginViaFacebook
-  );
-  const handleLoginViaGoogle = useStoreActions(
-    (actions) => actions.loginViaGoogle
-  );
-  const handleLogout = useStoreActions((actions) => actions.logout);
-  const login = useStoreActions((actions) => actions.login);
+  const loginViaFacebook = auth.useLoginViaFacebook();
+  const loginViaTwitter = auth.useLoginViaTwitter();
+  const loginViaGoogle = auth.useLoginViaGoogle();
+  const login = auth.useLogin();
+  const logout = auth.useLogout();
+
+  const user = auth.useUser();
+  const authenticated = auth.useAuthenticated();
+  const authenticating = auth.useAuthenticating();
 
   useEffect(() => {
     login();
@@ -29,9 +24,9 @@ function App() {
   if (!authenticated) {
     return (
       <ul>
-        <li onClick={() => handleLoginViaTwitter()}>Login via Twitter</li>
-        <li onClick={() => handleLoginViaFacebook()}>Login via Facebook</li>
-        <li onClick={() => handleLoginViaGoogle()}>Login via Google</li>
+        <li onClick={() => loginViaTwitter()}>Login via Twitter</li>
+        <li onClick={() => loginViaFacebook()}>Login via Facebook</li>
+        <li onClick={() => loginViaGoogle()}>Login via Google</li>
       </ul>
     );
   }
@@ -40,8 +35,9 @@ function App() {
     <div>
       <div>{JSON.stringify(user, null, 2)}</div>
       <ul>
-        <li onClick={() => handleLogout()}>Logout</li>
+        <li onClick={() => logout()}>Logout</li>
       </ul>
+      <Counter />
     </div>
   );
 }
