@@ -9,7 +9,7 @@ const startServer = async () => {
   const config = await getConfig();
   const logger = setupLogger(config);
   const services = await setupServices({ config, logger });
-  const app = setupApp({ config, logger });
+  const app = setupApp(config);
 
   setupPassport(services);
   setupRoutes({ app, services });
