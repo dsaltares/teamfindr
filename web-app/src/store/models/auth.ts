@@ -7,10 +7,10 @@ interface AuthModel {
   status: undefined | 'Authenticating' | 'Success' | 'Error';
   authenticated: Computed<AuthModel, boolean>;
   authenticating: Computed<AuthModel, boolean>;
-  loginStart: Action<AuthModel>;
-  loginSuccess: Action<AuthModel, User>;
-  loginError: Action<AuthModel>;
-  login: Thunk<AuthModel, undefined, Injections>;
+  authenticateStart: Action<AuthModel>;
+  authenticateSuccess: Action<AuthModel, User>;
+  authenticateError: Action<AuthModel>;
+  authenticate: Thunk<AuthModel, undefined, Injections>;
   loginViaSocialMedia: Thunk<AuthModel, AuthProvider, Injections>;
   logoutDone: Action<AuthModel>;
   logout: Thunk<AuthModel, undefined, Injections>;
@@ -22,25 +22,27 @@ const model: AuthModel = {
   user: undefined,
   status: undefined,
   authenticated: computed((state) => !!state.user),
-  authenticating: computed((state) => state.status === 'Authenticating'),
-  loginStart: action((state) => {
+  authenticating: computed(
+    (state) => !state.status || state.status === 'Authenticating'
+  ),
+  authenticateStart: action((state) => {
     state.status = 'Authenticating';
   }),
-  loginSuccess: action((state, user) => {
+  authenticateSuccess: action((state, user) => {
     state.status = 'Success';
     state.user = user;
   }),
-  loginError: action((state) => {
+  authenticateError: action((state) => {
     state.status = 'Error';
     state.user = undefined;
   }),
-  login: thunk(async (actions, payload, { injections }) => {
-    actions.loginStart();
+  authenticate: thunk(async (actions, payload, { injections }) => {
+    actions.authenticateStart();
     try {
       const user = await injections.authService.verify();
-      actions.loginSuccess(user);
+      actions.authenticateSuccess(user);
     } catch (error) {
-      actions.loginError();
+      actions.authenticateError();
     }
   }),
   loginViaSocialMedia: thunk((actions, provider, { injections }) => {

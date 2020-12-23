@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { StoreProvider } from 'easy-peasy';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
@@ -8,6 +9,7 @@ import store from './store';
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider store={store}>
+      <CssBaseline />
       <App />
     </StoreProvider>
   </React.StrictMode>,

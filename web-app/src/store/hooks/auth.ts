@@ -4,7 +4,8 @@ import { StoreModel } from '../models';
 const { useStoreActions, useStoreState } = createTypedHooks<StoreModel>();
 
 export const useUser = () => useStoreState((state) => state.auth.user);
-export const useLogin = () => useStoreActions((actions) => actions.auth.login);
+export const useAuthenticate = () =>
+  useStoreActions((actions) => actions.auth.authenticate);
 export const useLogout = () =>
   useStoreActions((actions) => actions.auth.logout);
 export const useLoginViaSocialMedia = () =>
