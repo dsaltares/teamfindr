@@ -1,6 +1,6 @@
 import { Thunk, Action, Computed, thunk, action, computed } from 'easy-peasy';
 import { Injections } from '../services';
-import { User } from '../types';
+import { User, AuthProvider } from '../types';
 
 interface AuthModel {
   user: User | undefined;
@@ -11,9 +11,7 @@ interface AuthModel {
   loginSuccess: Action<AuthModel, User>;
   loginError: Action<AuthModel>;
   login: Thunk<AuthModel, undefined, Injections>;
-  loginViaTwitter: Thunk<AuthModel, undefined, Injections>;
-  loginViaFacebook: Thunk<AuthModel, undefined, Injections>;
-  loginViaGoogle: Thunk<AuthModel, undefined, Injections>;
+  loginViaSocialMedia: Thunk<AuthModel, AuthProvider, Injections>;
   logoutDone: Action<AuthModel>;
   logout: Thunk<AuthModel, undefined, Injections>;
   counter: number;
@@ -45,14 +43,8 @@ const model: AuthModel = {
       actions.loginError();
     }
   }),
-  loginViaTwitter: thunk((actions, payload, { injections }) => {
-    injections.authService.openTwitterAuthPage();
-  }),
-  loginViaFacebook: thunk((actions, payload, { injections }) => {
-    injections.authService.openFacebookAuthPage();
-  }),
-  loginViaGoogle: thunk((actions, payload, { injections }) => {
-    injections.authService.openGoogleAuthPage();
+  loginViaSocialMedia: thunk((actions, provider, { injections }) => {
+    injections.authService.openIdpAuthPage(provider);
   }),
   logoutDone: action((state) => {
     state.user = undefined;

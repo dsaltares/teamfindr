@@ -7,12 +7,8 @@ export const useUser = () => useStoreState((state) => state.auth.user);
 export const useLogin = () => useStoreActions((actions) => actions.auth.login);
 export const useLogout = () =>
   useStoreActions((actions) => actions.auth.logout);
-export const useLoginViaFacebook = () =>
-  useStoreActions((actions) => actions.auth.loginViaFacebook);
-export const useLoginViaTwitter = () =>
-  useStoreActions((actions) => actions.auth.loginViaTwitter);
-export const useLoginViaGoogle = () =>
-  useStoreActions((actions) => actions.auth.loginViaGoogle);
+export const useLoginViaSocialMedia = () =>
+  useStoreActions((actions) => actions.auth.loginViaSocialMedia);
 export const useIncrement = () =>
   useStoreActions((actions) => actions.auth.increment);
 

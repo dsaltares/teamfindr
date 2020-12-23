@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '../types';
+import { User, AuthProvider } from '../types';
 
 const authService = {
   verify: async (): Promise<User> => {
@@ -15,14 +15,8 @@ const authService = {
     });
     return user;
   },
-  openTwitterAuthPage: () => {
-    window.open('http://localhost:5000/auth/twitter', '_self');
-  },
-  openFacebookAuthPage: () => {
-    window.open('http://localhost:5000/auth/facebook', '_self');
-  },
-  openGoogleAuthPage: () => {
-    window.open('http://localhost:5000/auth/google', '_self');
+  openIdpAuthPage: (provider: AuthProvider) => {
+    window.open(`http://localhost:5000/auth/${provider}`, '_self');
   },
   logout: () => {
     window.open('http://localhost:5000/auth/logout', '_self');

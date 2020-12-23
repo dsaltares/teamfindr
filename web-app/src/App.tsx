@@ -3,9 +3,7 @@ import Counter from './components/Counter';
 import { auth } from './store/hooks';
 
 function App() {
-  const loginViaFacebook = auth.useLoginViaFacebook();
-  const loginViaTwitter = auth.useLoginViaTwitter();
-  const loginViaGoogle = auth.useLoginViaGoogle();
+  const loginViaSocialMedia = auth.useLoginViaSocialMedia();
   const login = auth.useLogin();
   const logout = auth.useLogout();
 
@@ -24,9 +22,13 @@ function App() {
   if (!authenticated) {
     return (
       <ul>
-        <li onClick={() => loginViaTwitter()}>Login via Twitter</li>
-        <li onClick={() => loginViaFacebook()}>Login via Facebook</li>
-        <li onClick={() => loginViaGoogle()}>Login via Google</li>
+        <li onClick={() => loginViaSocialMedia('twitter')}>
+          Login via Twitter
+        </li>
+        <li onClick={() => loginViaSocialMedia('facebook')}>
+          Login via Facebook
+        </li>
+        <li onClick={() => loginViaSocialMedia('google')}>Login via Google</li>
       </ul>
     );
   }
