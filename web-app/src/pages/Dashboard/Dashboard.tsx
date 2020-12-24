@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import { Redirect, Route, Switch } from 'react-router';
 import Navigation from '../../components/Navigation';
 import Home from '../Home';
@@ -14,24 +13,17 @@ const Dashboard = () => {
   return (
     <div>
       <Navigation />
-      <Grid
-        className={classes.root}
-        container
-        direction="column"
-        alignContent="center"
-        alignItems="center"
-        justify="center"
-      >
-        <Grid item>
+      <div className={classes.root}>
+        <main className={classes.content}>
           <Switch>
             <Route path="/" exact render={() => <Redirect to="/home" />} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/events" exact component={Events} />
-            <Route path="/venues" exact component={Venues} />
-            <Route path="/settings" exact component={Settings} />
+            <Route path="/home" component={Home} />
+            <Route path="/events" component={Events} />
+            <Route path="/venues" component={Venues} />
+            <Route path="/settings" component={Settings} />
           </Switch>
-        </Grid>
-      </Grid>
+        </main>
+      </div>
     </div>
   );
 };
