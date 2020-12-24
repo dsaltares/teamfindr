@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { auth } from '../store/hooks';
+import { auth } from '../store';
 
 const WithNoAuthentication = <P extends object>(
   Component: React.ComponentType<P>

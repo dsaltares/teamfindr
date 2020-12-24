@@ -7,7 +7,7 @@ import {
   TwitterLoginButton,
 } from '../../components/LoginButtons';
 import useStyles from './Login.styles';
-import { auth } from '../../store/hooks';
+import { auth } from '../../store';
 
 function Login() {
   const loginViaSocialMedia = auth.useLoginViaSocialMedia();

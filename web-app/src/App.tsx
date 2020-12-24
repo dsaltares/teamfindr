@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Authenticating from './pages/Authenticating';
 import withAuthentication from './components/WithAuthentication';
 import withNoAuthentication from './components/WithNoAuthentication';
-import { auth } from './store/hooks';
+import { auth } from './store';
 
 function App() {
   const authenticate = auth.useAuthenticate();
@@ -21,7 +21,7 @@ function App() {
     <HashRouter>
       <Switch>
         <Route path="/login" component={withNoAuthentication(Login)} />
-        <Route path="/" component={withAuthentication(Home)} />
+        <Route path="/" component={withAuthentication(Dashboard)} />
       </Switch>
     </HashRouter>
   );

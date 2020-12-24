@@ -14,8 +14,6 @@ interface AuthModel {
   loginViaSocialMedia: Thunk<AuthModel, AuthProvider, Injections>;
   logoutDone: Action<AuthModel>;
   logout: Thunk<AuthModel, undefined, Injections>;
-  counter: number;
-  increment: Action<AuthModel>;
 }
 
 const model: AuthModel = {
@@ -54,10 +52,6 @@ const model: AuthModel = {
   logout: thunk((actions, payload, { injections }) => {
     actions.logoutDone();
     injections.authService.logout();
-  }),
-  counter: 0,
-  increment: action((state) => {
-    state.counter += 1;
   }),
 };
 

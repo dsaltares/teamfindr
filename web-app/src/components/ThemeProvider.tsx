@@ -1,5 +1,8 @@
 import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({

@@ -10,11 +10,8 @@ export const useLogout = () =>
   useStoreActions((actions) => actions.auth.logout);
 export const useLoginViaSocialMedia = () =>
   useStoreActions((actions) => actions.auth.loginViaSocialMedia);
-export const useIncrement = () =>
-  useStoreActions((actions) => actions.auth.increment);
 
 export const useAuthenticated = () =>
   useStoreState((state) => state.auth.authenticated);
 export const useAuthenticating = () =>
   useStoreState((state) => state.auth.authenticating);
-export const useCounter = () => useStoreState((state) => state.auth.counter);
