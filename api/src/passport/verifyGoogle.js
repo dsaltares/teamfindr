@@ -1,14 +1,16 @@
 const passportVerifier = require('./passportVerifier');
 
 const profileToUserParams = (profile) => {
+  console.log(profile);
   const email = profile.emails[0].value;
-  const name = profile.displayName;
+  const { familyName, givenName } = profile.name;
   const avatar = profile.photos[0].value;
   const googleId = profile.id;
 
   return {
     email,
-    name,
+    firstName: givenName,
+    lastName: familyName,
     avatar,
     google: {
       id: googleId,

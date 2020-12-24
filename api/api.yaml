@@ -65,12 +65,13 @@ components:
       required:
         - id
         - email
-        - name
         - createdAt
       properties:
         id:
           type: string
-        name:
+        firstName:
+          type: string
+        lastName:
           type: string
         email:
           type: string
