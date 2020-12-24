@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   titleContainer: {
-    paddingRight: theme.spacing(2),
+    paddingRight: theme.spacing(6),
   },
   list: {
     padding: 0,
@@ -17,8 +17,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     height: '100%',
   },
-  listItem: {
+  item: {
     height: '100%',
+  },
+  icon: {
+    minWidth: 0,
+    paddingRight: theme.spacing(1),
   },
 }));
 

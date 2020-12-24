@@ -1,12 +1,11 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Route, Switch } from 'react-router';
-import TopBar from '../../components/TopBar';
+import { Redirect, Route, Switch } from 'react-router';
+import Navigation from '../../components/Navigation';
 import Home from '../Home';
 import Events from '../Events';
 import Venues from '../Venues';
 import Settings from '../Settings';
-import BottomNavigation from '../../components/BottomNavigation';
 import useStyles from './Dashboard.styles';
 
 const Dashboard = () => {
@@ -14,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <TopBar />
+      <Navigation />
       <Grid
         className={classes.root}
         container
@@ -25,14 +24,14 @@ const Dashboard = () => {
       >
         <Grid item>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact render={() => <Redirect to="/home" />} />
+            <Route path="/home" exact component={Home} />
             <Route path="/events" exact component={Events} />
             <Route path="/venues" exact component={Venues} />
             <Route path="/settings" exact component={Settings} />
           </Switch>
         </Grid>
       </Grid>
-      <BottomNavigation />
     </div>
   );
 };
