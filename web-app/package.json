@@ -20,6 +20,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-swipeable-views": "^0.13.9",
     "typeface-roboto": "^1.1.13",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
+    "@types/react-swipeable-views": "^0.13.0",
     "eslint-config-prettier": "^7.1.0",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",

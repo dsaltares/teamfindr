@@ -1,13 +1,12 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SwipeableViews from 'react-swipeable-views';
 import PersonIcon from '@material-ui/icons/Person';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {
   Link,
   Redirect,
-  Route,
-  Switch,
   useHistory,
   useLocation,
   useRouteMatch,
@@ -15,6 +14,7 @@ import {
 import Profile from './Profile';
 import NotificationSettings from './NotificationSettings';
 import useStyles from './Settings.styles';
+import { useTheme } from '@material-ui/core/styles';
 
 // const Settings = () => {
 //   const handleSelectFile = async (
@@ -57,7 +57,7 @@ const AllTabs = [
     label: 'Notifications',
     Icon: NotificationsIcon,
     Component: NotificationSettings,
-    disabled: true,
+    // disabled: true,
   },
 ];
 
@@ -66,21 +66,40 @@ const lastSegment = (pathname: string) => {
   return parts[parts.length - 1];
 };
 
+const tabIndex = (value: string) =>
+  AllTabs.findIndex((tab) => tab.value === value);
+
 const Settings = () => {
   const history = useHistory();
   const match = useRouteMatch();
   const location = useLocation();
+  const theme = useTheme();
   const classes = useStyles();
   const currentTab = lastSegment(location.pathname);
+  const currentTabIndex = tabIndex(currentTab);
+
+  const changeTab = (value: string) => {
+    if (value !== currentTab) {
+      history.push(`${match.url}/${value}`);
+    }
+  };
 
   const handleChangeTab = (event: React.ChangeEvent<{}>, value: string) => {
-    history.push(`${match.url}/${value}`);
+    changeTab(value);
   };
+
+  const handleChangeTabIndex = (index: number) => {
+    changeTab(AllTabs[index].value);
+  };
+
+  const isRootPath = match.url === location.pathname;
+  if (isRootPath) {
+    return <Redirect to={`${match.url}/profile`} />;
+  }
 
   return (
     <div className={classes.container}>
       <Tabs
-        className={classes.tabs}
         value={currentTab}
         onChange={handleChangeTab}
         indicatorColor="primary"
@@ -95,32 +114,22 @@ const Settings = () => {
             to={`${match.url}/${tab.value}`}
             label={tab.label}
             icon={<tab.Icon />}
-            disabled={tab.disabled}
+            // disabled={tab.disabled}
             {...tabAllyProps(tab.value)}
           />
         ))}
       </Tabs>
-      <Switch>
-        <Route
-          path={`${match.url}/`}
-          exact
-          render={() => <Redirect to={`${match.url}/profile`} />}
-        />
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={currentTabIndex}
+        onChangeIndex={handleChangeTabIndex}
+      >
         {AllTabs.map((tab) => (
-          <Route
-            key={tab.value}
-            path={`${match.url}/${tab.value}`}
-            render={() => (
-              <div
-                className={classes.tabPanel}
-                {...tabPanelAllyProps(tab.value)}
-              >
-                <tab.Component />
-              </div>
-            )}
-          />
+          <div className={classes.tabPanel} {...tabPanelAllyProps(tab.value)}>
+            <tab.Component />
+          </div>
         ))}
-      </Switch>
+      </SwipeableViews>
     </div>
   );
 };

@@ -3,11 +3,11 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { lightGreen } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary: green,
+    primary: lightGreen,
   },
   typography: {
     button: {
