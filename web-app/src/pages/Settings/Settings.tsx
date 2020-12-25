@@ -45,7 +45,7 @@ const AllTabs: SettingsTab[] = [
     label: 'Notifications',
     Icon: NotificationsIcon,
     Component: NotificationSettings,
-    // disabled: true,
+    disabled: true,
   },
 ];
 

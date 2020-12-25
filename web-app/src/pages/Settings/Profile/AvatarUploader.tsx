@@ -31,7 +31,7 @@ const AvatarUploader = () => {
             lastName={user.lastName}
             avatar={user.avatar}
             size="large"
-            variant="circle"
+            variant="circular"
             loading={changingAvatar}
           />
         </IconButton>
