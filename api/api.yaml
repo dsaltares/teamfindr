@@ -77,6 +77,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /location:
+    get:
+      summary: get the location of the user based on ip
+      operationId: getLocation
+      responses:
+        '200':
+          description: location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLocationResponse'
+        '404':
+          description: cannot find the location of the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     VerifySuccessResponse:
@@ -117,6 +135,13 @@ components:
       properties:
         user:
           $ref: '#/components/schemas/User'
+    GetLocationResponse:
+      type: object
+      required:
+        - location
+      properties:
+        user:
+          $ref: '#/components/schemas/Location'
     User:
       type: object
       required:
@@ -147,3 +172,13 @@ components:
           type: string
         session.sig:
           type: string
+    Location:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
