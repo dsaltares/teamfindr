@@ -1,5 +1,6 @@
 import React from 'react';
 import AvatarBase from '@material-ui/core/Avatar';
+import Skeleton from '@material-ui/lab/Skeleton';
 import useStyles from './Avatar.styles';
 import { User } from '../../store';
 
@@ -9,6 +10,7 @@ type Variant = 'circle' | 'rounded' | 'circular' | 'square';
 interface BaseProps {
   size?: Size;
   variant?: Variant;
+  loading?: boolean;
 }
 
 type AvatarProps = Pick<User, 'firstName' | 'lastName' | 'avatar'> & BaseProps;
@@ -19,10 +21,13 @@ const Avatar: React.FC<AvatarProps> = ({
   avatar,
   size = 'medium',
   variant,
+  loading = false,
 }) => {
   const classes = useStyles();
   const fullName = `${firstName} ${lastName}`;
-  return (
+  return loading ? (
+    <Skeleton className={classes[size]} variant="circle" animation="wave" />
+  ) : (
     <AvatarBase
       variant={variant}
       className={classes[size]}

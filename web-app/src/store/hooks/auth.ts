@@ -15,3 +15,8 @@ export const useAuthenticated = () =>
   useStoreState((state) => state.auth.authenticated);
 export const useAuthenticating = () =>
   useStoreState((state) => state.auth.authenticating);
+
+export const useChangeAvatar = () =>
+  useStoreActions((actions) => actions.auth.changeAvatar);
+export const useChangingAvatar = () =>
+  useStoreState((state) => state.auth.changingAvatar);

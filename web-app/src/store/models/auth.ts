@@ -11,9 +11,18 @@ interface AuthModel {
   authenticateSuccess: Action<AuthModel, User>;
   authenticateError: Action<AuthModel>;
   authenticate: Thunk<AuthModel, undefined, Injections>;
+
   loginViaSocialMedia: Thunk<AuthModel, AuthProvider, Injections>;
+
   logoutDone: Action<AuthModel>;
   logout: Thunk<AuthModel, undefined, Injections>;
+
+  changingAvatar: boolean;
+  changeAvatarFailed: boolean;
+  changeAvatarStart: Action<AuthModel>;
+  changeAvatarError: Action<AuthModel>;
+  changeAvatarSuccess: Action<AuthModel, User>;
+  changeAvatar: Thunk<AuthModel, File, Injections>;
 }
 
 const model: AuthModel = {
@@ -52,6 +61,34 @@ const model: AuthModel = {
   logout: thunk((actions, payload, { injections }) => {
     actions.logoutDone();
     injections.authService.logout();
+  }),
+
+  changingAvatar: false,
+  changeAvatarFailed: false,
+  changeAvatarStart: action((state) => {
+    state.changingAvatar = true;
+    state.changeAvatarFailed = false;
+  }),
+  changeAvatarError: action((state) => {
+    state.changingAvatar = false;
+    state.changeAvatarFailed = true;
+  }),
+  changeAvatarSuccess: action((state, user) => {
+    state.changingAvatar = false;
+    state.user = user;
+  }),
+  changeAvatar: thunk(async (actions, file, { injections, getState }) => {
+    actions.changeAvatarStart();
+    try {
+      const userId = getState().user?.id as string;
+      const url = await injections.authService.uploadImage(file);
+      const updatedUser = await injections.authService.patchUser(userId, {
+        avatar: url,
+      });
+      actions.changeAvatarSuccess(updatedUser);
+    } catch (_error) {
+      actions.changeAvatarError();
+    }
   }),
 };
 
