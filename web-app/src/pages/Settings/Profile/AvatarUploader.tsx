@@ -24,7 +24,11 @@ const AvatarUploader = () => {
 
   return (
     <>
-      <Tooltip title="Change avatar" aria-label="change avatar" placement="top">
+      <Tooltip
+        title="Change avatar"
+        aria-label="change avatar"
+        placement="right"
+      >
         <IconButton onClick={handleAvatarClicked} disabled={changingAvatar}>
           <Avatar
             firstName={user.firstName}
