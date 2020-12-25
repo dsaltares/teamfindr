@@ -8,14 +8,9 @@ info:
   license:
     name: MIT
     url: 'https://github.com/dsaltares/teamfindr/blob/main/LICENSE'
-tags:
-  - name: developers
-    description: operations available to regular developers
 paths:
   /auth/verify:
     get:
-      tags:
-        - developers
       summary: verifies that the session for the user is valid
       operationId: verifyUser
       responses:
@@ -33,13 +28,54 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /auth/logout:
     get:
-      tags:
-        - developers
       summary: logs the user out
       operationId: logOut
       responses:
         '301':
           description: redirect to the application
+
+  /users/{userId}:
+    patch:
+      summary: patches a user
+      operationId: patchUser
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: id of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchUserRequest'
+        description: Inventory item to add
+      responses:
+        '200':
+          description: authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchUserResponse'
+        '403':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: not authorized to update the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -60,6 +96,27 @@ components:
       properties:
         message:
           type: string
+    PatchUserRequest:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            avatar:
+              type: string
+    PatchUserResponse:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
     User:
       type: object
       required:

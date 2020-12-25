@@ -2,6 +2,7 @@ const { MongoClient } = require('mongodb');
 const CreateUser = require('../services/createUser');
 const GetUserByEmail = require('../services/getUserByEmail');
 const GetUserById = require('../services/getUserById');
+const UpdateUser = require('../services/updateUser');
 
 const setupServices = async ({ config, logger }) => {
   const client = new MongoClient(config.databaseURI, {
@@ -21,6 +22,7 @@ const setupServices = async ({ config, logger }) => {
     createUser: CreateUser(deps),
     getUserByEmail: GetUserByEmail(deps),
     getUserById: GetUserById(deps),
+    updateUser: UpdateUser(deps),
   };
 };
 
