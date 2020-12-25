@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import PersonIcon from '@material-ui/icons/Person';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {
@@ -45,7 +46,7 @@ const AllTabs: SettingsTab[] = [
     label: 'Notifications',
     Icon: NotificationsIcon,
     Component: NotificationSettings,
-    disabled: true,
+    // disabled: true,
   },
 ];
 
@@ -93,8 +94,15 @@ const Settings = () => {
             value={tab.value}
             component={Link}
             to={`${match.url}/${tab.value}`}
-            label={tab.label}
-            icon={<tab.Icon />}
+            label={
+              <div className={classes.tabLabelContainer}>
+                <SvgIcon className={classes.tabIcon}>
+                  <tab.Icon />
+                </SvgIcon>
+                {tab.label}
+              </div>
+            }
+            // icon={}
             disabled={tab.disabled}
             {...tabAllyProps(tab.value)}
           />
