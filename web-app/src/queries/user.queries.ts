@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useServices } from '../providers/ServicesProvider';
 import { User } from '../types';
 
@@ -29,11 +29,17 @@ export const useLoginViaSocialMedia = () => {
 };
 
 export const useChangeAvatar = () => {
+  const queryClient = useQueryClient();
   const services = useServices();
   const user = useUser().user as User;
-  const mutation = useMutation(async (file: File) => {
+  const changeUserAvatar = async (file: File) => {
     const url = await services.images.uploadImage(file);
     return services.user.patchUser(user.id, { avatar: url });
+  };
+  const mutation = useMutation(changeUserAvatar, {
+    onSuccess: (data) => {
+      queryClient.setQueryData('user', data);
+    },
   });
   return mutation;
 };
