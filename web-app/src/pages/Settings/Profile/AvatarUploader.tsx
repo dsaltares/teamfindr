@@ -3,13 +3,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '../../../components/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import useStyles from './AvatarUploader.styles';
-import { auth, User } from '../../../store';
+import { useUser, useChangeAvatar } from '../../../queries';
+import { User } from '../../../types';
 
 const AvatarUploader = () => {
   const classes = useStyles();
-  const user = auth.useUser() as User;
-  const changeAvatar = auth.useChangeAvatar();
-  const changingAvatar = auth.useChangingAvatar();
+  const user = useUser().user as User;
+  const { mutate: changeAvatar, isLoading: changingAvatar } = useChangeAvatar();
   const inputEl = useRef<HTMLInputElement>(null);
   const handleAvatarClicked = () => {
     const current = inputEl?.current;

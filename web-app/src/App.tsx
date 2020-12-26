@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Authenticating from './pages/Authenticating';
 import withAuthentication from './components/WithAuthentication';
 import withNoAuthentication from './components/WithNoAuthentication';
-import { auth } from './store';
+import { useUser } from './queries';
 
 function App() {
-  const authenticate = auth.useAuthenticate();
-  const authenticating = auth.useAuthenticating();
+  const { isLoading } = useUser();
 
-  useEffect(() => authenticate(), [authenticate]);
-
-  if (authenticating) {
+  if (isLoading) {
     return <Authenticating />;
   }
 

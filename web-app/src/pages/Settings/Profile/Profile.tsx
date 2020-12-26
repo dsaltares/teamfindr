@@ -5,11 +5,12 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import AvatarUploader from './AvatarUploader';
 import useStyles from './Profile.styles';
-import { auth, User } from '../../../store';
+import { useUser } from '../../../queries';
+import { User } from '../../../types';
 
 const Profile = () => {
   const classes = useStyles();
-  const user = auth.useUser() as User;
+  const user = useUser().user as User;
 
   const dataItems = [
     {

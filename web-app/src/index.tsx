@@ -1,21 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StoreProvider } from 'easy-peasy';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import 'typeface-roboto';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './store';
-import ThemeProvider from './components/ThemeProvider';
+import ThemeProvider from './providers/ThemeProvider';
+import ServicesProvider from './providers/ServicesProvider';
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <StoreProvider store={store}>
+    <QueryClientProvider client={queryClient}>
       <CssBaseline />
       <ThemeProvider>
-        <App />
+        <ServicesProvider>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ServicesProvider>
       </ThemeProvider>
-    </StoreProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import AvatarBase from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';
 import useStyles from './Avatar.styles';
-import { User } from '../../store';
+import { User } from '../../types';
 
 type Size = 'small' | 'medium' | 'large';
 type Variant = 'circle' | 'rounded' | 'circular' | 'square';

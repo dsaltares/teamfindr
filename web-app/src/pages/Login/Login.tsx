@@ -7,10 +7,10 @@ import {
   TwitterLoginButton,
 } from '../../components/LoginButtons';
 import useStyles from './Login.styles';
-import { auth } from '../../store';
+import { useLoginViaSocialMedia } from '../../queries';
 
 function Login() {
-  const loginViaSocialMedia = auth.useLoginViaSocialMedia();
+  const loginViaSocialMedia = useLoginViaSocialMedia();
   const classes = useStyles();
 
   return (

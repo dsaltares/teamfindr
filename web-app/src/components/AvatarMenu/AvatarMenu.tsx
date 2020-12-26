@@ -6,11 +6,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Avatar from '../Avatar';
-import { auth, User } from '../../store';
 import useStyles from './AvatarMenu.styles';
+import { useUser, useLogout } from '../../queries';
+import { User } from '../../types';
 
 const AvatarMenu = () => {
-  const user = auth.useUser() as User;
+  const user = useUser().user as User;
+  const logout = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -25,7 +27,6 @@ const AvatarMenu = () => {
     setAnchorEl(null);
   };
 
-  const logout = auth.useLogout();
   const handleLogout = () => {
     logout();
   };

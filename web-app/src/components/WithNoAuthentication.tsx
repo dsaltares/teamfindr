@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Redirect } from 'react-router';
-import { auth } from '../store';
+import { useUser } from '../queries';
 
 const WithNoAuthentication = <P extends object>(
   Component: React.ComponentType<P>
 ): React.FC<P> => (props: P) => {
-  const authenticated = auth.useAuthenticated();
+  const { user } = useUser();
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to="/" />;
   }
 

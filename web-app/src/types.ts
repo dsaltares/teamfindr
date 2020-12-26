@@ -7,3 +7,5 @@ export interface User {
 }
 
 export type AuthProvider = 'facebook' | 'google' | 'twitter';
+
+export type Coordinates = [number, number];

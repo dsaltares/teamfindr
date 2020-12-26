@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { User, AuthProvider } from '../types';
-import { API_URL } from '../../endpoints';
+import { API_URL } from '../endpoints';
 
-const authService = {
+const userService = {
   verify: async (): Promise<User> => {
     const {
       data: { user },
@@ -21,17 +21,6 @@ const authService = {
   },
   logout: () => {
     window.open(`${API_URL}/auth/logout`, '_self');
-  },
-  uploadImage: async (file: File): Promise<string> => {
-    const endpoint = 'https://api.cloudinary.com/v1_1/teamfindr/image/upload';
-    const preset = 'teamfindr';
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('upload_preset', preset);
-    const {
-      data: { secure_url: url },
-    } = await axios.post(endpoint, fd);
-    return url;
   },
   patchUser: async (id: string, user: Partial<User>): Promise<User> => {
     const {
@@ -54,4 +43,4 @@ const authService = {
   },
 };
 
-export default authService;
+export default userService;
