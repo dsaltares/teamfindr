@@ -16,13 +16,17 @@
     "axios": "^0.21.0",
     "clsx": "^1.1.1",
     "easy-peasy": "^4.0.1",
+    "leaflet": "^1.7.1",
+    "lodash.debounce": "^4.0.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-leaflet": "^3.0.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "typeface-roboto": "^1.1.13",
     "typescript": "^4.0.3",
+    "use-lodash-debounce": "^1.1.0",
     "web-vitals": "^0.2.4"
   },
   "lint-staged": {
@@ -58,6 +62,8 @@
     ]
   },
   "devDependencies": {
+    "@types/leaflet": "^1.5.19",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/react-router-dom": "^5.1.6",
     "eslint-config-prettier": "^7.1.0",
     "husky": "^4.3.6",
