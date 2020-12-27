@@ -4,12 +4,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import LocationAutoComplete from '../../components/LocationAutocomplete';
+import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
 import { useCurrentLocation } from '../../hooks';
 
 const Venues = () => {
   const [result, setResult] = useState<Location | null>(null);
   const currentLocation = useCurrentLocation();
+  const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
+  const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
+  const handleNewVenueDialogOpen = () => setNewVenueDialogOpen(true);
 
   useEffect(() => {
     if (currentLocation.location && !result) {
@@ -25,7 +29,12 @@ const Venues = () => {
             <Typography variant="h4">Venues</Typography>
           </Grid>
           <Grid item>
-            <Button startIcon={<AddIcon />} color="primary" variant="contained">
+            <Button
+              startIcon={<AddIcon />}
+              color="primary"
+              variant="contained"
+              onClick={handleNewVenueDialogOpen}
+            >
               New venue
             </Button>
           </Grid>
@@ -45,6 +54,10 @@ const Venues = () => {
           </Grid>
         </Grid>
       </Grid>
+      <NewVenueDialog
+        open={newVenueDialogOpen}
+        onClose={handleNewVenueDialogClose}
+      />
     </Grid>
   );
 };

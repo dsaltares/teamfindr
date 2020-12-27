@@ -13,7 +13,7 @@ const useCurrentIpLocation = () => {
   return {
     isLoading,
     error,
-    location: data,
+    location: data || null,
   };
 };
 
@@ -27,7 +27,7 @@ const useCurrentGeoLocation = () => {
   return {
     isLoading,
     error,
-    location: data,
+    location: data || null,
   };
 };
 

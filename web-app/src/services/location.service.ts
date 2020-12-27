@@ -13,10 +13,7 @@ type DescriptionProperty =
   | 'country';
 type DescriptionProperties = DescriptionProperty[];
 
-const featureToLocation = (
-  feature: any,
-  reversedCoordinates?: boolean
-): Location => {
+const featureToLocation = (feature: any): Location => {
   const {
     geometry: { coordinates },
     properties: {
@@ -30,7 +27,7 @@ const featureToLocation = (
     },
   } = feature;
   const baseProperties = {
-    coordinates: reversedCoordinates ? coordinates.reverse() : coordinates,
+    coordinates: coordinates.reverse(),
     country,
     city,
     postcode,
@@ -53,7 +50,7 @@ const featureToLocation = (
           'country',
         ];
       } else {
-        specificName = `${number} ${street}`;
+        specificName = `${number ? `${number} ` : ''}${street}`;
         descriptionProperties = ['postcode', 'city', 'country'];
       }
       break;
@@ -89,8 +86,10 @@ const getLocationFromCoordinates = async (
   const { data } = await axios.get(
     `${PHOTON_API}/reverse?lat=${latitude}&lon=${longitude}`
   );
-  const reversedCoordinates = true;
-  return featureToLocation(data.features[0], reversedCoordinates);
+  return {
+    ...featureToLocation(data.features[0]),
+    coordinates,
+  };
 };
 
 const getCoordinatesFromGeolocation = (): Promise<Coordinates> =>
@@ -140,6 +139,7 @@ const locationService = {
   getLocationFromGeolocation,
   getLocationFromIp,
   getLocationSuggestions,
+  getLocationFromCoordinates,
 };
 
 export default locationService;

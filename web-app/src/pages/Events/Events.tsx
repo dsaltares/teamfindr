@@ -1,3 +1,4 @@
+import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Accordion from '@material-ui/core/Accordion';
@@ -59,4 +60,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default React.memo(Events);

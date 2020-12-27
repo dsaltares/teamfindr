@@ -5,9 +5,10 @@ import Login from './pages/Login';
 import Authenticating from './pages/Authenticating';
 import withAuthentication from './components/WithAuthentication';
 import withNoAuthentication from './components/WithNoAuthentication';
-import { useUser } from './hooks';
+import { useUser, usePrefetch } from './hooks';
 
 function App() {
+  usePrefetch();
   const { isLoading } = useUser();
 
   if (isLoading) {

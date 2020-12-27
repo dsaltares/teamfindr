@@ -11,12 +11,14 @@ interface LocationAutocompleteProps {
   value: Location | null;
   onChange: (value: Location | null) => void;
   disabled?: boolean;
+  required?: boolean;
 }
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
   onChange,
   disabled = false,
+  required = false,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, setSuggestions, loading } = useLocationAutocomplete(
@@ -33,7 +35,8 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       autoComplete
       includeInputInList
       filterSelectedOptions
-      value={value}
+      disableClearable={true}
+      value={value as Location}
       loading={loading}
       noOptionsText={'No results'}
       onChange={(event, newValue) => {
@@ -49,6 +52,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
           label="Enter a location"
           variant="outlined"
           fullWidth
+          required={required}
         />
       )}
       renderOption={(option) => (
