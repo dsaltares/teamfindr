@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '../../../components/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import useStyles from './AvatarUploader.styles';
-import { useUser, useChangeAvatar } from '../../../queries';
+import { useUser, useChangeAvatar } from '../../../hooks';
 import { User } from '../../../types';
 
 const AvatarUploader = () => {

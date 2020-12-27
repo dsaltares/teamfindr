@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Avatar from '../Avatar';
 import useStyles from './AvatarMenu.styles';
-import { useUser, useLogout } from '../../queries';
+import { useUser, useLogout } from '../../hooks';
 import { User } from '../../types';
 
 const AvatarMenu = () => {

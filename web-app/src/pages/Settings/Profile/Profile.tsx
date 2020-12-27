@@ -5,7 +5,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import AvatarUploader from './AvatarUploader';
 import useStyles from './Profile.styles';
-import { useUser } from '../../../queries';
+import { useUser } from '../../../hooks';
 import { User } from '../../../types';
 
 const Profile = () => {

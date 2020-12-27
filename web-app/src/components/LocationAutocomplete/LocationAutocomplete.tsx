@@ -4,7 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { useLocationAutocomplete } from '../../queries';
+import { useLocationAutocomplete } from '../../hooks';
 import { Location } from '../../types';
 
 interface LocationAutocompleteProps {

@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import './Events.css';
 import useStyles, { AccordionSummary } from './Events.styles';
-import { useCurrentLocation } from '../../queries';
+import { useCurrentLocation } from '../../hooks';
 import { Coordinates } from '../../types';
 
 const Events = () => {

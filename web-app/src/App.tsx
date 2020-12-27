@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Authenticating from './pages/Authenticating';
 import withAuthentication from './components/WithAuthentication';
 import withNoAuthentication from './components/WithNoAuthentication';
-import { useUser } from './queries';
+import { useUser } from './hooks';
 
 function App() {
   const { isLoading } = useUser();
