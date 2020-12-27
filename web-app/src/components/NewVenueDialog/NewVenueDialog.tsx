@@ -14,6 +14,7 @@ import Dialog from '../Dialog';
 import LocationAutocomplete from '../LocationAutocomplete';
 import { useLocation } from '../../hooks';
 import { Coordinates, Location } from '../../types';
+import { toLeaflet } from '../../utils/leaflet';
 
 interface MapControllerProps {
   onClick?: (coordinates: Coordinates) => void;
@@ -28,13 +29,13 @@ const MapController: React.FC<MapControllerProps> = ({
   useMapEvents({
     click: (e) => {
       map.setView(e.latlng, map.getZoom());
-      onClick([e.latlng.lat, e.latlng.lng]);
+      onClick([e.latlng.lng, e.latlng.lat]);
     },
   });
 
   useEffect(() => {
     if (center) {
-      map.setView(center, map.getZoom());
+      map.setView(toLeaflet(center), map.getZoom());
     }
   }, [map, center]);
 
@@ -64,16 +65,21 @@ const NewVenueDialog: React.FC<NewVenueDialogProps> = ({ open, onClose }) => {
   if (!location) {
     map = <Skeleton width="100%" height={310} variant="rect" />;
   } else {
-    const coordinates = location?.coordinates as Coordinates;
+    const coordinates = location?.geo.coordinates as Coordinates;
+    const leafCoordinates = toLeaflet(coordinates);
     map = (
       <div style={{ width: '100%' }}>
-        <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false}>
+        <MapContainer
+          center={leafCoordinates}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
           <MapController center={coordinates} onClick={setCoordinates} />
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={coordinates}>
+          <Marker position={leafCoordinates}>
             {name && <Popup>{`${name}`}</Popup>}
           </Marker>
         </MapContainer>
@@ -105,7 +111,7 @@ const NewVenueDialog: React.FC<NewVenueDialogProps> = ({ open, onClose }) => {
               onChange={setLocation}
               disabled={isLoading}
               required
-              around={current?.coordinates}
+              around={current?.geo.coordinates}
             />
           </Grid>
           <Grid item>{map}</Grid>

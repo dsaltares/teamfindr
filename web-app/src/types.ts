@@ -8,7 +8,7 @@ export interface User {
 
 export type AuthProvider = 'facebook' | 'google' | 'twitter';
 
-export type Coordinates = [number, number];
+export type Coordinates = [number, number]; // longitude then latitude
 
 export type LocationType =
   | 'house'
@@ -18,8 +18,15 @@ export type LocationType =
   | 'county'
   | 'country';
 
-export type Location = {
+export type GeoType = 'Point';
+
+export type Geo = {
+  type: GeoType;
   coordinates: Coordinates;
+};
+
+export type Location = {
+  geo: Geo;
   name: string;
   description?: string;
   country: string;

@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { Coordinates, Locations, Location, LocationType } from '../types';
+import {
+  Coordinates,
+  Locations,
+  Location,
+  LocationType,
+  GeoType,
+} from '../types';
 
 const PHOTON_API = 'https://photon.komoot.io';
 const GEOLOCATION_API =
@@ -27,7 +33,10 @@ const featureToLocation = (feature: any): Location => {
     },
   } = feature;
   const baseProperties = {
-    coordinates: coordinates.reverse(),
+    geo: {
+      type: 'Point' as GeoType,
+      coordinates: coordinates,
+    },
     country,
     city,
     postcode,
@@ -82,13 +91,16 @@ const featureToLocation = (feature: any): Location => {
 const getLocationFromCoordinates = async (
   coordinates: Coordinates
 ): Promise<Location> => {
-  const [latitude, longitude] = coordinates;
+  const [longitude, latitude] = coordinates;
   const { data } = await axios.get(
     `${PHOTON_API}/reverse?lat=${latitude}&lon=${longitude}`
   );
   return {
     ...featureToLocation(data.features[0]),
-    coordinates,
+    geo: {
+      type: 'Point',
+      coordinates,
+    },
   };
 };
 
@@ -103,7 +115,7 @@ const getCoordinatesFromGeolocation = (): Promise<Coordinates> =>
     }
 
     const handleSuccess: PositionCallback = (newPosition) =>
-      resolve([newPosition.coords.latitude, newPosition.coords.longitude]);
+      resolve([newPosition.coords.longitude, newPosition.coords.latitude]);
 
     geo.getCurrentPosition(handleSuccess, reject);
   });
@@ -117,7 +129,7 @@ const getLocationFromIp = async (): Promise<Location> => {
   const {
     data: { latitude, longitude },
   } = await axios.get(GEOLOCATION_API);
-  return getLocationFromCoordinates([latitude, longitude]);
+  return getLocationFromCoordinates([longitude, latitude]);
 };
 
 const filterByType = (restrictToType?: LocationType) => (
@@ -139,7 +151,7 @@ const getLocationSuggestions = async (
     return [];
   }
 
-  const aroundQuery = around ? `&lat=${around[0]}&lon=${around[1]}` : '';
+  const aroundQuery = around ? `&lon=${around[0]}&lat=${around[1]}` : '';
   const url = `${PHOTON_API}/api/?q=${encodeURIComponent(query)}${aroundQuery}`;
 
   try {

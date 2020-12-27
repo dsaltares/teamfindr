@@ -47,6 +47,7 @@ const Venues = () => {
               value={result}
               onChange={setResult}
               disabled={currentLocation.isLoading}
+              around={currentLocation.location?.geo.coordinates}
             />
           </Grid>
           <Grid item xs={12} md={6}>

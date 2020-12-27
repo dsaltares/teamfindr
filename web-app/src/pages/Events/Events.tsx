@@ -9,6 +9,7 @@ import './Events.css';
 import useStyles, { AccordionSummary } from './Events.styles';
 import { useCurrentLocation } from '../../hooks';
 import { Coordinates, Location } from '../../types';
+import { toLeaflet } from '../../utils/leaflet';
 
 const Events = () => {
   const currentLocation = useCurrentLocation();
@@ -21,23 +22,28 @@ const Events = () => {
     map = <div>{currentLocation.error.message}</div>;
   } else {
     const location = currentLocation.location as Location;
-    const coordinates = currentLocation.location?.coordinates as Coordinates;
+    const coordinates = currentLocation.location?.geo.coordinates;
+    const leafCoordinates = toLeaflet(coordinates as Coordinates);
     map = (
       <div style={{ width: '100%' }}>
         <div>{location.name}</div>
         <div>{location.description}</div>
-        <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false}>
+        <MapContainer
+          center={leafCoordinates}
+          zoom={13}
+          scrollWheelZoom={false}
+        >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={coordinates}>
+          <Marker position={leafCoordinates}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
           <Circle
-            center={coordinates}
+            center={leafCoordinates}
             pathOptions={{ color: 'green', fillColor: 'green' }}
             radius={1000}
           />
