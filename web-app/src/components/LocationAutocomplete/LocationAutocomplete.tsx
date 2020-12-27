@@ -4,12 +4,12 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import useLocationAutocomplete from '../../utils/useLocationAutocomplete';
-import { LocationSuggestion } from '../../utils/getLocationSuggestions';
+import { useLocationAutocomplete } from '../../queries';
+import { Location } from '../../types';
 
 interface LocationAutocompleteProps {
-  value: LocationSuggestion | null;
-  onChange: (value: LocationSuggestion | null) => void;
+  value: Location | null;
+  onChange: (value: Location | null) => void;
 }
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({

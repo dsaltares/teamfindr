@@ -4,10 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import LocationAutoComplete from '../../components/LocationAutocomplete';
-import { LocationSuggestion } from '../../utils/getLocationSuggestions';
+import { Location } from '../../types';
 
 const Venues = () => {
-  const [result, setResult] = useState<LocationSuggestion | null>(null);
+  const [result, setResult] = useState<Location | null>(null);
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
