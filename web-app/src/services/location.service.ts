@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Coordinates, Locations, Location } from '../types';
+import { Coordinates, Locations, Location, LocationType } from '../types';
 
 const PHOTON_API = 'https://photon.komoot.io';
 const GEOLOCATION_API =
@@ -120,16 +120,34 @@ const getLocationFromIp = async (): Promise<Location> => {
   return getLocationFromCoordinates([latitude, longitude]);
 };
 
-const getLocationSuggestions = async (query: string): Promise<Locations> => {
+const filterByType = (restrictToType?: LocationType) => (
+  location: Location
+) => {
+  if (!restrictToType) {
+    return true;
+  }
+
+  return location.type === restrictToType;
+};
+
+const getLocationSuggestions = async (
+  query: string,
+  around?: Coordinates,
+  restrictToType?: LocationType
+): Promise<Locations> => {
   if (!query) {
     return [];
   }
+
+  const aroundQuery = around ? `&lat=${around[0]}&lon=${around[1]}` : '';
+  const url = `${PHOTON_API}/api/?q=${encodeURIComponent(query)}${aroundQuery}`;
+
   try {
     const {
       data: { features },
-    } = await axios.get(`${PHOTON_API}/api/?q=${encodeURIComponent(query)}`);
+    } = await axios.get(url);
 
-    return features.map(featureToLocation);
+    return features.map(featureToLocation).filter(filterByType(restrictToType));
   } catch (error) {
     return [];
   }

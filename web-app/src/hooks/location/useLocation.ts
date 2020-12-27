@@ -23,6 +23,7 @@ const useLocation = () => {
   return {
     isLoading: current.isLoading,
     location,
+    current: current.location,
     setLocation,
     setCoordinates,
   };

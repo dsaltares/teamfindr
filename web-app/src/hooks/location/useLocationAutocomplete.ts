@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useDebounce } from 'use-lodash-debounce';
 import { useServices } from '../../providers/ServicesProvider';
-import { Locations } from '../../types';
+import { Coordinates, Locations, LocationType } from '../../types';
 
-const useLocationAutocomplete = (query: string) => {
+interface UseLocationTypeArgs {
+  query: string;
+  around?: Coordinates;
+  restrictToType?: LocationType;
+}
+
+const useLocationAutocomplete = ({
+  query,
+  around,
+  restrictToType,
+}: UseLocationTypeArgs) => {
   const services = useServices();
   const debouncedQuery = useDebounce(query, 200);
   const [suggestions, setSuggestions] = useState<Locations>([]);
@@ -13,7 +23,9 @@ const useLocationAutocomplete = (query: string) => {
     const performSearch = async () => {
       setLoading(true);
       const newSuggestions = await services.location.getLocationSuggestions(
-        debouncedQuery
+        debouncedQuery,
+        around,
+        restrictToType
       );
       if (newSuggestions) {
         setSuggestions(newSuggestions);
@@ -21,7 +33,14 @@ const useLocationAutocomplete = (query: string) => {
       setLoading(false);
     };
     performSearch();
-  }, [debouncedQuery, setSuggestions, setLoading, services]);
+  }, [
+    debouncedQuery,
+    setSuggestions,
+    setLoading,
+    services,
+    around,
+    restrictToType,
+  ]);
 
   return { suggestions, setSuggestions, loading };
 };

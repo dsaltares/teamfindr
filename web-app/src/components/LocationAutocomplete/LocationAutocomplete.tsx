@@ -5,25 +5,31 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useLocationAutocomplete } from '../../hooks';
-import { Location } from '../../types';
+import { Coordinates, Location, LocationType } from '../../types';
 
 interface LocationAutocompleteProps {
   value: Location | null;
+  around?: Coordinates;
   onChange: (value: Location | null) => void;
   disabled?: boolean;
   required?: boolean;
+  restrictToType?: LocationType;
 }
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
+  around,
   onChange,
   disabled = false,
   required = false,
+  restrictToType,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const { suggestions, setSuggestions, loading } = useLocationAutocomplete(
-    inputValue
-  );
+  const { suggestions, setSuggestions, loading } = useLocationAutocomplete({
+    query: inputValue,
+    around,
+    restrictToType,
+  });
 
   return (
     <Autocomplete

@@ -47,7 +47,13 @@ interface NewVenueDialogProps {
 }
 
 const NewVenueDialog: React.FC<NewVenueDialogProps> = ({ open, onClose }) => {
-  const { isLoading, location, setLocation, setCoordinates } = useLocation();
+  const {
+    isLoading,
+    location,
+    current,
+    setLocation,
+    setCoordinates,
+  } = useLocation();
   const [name, setName] = useState('');
   const handleNameChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value),
@@ -99,6 +105,7 @@ const NewVenueDialog: React.FC<NewVenueDialogProps> = ({ open, onClose }) => {
               onChange={setLocation}
               disabled={isLoading}
               required
+              around={current?.coordinates}
             />
           </Grid>
           <Grid item>{map}</Grid>
