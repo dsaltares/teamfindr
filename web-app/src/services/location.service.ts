@@ -1,38 +1,9 @@
 import axios from 'axios';
 import { Coordinates, Locations, Location } from '../types';
 
-const getLocationFromGeolocation = (): Promise<Coordinates> =>
-  new Promise((resolve, reject) => {
-    const geo = navigator.geolocation;
-    if (!geo) {
-      reject({
-        code: GeolocationPositionError.POSITION_UNAVAILABLE,
-        message: 'Geolocation not available',
-      });
-    }
-
-    const handleSuccess: PositionCallback = (newPosition) =>
-      resolve([newPosition.coords.latitude, newPosition.coords.longitude]);
-
-    geo.getCurrentPosition(handleSuccess, reject);
-  });
-
-const getLocationFromIp = (): Promise<Coordinates> =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const {
-        data: { latitude, longitude },
-      } = await axios.get(
-        'https://geolocation-db.com/json/85249190-4601-11eb-9067-21b51bc8dee3'
-      );
-      resolve([latitude, longitude]);
-    } catch (error) {
-      reject({
-        code: GeolocationPositionError.POSITION_UNAVAILABLE,
-        message: 'Could not get location',
-      });
-    }
-  });
+const PHOTON_API = 'https://photon.komoot.io';
+const GEOLOCATION_API =
+  'https://geolocation-db.com/json/85249190-4601-11eb-9067-21b51bc8dee3';
 
 type DescriptionProperty =
   | 'number'
@@ -42,7 +13,10 @@ type DescriptionProperty =
   | 'country';
 type DescriptionProperties = DescriptionProperty[];
 
-const featureToSuggestion = (feature: any): Location => {
+const featureToLocation = (
+  feature: any,
+  reversedCoordinates?: boolean
+): Location => {
   const {
     geometry: { coordinates },
     properties: {
@@ -56,7 +30,7 @@ const featureToSuggestion = (feature: any): Location => {
     },
   } = feature;
   const baseProperties = {
-    coordinates,
+    coordinates: reversedCoordinates ? coordinates.reverse() : coordinates,
     country,
     city,
     postcode,
@@ -108,6 +82,45 @@ const featureToSuggestion = (feature: any): Location => {
   };
 };
 
+const getLocationFromCoordinates = async (
+  coordinates: Coordinates
+): Promise<Location> => {
+  const [latitude, longitude] = coordinates;
+  const { data } = await axios.get(
+    `${PHOTON_API}/reverse?lat=${latitude}&lon=${longitude}`
+  );
+  const reversedCoordinates = true;
+  return featureToLocation(data.features[0], reversedCoordinates);
+};
+
+const getCoordinatesFromGeolocation = (): Promise<Coordinates> =>
+  new Promise((resolve, reject) => {
+    const geo = navigator.geolocation;
+    if (!geo) {
+      reject({
+        code: GeolocationPositionError.POSITION_UNAVAILABLE,
+        message: 'Geolocation not available',
+      });
+    }
+
+    const handleSuccess: PositionCallback = (newPosition) =>
+      resolve([newPosition.coords.latitude, newPosition.coords.longitude]);
+
+    geo.getCurrentPosition(handleSuccess, reject);
+  });
+
+const getLocationFromGeolocation = async (): Promise<Location> => {
+  const coordinates = await getCoordinatesFromGeolocation();
+  return getLocationFromCoordinates(coordinates);
+};
+
+const getLocationFromIp = async (): Promise<Location> => {
+  const {
+    data: { latitude, longitude },
+  } = await axios.get(GEOLOCATION_API);
+  return getLocationFromCoordinates([latitude, longitude]);
+};
+
 const getLocationSuggestions = async (query: string): Promise<Locations> => {
   if (!query) {
     return [];
@@ -115,11 +128,9 @@ const getLocationSuggestions = async (query: string): Promise<Locations> => {
   try {
     const {
       data: { features },
-    } = await axios.get(
-      `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}`
-    );
+    } = await axios.get(`${PHOTON_API}/api/?q=${encodeURIComponent(query)}`);
 
-    return features.map(featureToSuggestion);
+    return features.map(featureToLocation);
   } catch (error) {
     return [];
   }

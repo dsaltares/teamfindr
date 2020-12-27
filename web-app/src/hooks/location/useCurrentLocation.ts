@@ -13,7 +13,7 @@ const useCurrentIpLocation = () => {
   return {
     isLoading,
     error,
-    coordinates: data,
+    location: data,
   };
 };
 
@@ -27,7 +27,7 @@ const useCurrentGeoLocation = () => {
   return {
     isLoading,
     error,
-    coordinates: data,
+    location: data,
   };
 };
 
@@ -35,7 +35,7 @@ const useCurrentLocation = () => {
   const geoLocation = useCurrentGeoLocation();
   const ipLocation = useCurrentIpLocation();
 
-  const ipLocationFinished = !!ipLocation.coordinates || !!ipLocation.error;
+  const ipLocationFinished = !!ipLocation.location || !!ipLocation.error;
   const geoError = !!geoLocation.error;
   const validIp = ipLocationFinished && !!ipLocation;
 

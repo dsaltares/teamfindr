@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import './Events.css';
 import useStyles, { AccordionSummary } from './Events.styles';
 import { useCurrentLocation } from '../../hooks';
-import { Coordinates } from '../../types';
+import { Coordinates, Location } from '../../types';
 
 const Events = () => {
   const currentLocation = useCurrentLocation();
@@ -19,9 +19,12 @@ const Events = () => {
   } else if (currentLocation.error instanceof Error) {
     map = <div>{currentLocation.error.message}</div>;
   } else {
-    const coordinates = currentLocation.coordinates as Coordinates;
+    const location = currentLocation.location as Location;
+    const coordinates = currentLocation.location?.coordinates as Coordinates;
     map = (
       <div style={{ width: '100%' }}>
+        <div>{location.name}</div>
+        <div>{location.description}</div>
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

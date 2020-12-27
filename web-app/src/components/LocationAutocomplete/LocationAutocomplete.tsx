@@ -10,11 +10,13 @@ import { Location } from '../../types';
 interface LocationAutocompleteProps {
   value: Location | null;
   onChange: (value: Location | null) => void;
+  disabled?: boolean;
 }
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
   onChange,
+  disabled = false,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, setSuggestions, loading } = useLocationAutocomplete(
@@ -24,6 +26,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   return (
     <Autocomplete
       fullWidth
+      disabled={disabled}
       getOptionLabel={(suggestion) => suggestion.name}
       filterOptions={(x) => x}
       options={suggestions}
