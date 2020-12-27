@@ -8,6 +8,22 @@ import {
 } from '../../components/LoginButtons';
 import useStyles from './Login.styles';
 import { useLoginViaSocialMedia } from '../../hooks';
+import { AuthProvider } from '../../types';
+
+const LoginButtons = [
+  {
+    authProvider: 'google',
+    Button: GoogleLoginButton,
+  },
+  {
+    authProvider: 'facebook',
+    Button: FacebookLoginButton,
+  },
+  {
+    authProvider: 'twitter',
+    Button: TwitterLoginButton,
+  },
+];
 
 function Login() {
   const loginViaSocialMedia = useLoginViaSocialMedia();
@@ -41,21 +57,21 @@ function Login() {
             alignItems="center"
             spacing={1}
           >
-            <Grid item className={classes.buttonContainer}>
-              <TwitterLoginButton
-                onClick={() => loginViaSocialMedia('twitter')}
-              />
-            </Grid>
-            <Grid item className={classes.buttonContainer}>
-              <FacebookLoginButton
-                onClick={() => loginViaSocialMedia('facebook')}
-              />
-            </Grid>
-            <Grid item className={classes.buttonContainer}>
-              <GoogleLoginButton
-                onClick={() => loginViaSocialMedia('google')}
-              />
-            </Grid>
+            {LoginButtons.map((loginButton) => (
+              <Grid
+                key={loginButton.authProvider}
+                item
+                className={classes.buttonContainer}
+              >
+                <loginButton.Button
+                  onClick={() =>
+                    loginViaSocialMedia(
+                      loginButton.authProvider as AuthProvider
+                    )
+                  }
+                />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
