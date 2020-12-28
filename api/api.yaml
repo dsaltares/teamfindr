@@ -99,6 +99,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+        '403':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: gets a list of venues
+      operationId: getVenues
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: number
+          required: false
+          description: latitude
+        - in: query
+          name: lon
+          schema:
+            type: number
+          required: false
+          description: longitude
+        - in: query
+          name: radius
+          schema:
+            type: number
+          required: false
+          description: radius in m
+      responses:
+        '200':
+          description: list of venues
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVenuesResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     VerifySuccessResponse:
@@ -161,6 +203,13 @@ components:
       properties:
         venue:
           $ref: '#/components/schemas/Venue'
+    GetVenuesResponse:
+      type: object
+      required:
+        - venues
+      properties:
+        venues:
+          $ref: '#/components/schemas/Venues'
     User:
       type: object
       required:
@@ -254,3 +303,7 @@ components:
           type: string
         location:
           $ref: '#/components/schemas/Location'
+    Venues:
+      type: array
+      items:
+        $ref: '#/components/schemas/Venue'
