@@ -38,3 +38,9 @@ export type Location = {
 };
 
 export type Locations = Location[];
+
+export type Venue = {
+  id: string;
+  name: string;
+  location: Location;
+};
