@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useLocationAutocomplete } from '../../hooks';
-import { Coordinates, Location, LocationType } from '../../types';
+import { Coordinates, Location, Locations, LocationType } from '../../types';
 
 interface LocationAutocompleteProps {
   value: Location | null;
@@ -19,6 +19,32 @@ interface LocationAutocompleteProps {
   helperText?: string | false;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
+
+const byCoordinates = (a: Location) => (b: Location) => {
+  const {
+    geo: { coordinates: coordA },
+  } = a;
+  const {
+    geo: { coordinates: coordB },
+  } = b;
+  return coordA[0] === coordB[0] && coordA[1] === coordB[1];
+};
+
+const suggestionsForValue = (
+  value: Location | null,
+  suggestions: Locations
+): Locations => {
+  if (!value) {
+    return suggestions;
+  }
+
+  const suggestion = suggestions.find(byCoordinates(value));
+  if (!suggestion) {
+    return [value, ...suggestions];
+  }
+
+  return suggestions;
+};
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
@@ -44,8 +70,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       fullWidth
       disabled={disabled}
       getOptionLabel={(suggestion) => suggestion.name}
-      filterOptions={(x) => x}
-      options={suggestions}
+      options={suggestionsForValue(value, suggestions)}
       autoComplete
       includeInputInList
       filterSelectedOptions
