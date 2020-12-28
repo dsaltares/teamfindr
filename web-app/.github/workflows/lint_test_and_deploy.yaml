@@ -2,7 +2,7 @@ name: Lint, test and deploy
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'web-app/**'
       - 'live-server/**'

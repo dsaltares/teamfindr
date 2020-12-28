@@ -102,7 +102,6 @@ const Settings = () => {
                 {tab.label}
               </div>
             }
-            // icon={}
             disabled={tab.disabled}
             {...tabAllyProps(tab.value)}
           />
