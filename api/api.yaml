@@ -141,6 +141,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /venues/{venueId}:
+    get:
+      summary: gets a venue by its id
+      operationId: getVenue
+      parameters:
+        - in: path
+          name: venueId
+          schema:
+            type: string
+          required: true
+          description: id of the venue
+      responses:
+        '200':
+          description: venue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVenueResponse'
+        '404':
+          description: venue not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     VerifySuccessResponse:
@@ -210,6 +241,13 @@ components:
       properties:
         venues:
           $ref: '#/components/schemas/Venues'
+    GetVenueResponse:
+      type: object
+      required:
+        - venue
+      properties:
+        venue:
+          $ref: '#/components/schemas/Venue'
     User:
       type: object
       required:

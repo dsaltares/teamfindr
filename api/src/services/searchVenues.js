@@ -14,9 +14,7 @@ const searchVenues = ({ venueCollection }) => async ({ lat, lon, radius }) => {
       },
     };
   }
-  console.log('query:', JSON.stringify(query, null, 2));
   const mongoVenues = await venueCollection.find(query).toArray();
-  console.log('venues:', mongoVenues);
   return mongoVenues.map(formatMongoRecord);
 };
 

@@ -1,6 +1,5 @@
 const withAdminUser = (controller) => (req) => {
   const { user } = req;
-  console.log('user: ', user);
   if (!user || !user.roles.includes('admin')) {
     return {
       status: 403,

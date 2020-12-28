@@ -6,6 +6,7 @@ const GetUserById = require('../services/getUserById');
 const UpdateUser = require('../services/updateUser');
 const CreateVenue = require('../services/createVenue');
 const SearchVenues = require('../services/searchVenues');
+const GetVenueById = require('../services/getVenueById');
 
 const setupServices = async ({ config, logger }) => {
   const client = new MongoClient(config.databaseURI, {
@@ -31,6 +32,7 @@ const setupServices = async ({ config, logger }) => {
     updateUser: UpdateUser(deps),
     createVenue: CreateVenue(deps),
     searchVenues: SearchVenues(deps),
+    getVenueById: GetVenueById(deps),
   };
 };
 

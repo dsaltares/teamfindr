@@ -1,5 +1,6 @@
 const PostVenueController = require('../controllers/venues/postVenue');
 const GetVenuesController = require('../controllers/venues/getVenues');
+const GetVenueController = require('../controllers/venues/getVenue');
 
 const usersRoutes = {
   basePath: '/venues',
@@ -15,6 +16,12 @@ const usersRoutes = {
       method: 'get',
       path: '',
       controller: GetVenuesController,
+      requiresAuthentication: true,
+    },
+    {
+      method: 'get',
+      path: '',
+      controller: GetVenueController,
       requiresAuthentication: true,
     },
   ],
