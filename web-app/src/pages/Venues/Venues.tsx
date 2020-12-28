@@ -50,7 +50,7 @@ const Venues = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <Grid container direction="column" spacing={3}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
@@ -72,7 +72,7 @@ const Venues = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
-            {venues && (
+            {/* {venues && (
               <AutoSizer>
                 {({ height }) => {
                   console.log('height', height);
@@ -83,7 +83,8 @@ const Venues = () => {
                   );
                 }}
               </AutoSizer>
-            )}
+            )} */}
+            {venues && <VenueList venues={venues} />}
           </Grid>
         </Grid>
       </Grid>
