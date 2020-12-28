@@ -46,6 +46,14 @@ const suggestionsForValue = (
   return suggestions;
 };
 
+const getOptionLabel = (option: Location, restrictToType?: LocationType) =>
+  restrictToType
+    ? option[restrictToType] || (option.name as string)
+    : option.name;
+
+const geTextFieldLabel = (restrictToType?: LocationType) =>
+  `Enter a ${restrictToType || 'location'}`;
+
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
   around,
@@ -59,7 +67,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   onBlur,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const { suggestions, setSuggestions, loading } = useLocationAutocomplete({
+  const { suggestions, loading } = useLocationAutocomplete({
     query: inputValue,
     around,
     restrictToType,
@@ -69,7 +77,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
     <Autocomplete
       fullWidth
       disabled={disabled}
-      getOptionLabel={(suggestion) => suggestion.name}
+      getOptionLabel={(option) => getOptionLabel(option, restrictToType)}
       options={suggestionsForValue(value, suggestions)}
       autoComplete
       includeInputInList
@@ -79,7 +87,6 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       loading={loading}
       noOptionsText={'No results'}
       onChange={(event, newValue) => {
-        setSuggestions(newValue ? [newValue, ...suggestions] : suggestions);
         onChange(newValue);
       }}
       onInputChange={(event, newInputValue) => {
@@ -89,7 +96,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
         <TextField
           {...params}
           name={name}
-          label="Enter a location"
+          label={geTextFieldLabel(restrictToType)}
           variant="outlined"
           fullWidth
           required={required}

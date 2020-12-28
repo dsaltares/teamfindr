@@ -42,7 +42,7 @@ const useLocationAutocomplete = ({
     restrictToType,
   ]);
 
-  return { suggestions, setSuggestions, loading };
+  return { suggestions, loading };
 };
 
 export default useLocationAutocomplete;

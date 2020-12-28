@@ -8,11 +8,13 @@ import { useLocationFromMapClick } from '../../hooks';
 interface MapControllerProps {
   onChange: (location: Location) => void;
   location: Location;
+  disabled?: boolean;
 }
 
 const MapController: React.FC<MapControllerProps> = ({
   onChange,
   location,
+  disabled,
 }) => {
   const map = useMap();
   const locationFromClick = useLocationFromMapClick();
@@ -21,10 +23,10 @@ const MapController: React.FC<MapControllerProps> = ({
   const leafCoordinates = toLeaflet(coordinates);
 
   useEffect(() => {
-    if (location !== locationFromClick && locationFromClick) {
+    if (!disabled && location !== locationFromClick && locationFromClick) {
       onChange(locationFromClick);
     }
-  }, [location, locationFromClick, onChange]);
+  }, [location, locationFromClick, onChange, disabled]);
 
   useEffect(() => {
     map.setView(toLeaflet(coordinates), map.getZoom());
@@ -36,11 +38,13 @@ const MapController: React.FC<MapControllerProps> = ({
 interface LocationPickerMapProps {
   location: Location | null;
   onChange: (location: Location | null) => void;
+  disabled?: boolean;
 }
 
 const LocationPickerMap: React.FC<LocationPickerMapProps> = ({
   location,
   onChange,
+  disabled,
 }) => {
   if (!location) {
     return <Skeleton width="100%" height={310} variant="rect" />;
@@ -49,7 +53,11 @@ const LocationPickerMap: React.FC<LocationPickerMapProps> = ({
   return (
     <div style={{ width: '100%' }}>
       <MapContainer zoom={13} scrollWheelZoom={false}>
-        <MapController location={location} onChange={onChange} />
+        <MapController
+          location={location}
+          onChange={onChange}
+          disabled={disabled}
+        />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

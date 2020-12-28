@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Coordinates, Location } from '../../types';
+import { Coordinates, Location, LocationType } from '../../types';
 import LocationAutocomplete from '../LocationAutocomplete';
 import LocationPickerMap from './LocationPickerMap';
 import { useCurrentLocation } from '../../hooks';
@@ -14,6 +14,8 @@ interface LocationFieldProps {
   error?: boolean;
   helperText?: string | false;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  disableChangePositionViaMap?: boolean;
+  restrictToType?: LocationType;
 }
 
 const LocationWithMapField: React.FC<LocationFieldProps> = ({
@@ -24,6 +26,8 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
   error = false,
   helperText,
   onBlur,
+  disableChangePositionViaMap,
+  restrictToType,
 }) => {
   const { location: current } = useCurrentLocation();
   useEffect(() => {
@@ -39,12 +43,13 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
           name={name}
           value={location}
           onChange={onChange}
-          disabled={disabled}
+          disabled={disabled || disableChangePositionViaMap}
           required
           around={current?.geo.coordinates}
           error={error}
           helperText={helperText}
           onBlur={onBlur}
+          restrictToType={restrictToType}
         />
       </Grid>
       <Grid item>
