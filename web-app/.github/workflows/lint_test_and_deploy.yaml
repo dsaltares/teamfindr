@@ -1,0 +1,49 @@
+name: Lint, test and deploy
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'web-app/**'
+      - 'live-server/**'
+
+jobs:
+  test-web-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ./web-app
+      - name: Lint
+        run: yarn lint
+        working-directory: ./web-app
+      - name: Test
+        run: yarn test
+        working-directory: ./web-app
+
+  deploy-web-app:
+    needs:
+      - test-web-app
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./web-app
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ${{env.working-directory}}
+      - name: Build
+        run: yarn build
+        working-directory: ${{env.working-directory}}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web-app/build
