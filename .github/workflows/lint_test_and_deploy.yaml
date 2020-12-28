@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - 'web-app/**'
-      - 'live-server/**'
+      - 'api/**'
 
 jobs:
   test-web-app:

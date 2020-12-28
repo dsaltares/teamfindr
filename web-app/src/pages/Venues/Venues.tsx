@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
-// import { Scrollbars } from 'react-custom-scrollbars';
-// import { AutoSizer } from 'react-virtualized';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import RadiusSlider from '../../components/RadiusSlider';
 import NewVenueDialog from '../../components/NewVenueDialog';
