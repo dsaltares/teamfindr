@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Circle, useMap } from 'react-leaflet';
 import { Location } from '../../types';
 import { toLeaflet } from '../../utils/leaflet';
 import { useLocationFromMapClick } from '../../hooks';
@@ -18,41 +18,60 @@ const MapController: React.FC<MapControllerProps> = ({
 }) => {
   const map = useMap();
   const locationFromClick = useLocationFromMapClick();
+  const [
+    oldLocationFromClick,
+    setOldLocationFromClick,
+  ] = useState<Location | null>(null);
 
   const coordinates = location.geo.coordinates;
-  const leafCoordinates = toLeaflet(coordinates);
 
   useEffect(() => {
-    if (!disabled && location !== locationFromClick && locationFromClick) {
+    if (
+      !disabled &&
+      locationFromClick &&
+      locationFromClick !== oldLocationFromClick
+    ) {
       onChange(locationFromClick);
+      setOldLocationFromClick(locationFromClick);
     }
-  }, [location, locationFromClick, onChange, disabled]);
+  }, [
+    locationFromClick,
+    onChange,
+    disabled,
+    oldLocationFromClick,
+    setOldLocationFromClick,
+  ]);
 
   useEffect(() => {
     map.setView(toLeaflet(coordinates), map.getZoom());
   }, [map, coordinates]);
 
-  return <Marker position={leafCoordinates} />;
+  return null;
 };
 
 interface LocationPickerMapProps {
   location: Location | null;
   onChange: (location: Location | null) => void;
   disabled?: boolean;
+  circleRadius?: number;
 }
 
 const LocationPickerMap: React.FC<LocationPickerMapProps> = ({
   location,
   onChange,
   disabled,
+  circleRadius,
 }) => {
   if (!location) {
     return <Skeleton width="100%" height={310} variant="rect" />;
   }
 
+  const coordinates = location.geo.coordinates;
+  const leafCoordinates = toLeaflet(coordinates);
+
   return (
     <div style={{ width: '100%' }}>
-      <MapContainer zoom={13} scrollWheelZoom={false}>
+      <MapContainer zoom={12} scrollWheelZoom={false}>
         <MapController
           location={location}
           onChange={onChange}
@@ -62,6 +81,14 @@ const LocationPickerMap: React.FC<LocationPickerMapProps> = ({
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <Marker position={leafCoordinates} />
+        {circleRadius && (
+          <Circle
+            center={leafCoordinates}
+            pathOptions={{ color: 'green', fillColor: 'green' }}
+            radius={circleRadius}
+          />
+        )}
       </MapContainer>
     </div>
   );

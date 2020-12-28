@@ -3,15 +3,19 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { AutoSizer } from 'react-virtualized';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import RadiusSlider from '../../components/RadiusSlider';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
-import { useCurrentLocation } from '../../hooks';
+import { useCurrentLocation, useVenues } from '../../hooks';
+import VenueList from './VenueList';
 
 const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
-  const [radius, setRadius] = useState<number>(5);
+  const [radius, setRadius] = useState<number>(5000);
+  const { venues } = useVenues(location, radius);
   const currentLocation = useCurrentLocation();
   const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
   const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
@@ -46,7 +50,7 @@ const Venues = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <Grid container spacing={3}>
+        <Grid container direction="column" spacing={3}>
           <Grid item xs={12} md={6}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
@@ -55,7 +59,7 @@ const Venues = () => {
                   onChange={setLocation}
                   disabled={currentLocation.isLoading}
                   around={currentLocation.location?.geo.coordinates}
-                  restrictToType="city"
+                  circleRadius={radius}
                 />
               </Grid>
               <Grid item>
@@ -68,7 +72,18 @@ const Venues = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
-            Results
+            {venues && (
+              <AutoSizer>
+                {({ height }) => {
+                  console.log('height', height);
+                  return (
+                    <Scrollbars autoHide height={height}>
+                      <VenueList venues={venues} />
+                    </Scrollbars>
+                  );
+                }}
+              </AutoSizer>
+            )}
           </Grid>
         </Grid>
       </Grid>

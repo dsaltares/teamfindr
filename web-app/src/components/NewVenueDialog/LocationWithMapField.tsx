@@ -16,6 +16,7 @@ interface LocationFieldProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   disableChangePositionViaMap?: boolean;
   restrictToType?: LocationType;
+  circleRadius?: number;
 }
 
 const LocationWithMapField: React.FC<LocationFieldProps> = ({
@@ -28,6 +29,7 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
   onBlur,
   disableChangePositionViaMap,
   restrictToType,
+  circleRadius,
 }) => {
   const { location: current } = useCurrentLocation();
   useEffect(() => {
@@ -53,7 +55,11 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
         />
       </Grid>
       <Grid item>
-        <LocationPickerMap location={location} onChange={onChange} />
+        <LocationPickerMap
+          location={location}
+          onChange={onChange}
+          circleRadius={circleRadius}
+        />
       </Grid>
     </Grid>
   );

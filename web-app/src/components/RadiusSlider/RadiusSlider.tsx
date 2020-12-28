@@ -11,28 +11,28 @@ interface RadiusSliderProps {
 }
 
 function valuetext(value: number) {
-  return `${value}Km`;
+  return `${Math.round(value / 1000)}km`;
 }
 
 const marks = [
   {
-    value: 1,
+    value: 1000,
     label: '1km',
   },
   {
-    value: 5,
+    value: 5000,
     label: '5km',
   },
   {
-    value: 10,
+    value: 10000,
     label: '10km',
   },
   {
-    value: 20,
+    value: 20000,
     label: '20km',
   },
   {
-    value: 30,
+    value: 30000,
     label: '30km',
   },
 ];
@@ -53,15 +53,15 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
   return (
     <div className={classes.root}>
       <Typography id={id} gutterBottom>
-        Radius (km)
+        Radius: {`${valuetext(value)}`}
       </Typography>
       <Slider
         getAriaValueText={valuetext}
         aria-labelledby={id}
-        step={1}
+        step={1000}
         marks={marks}
-        min={1}
-        max={30}
+        min={1000}
+        max={30000}
         name={name}
         value={value}
         onChange={handleChange}
