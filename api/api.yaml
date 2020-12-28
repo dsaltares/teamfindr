@@ -50,7 +50,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchUserRequest'
-        description: Inventory item to add
       responses:
         '200':
           description: authenticated user
@@ -58,7 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatchUserResponse'
-        '403':
+        '404':
           description: user not found
           content:
             application/json:
@@ -72,6 +71,29 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
           description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /venues:
+    post:
+      summary: creates a venue
+      operationId: postVenue
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVenueRequest'
+      responses:
+        '201':
+          description: new venue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostVenueResponse'
+        '401':
+          description: unauthorized
           content:
             application/json:
               schema:
@@ -117,6 +139,28 @@ components:
       properties:
         user:
           $ref: '#/components/schemas/User'
+    PostVenueRequest:
+      type: object
+      required:
+        - venue
+      properties:
+        venue:
+          type: object
+          required:
+            - name
+            - location
+          properties:
+            name:
+              type: string
+            location:
+              $ref: '#/components/schemas/Location'
+    PostVenueResponse:
+      type: object
+      required:
+        - venue
+      properties:
+        venue:
+          $ref: '#/components/schemas/Venue'
     User:
       type: object
       required:
@@ -147,3 +191,66 @@ components:
           type: string
         session.sig:
           type: string
+    Coordinates:
+      type: array
+      items:
+        type: number
+      minItems: 2
+      maxItems: 2
+    GeoType:
+      type: string
+      enum: [Point]
+    GeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          $ref: '#/components/schemas/GeoType'
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+    LocationType:
+      type: string
+      enum: [house, street, district, city, county, country]
+    Location:
+      type: object
+      required:
+        - geo
+        - name
+      properties:
+        geo:
+          $ref: '#/components/schemas/GeoJSON'
+        name:
+          type: string
+        description:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        postcode:
+          type: string
+        number:
+          type: string
+        street:
+          type: string
+        type:
+          $ref: '#/components/schemas/LocationType'
+    Venue:
+      type: object
+      required:
+        - id
+        - createdAt
+        - name
+        - location
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'

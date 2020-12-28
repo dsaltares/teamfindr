@@ -1,15 +1,28 @@
 const rootRoutes = require('../routes/root');
 const authRoutes = require('../routes/auth');
 const usersRoutes = require('../routes/users');
+const venueRoutes = require('../routes/venues');
 const makeController = require('./makeController');
 const withAuthenticatedUser = require('../utils/withAuthenticatedUser');
+const withAdminUser = require('../utils/withAdminUser');
+
+const decorators = [
+  {
+    name: 'requiresAuthentication',
+    fn: withAuthenticatedUser,
+  },
+  {
+    name: 'requiresAdmin',
+    fn: withAdminUser,
+  },
+];
 
 const getController = ({ route, services }) => {
   if (route.controller) {
-    let controller = route.controller(services);
-    if (route.requiresAuthentication) {
-      controller = withAuthenticatedUser(controller);
-    }
+    const controller = decorators.reduce(
+      (acc, decorator) => (route[decorator.name] ? decorator.fn(acc) : acc),
+      route.controller(services)
+    );
     return makeController({ controller, services });
   } else {
     return route.handler;
@@ -28,7 +41,7 @@ const addRoutes = ({ app, basePath, routes, services }) => {
   });
 };
 
-const allRoutes = [rootRoutes, authRoutes, usersRoutes];
+const allRoutes = [rootRoutes, authRoutes, usersRoutes, venueRoutes];
 
 const setupRoutes = ({ app, services }) => {
   allRoutes.forEach(({ basePath, routes }) => {

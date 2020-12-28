@@ -5,6 +5,7 @@ const createUser = ({ logger, userCollection }) => async (userParams) => {
   const mongoFields = {
     _id: uuid(),
     createdAt: new Date(),
+    roles: [],
     ...userParams,
   };
   logger.info('creating user', { email: userParams.email });
