@@ -8,7 +8,8 @@ interface Action {
   label: string;
   disabled?: boolean;
   loading?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
+  type?: 'submit';
 }
 
 interface DialogActionProps {
@@ -24,6 +25,7 @@ const DialogActions: React.FC<DialogActionProps> = ({
     {actions.map((action) => (
       <Button
         key={action.key}
+        type={action.type}
         onClick={action.onClick}
         color="primary"
         disabled={action.disabled || loading}

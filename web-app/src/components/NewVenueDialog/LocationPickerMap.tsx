@@ -21,10 +21,10 @@ const MapController: React.FC<MapControllerProps> = ({
   const leafCoordinates = toLeaflet(coordinates);
 
   useEffect(() => {
-    if (locationFromClick) {
+    if (location !== locationFromClick && locationFromClick) {
       onChange(locationFromClick);
     }
-  }, [locationFromClick, onChange]);
+  }, [location, locationFromClick, onChange]);
 
   useEffect(() => {
     map.setView(toLeaflet(coordinates), map.getZoom());

@@ -212,7 +212,7 @@ components:
           $ref: '#/components/schemas/Coordinates'
     LocationType:
       type: string
-      enum: [house, street, district, city, county, country]
+      enum: [house, street, district, city, county, country, locality]
     Location:
       type: object
       required:

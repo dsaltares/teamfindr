@@ -14,6 +14,10 @@ interface LocationAutocompleteProps {
   disabled?: boolean;
   required?: boolean;
   restrictToType?: LocationType;
+  name?: string;
+  error?: boolean;
+  helperText?: string | false;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
@@ -23,6 +27,10 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   disabled = false,
   required = false,
   restrictToType,
+  name,
+  error = false,
+  helperText,
+  onBlur,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, setSuggestions, loading } = useLocationAutocomplete({
@@ -55,10 +63,14 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       renderInput={(params) => (
         <TextField
           {...params}
+          name={name}
           label="Enter a location"
           variant="outlined"
           fullWidth
           required={required}
+          error={error}
+          helperText={helperText}
+          onBlur={onBlur}
         />
       )}
       renderOption={(option) => (

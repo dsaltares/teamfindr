@@ -10,13 +10,20 @@ interface LocationFieldProps {
   around?: Coordinates;
   onChange: (location: Location | null) => void;
   disabled?: boolean;
+  name?: string;
+  error?: boolean;
+  helperText?: string | false;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const LocationWithMapField: React.FC<LocationFieldProps> = ({
   location,
-  around,
   onChange,
   disabled = false,
+  name,
+  error = false,
+  helperText,
+  onBlur,
 }) => {
   const { location: current } = useCurrentLocation();
   useEffect(() => {
@@ -29,11 +36,15 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
     <Grid container direction="column" spacing={2}>
       <Grid item>
         <LocationAutocomplete
+          name={name}
           value={location}
           onChange={onChange}
           disabled={disabled}
           required
-          around={around}
+          around={current?.geo.coordinates}
+          error={error}
+          helperText={helperText}
+          onBlur={onBlur}
         />
       </Grid>
       <Grid item>

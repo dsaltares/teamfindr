@@ -1,10 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { Formik } from 'formik';
 import { DialogContent, DialogActions } from '../Dialog';
 import LocationWithMapField from './LocationWithMapField';
 import { useCreateVenue } from '../../hooks';
 import { Location } from '../../types';
+
+interface NewVenueFormValues {
+  name: string;
+  location: Location | null;
+}
+const NewVenueInitialFormValues: NewVenueFormValues = {
+  name: '',
+  location: null,
+};
 
 interface NewVenueDialogContentProps {
   onClose: () => void;
@@ -13,16 +23,7 @@ interface NewVenueDialogContentProps {
 const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
   onClose,
 }) => {
-  const [location, setLocation] = useState<Location | null>(null);
-  const [name, setName] = useState('');
-  const handleNameChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value),
-    [setName]
-  );
   const createVenue = useCreateVenue();
-  const handleCreateVenue = () => {
-    createVenue.mutate({ name, location: location as Location });
-  };
 
   useEffect(() => {
     if (createVenue.isSuccess) {
@@ -31,38 +32,78 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
   }, [createVenue.isSuccess, onClose]);
 
   return (
-    <>
-      <DialogContent>
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <TextField
-              required
-              label="Name"
-              variant="outlined"
-              value={name}
-              fullWidth
-              onChange={handleNameChange}
-            />
-          </Grid>
-          <Grid item>
-            <LocationWithMapField
-              location={location || null}
-              onChange={setLocation}
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions
-        actions={[
-          {
-            key: 'create',
-            label: 'Create',
-            onClick: handleCreateVenue,
-            loading: createVenue.isLoading,
-          },
-        ]}
-      />
-    </>
+    <Formik
+      initialValues={NewVenueInitialFormValues}
+      onSubmit={(values) => {
+        createVenue.mutate({
+          name: values.name,
+          location: values.location as Location,
+        });
+      }}
+      validate={(values) => {
+        const errors: any = {};
+        if (!values.name) {
+          errors.name = 'Required';
+        }
+        if (!values.location) {
+          errors.location = 'Required';
+        }
+        return errors;
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        setFieldValue,
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <TextField
+                  required
+                  label="Name"
+                  variant="outlined"
+                  name="name"
+                  value={values.name}
+                  fullWidth
+                  onChange={handleChange}
+                  error={touched.name && !!errors.name}
+                  helperText={touched.name && errors.name}
+                  onBlur={handleBlur}
+                />
+              </Grid>
+              <Grid item>
+                <LocationWithMapField
+                  name="location"
+                  location={values.location}
+                  error={touched.location && !!errors.location}
+                  helperText={touched.location && errors.location}
+                  onBlur={handleBlur}
+                  onChange={(newLocation) =>
+                    setFieldValue('location', newLocation)
+                  }
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions
+            actions={[
+              {
+                key: 'create',
+                label: 'Create',
+                loading: createVenue.isLoading,
+                type: 'submit',
+              },
+            ]}
+          />
+        </form>
+      )}
+    </Formik>
   );
 };
 
