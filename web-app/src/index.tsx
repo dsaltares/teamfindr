@@ -1,9 +1,10 @@
+import 'typeface-roboto';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import 'typeface-roboto';
+import { SnackbarProvider } from 'notistack';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeProvider from './providers/ThemeProvider';
@@ -17,8 +18,10 @@ ReactDOM.render(
       <CssBaseline />
       <ThemeProvider>
         <ServicesProvider>
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
+          <SnackbarProvider>
+            <App />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </SnackbarProvider>
         </ServicesProvider>
       </ThemeProvider>
     </QueryClientProvider>

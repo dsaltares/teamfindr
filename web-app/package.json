@@ -18,6 +18,7 @@
     "formik": "^2.2.6",
     "leaflet": "^1.7.1",
     "lodash.debounce": "^4.0.8",
+    "notistack": "^1.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-leaflet": "^3.0.5",

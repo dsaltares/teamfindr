@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
+import { useSnackbar } from 'notistack';
 import { DialogContent, DialogActions } from '../Dialog';
 import LocationWithMapField from './LocationWithMapField';
 import { useCreateVenue } from '../../hooks';
@@ -24,12 +25,17 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
   onClose,
 }) => {
   const createVenue = useCreateVenue();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (createVenue.isSuccess) {
       onClose();
+      enqueueSnackbar('Venue created', { variant: 'success' });
     }
-  }, [createVenue.isSuccess, onClose]);
+    if (createVenue.isError) {
+      enqueueSnackbar('Failed to create venue', { variant: 'error' });
+    }
+  }, [enqueueSnackbar, createVenue.isSuccess, createVenue.isError, onClose]);
 
   return (
     <Formik
