@@ -55,17 +55,19 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
       <Typography id={id} gutterBottom>
         Radius: {`${valuetext(value)}`}
       </Typography>
-      <Slider
-        getAriaValueText={valuetext}
-        aria-labelledby={id}
-        step={1000}
-        marks={marks}
-        min={1000}
-        max={30000}
-        name={name}
-        value={value}
-        onChange={handleChange}
-      />
+      <div className={classes.sliderContainer}>
+        <Slider
+          getAriaValueText={valuetext}
+          aria-labelledby={id}
+          step={1000}
+          marks={marks}
+          min={1000}
+          max={30000}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        />
+      </div>
     </div>
   );
 };

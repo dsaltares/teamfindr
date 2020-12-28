@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { AutoSizer } from 'react-virtualized';
+import Skeleton from '@material-ui/lab/Skeleton';
+// import { Scrollbars } from 'react-custom-scrollbars';
+// import { AutoSizer } from 'react-virtualized';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import RadiusSlider from '../../components/RadiusSlider';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
 import { useCurrentLocation, useVenues } from '../../hooks';
 import VenueList from './VenueList';
+import VenueMarkers from './VenueMarkers';
+import useStyles from './Venues.styles';
 
 const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
@@ -29,6 +33,8 @@ const Venues = () => {
       setLocation(currentLocation.location);
     }
   }, [currentLocation, location]);
+
+  const classes = useStyles();
 
   return (
     <Grid container direction="column" spacing={2}>
@@ -52,27 +58,34 @@ const Venues = () => {
       <Grid item>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
-                <LocationWithMapField
-                  location={location}
-                  onChange={setLocation}
-                  disabled={currentLocation.isLoading}
-                  around={currentLocation.location?.geo.coordinates}
-                  circleRadius={radius}
-                />
+            <Paper className={classes.filtersPaper}>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <LocationWithMapField
+                    location={location}
+                    onChange={setLocation}
+                    disabled={currentLocation.isLoading}
+                    around={currentLocation.location?.geo.coordinates}
+                    circleRadius={radius}
+                    markers={<VenueMarkers venues={venues} />}
+                  />
+                </Grid>
+                <Grid item>
+                  <RadiusSlider
+                    id="venue-search-radius"
+                    value={radius}
+                    onChange={handleRadiusChange}
+                  />
+                </Grid>
               </Grid>
-              <Grid item>
-                <RadiusSlider
-                  id="venue-search-radius"
-                  value={radius}
-                  onChange={handleRadiusChange}
-                />
-              </Grid>
-            </Grid>
+            </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            {/* {venues && (
+            {!venues ? (
+              <Skeleton width="100%" height="100%" variant="rect" />
+            ) : (
+              <Paper style={{ height: '100%' }}>
+                {/* {venues && (
               <AutoSizer>
                 {({ height }) => {
                   console.log('height', height);
@@ -84,7 +97,9 @@ const Venues = () => {
                 }}
               </AutoSizer>
             )} */}
-            {venues && <VenueList venues={venues} />}
+                {venues && <VenueList venues={venues} />}
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Grid>

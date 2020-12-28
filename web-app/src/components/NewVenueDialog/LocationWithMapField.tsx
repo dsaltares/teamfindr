@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Coordinates, Location, LocationType } from '../../types';
 import LocationAutocomplete from '../LocationAutocomplete';
-import LocationPickerMap from './LocationPickerMap';
+import Map from '../Map';
 import { useCurrentLocation } from '../../hooks';
 
 interface LocationFieldProps {
@@ -17,6 +17,7 @@ interface LocationFieldProps {
   disableChangePositionViaMap?: boolean;
   restrictToType?: LocationType;
   circleRadius?: number;
+  markers?: React.ReactNode;
 }
 
 const LocationWithMapField: React.FC<LocationFieldProps> = ({
@@ -30,6 +31,7 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
   disableChangePositionViaMap,
   restrictToType,
   circleRadius,
+  markers,
 }) => {
   const { location: current } = useCurrentLocation();
   useEffect(() => {
@@ -55,10 +57,11 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
         />
       </Grid>
       <Grid item>
-        <LocationPickerMap
+        <Map
           location={location}
           onChange={onChange}
           circleRadius={circleRadius}
+          markers={markers}
         />
       </Grid>
     </Grid>

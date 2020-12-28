@@ -6,6 +6,7 @@ const useCreateVenue = () => {
   const services = useServices();
   const mutation = useMutation(services.venues.createVenue, {
     onSuccess: (data) => {
+      queryClient.invalidateQueries('venues');
       queryClient.setQueryData(`venues/${data.id}`, data);
     },
   });

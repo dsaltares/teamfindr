@@ -56,6 +56,19 @@ const venuesService = {
     });
     return venues;
   },
+  getVenue: async (id: string): Promise<Venue> => {
+    const {
+      data: { venue },
+    } = await axios.get(`${API_URL}/venues/${id}`, {
+      withCredentials: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+    });
+    return venue;
+  },
 };
 
 export default venuesService;

@@ -9,3 +9,4 @@ export { default as useDeferredState } from './utils/useDeferredState';
 export { default as usePrefetch } from './utils/usePrefetch';
 export { default as useCreateVenue } from './venues/useCreateVenue';
 export { default as useVenues } from './venues/useVenues';
+export { default as useVenue } from './venues/useVenue';

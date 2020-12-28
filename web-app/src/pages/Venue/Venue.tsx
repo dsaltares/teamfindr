@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { useVenue } from '../../hooks';
 
 interface VenueRouteParams {
   venueId: string;
@@ -7,7 +8,9 @@ interface VenueRouteParams {
 
 const Venue = () => {
   const { venueId } = useParams<VenueRouteParams>();
-  return <div>Venue {venueId}</div>;
+  const { isLoading, error, venue } = useVenue(venueId);
+
+  return <div>{JSON.stringify({ isLoading, error, venue }, null, 2)}</div>;
 };
 
 export default React.memo(Venue);
