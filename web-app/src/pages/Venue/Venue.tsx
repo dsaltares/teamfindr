@@ -1,5 +1,7 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useParams } from 'react-router';
+import VenueBasicInfoPanel from '../../components/VenueBasicInfoPanel';
 import { useVenue } from '../../hooks';
 
 interface VenueRouteParams {
@@ -8,9 +10,13 @@ interface VenueRouteParams {
 
 const Venue = () => {
   const { venueId } = useParams<VenueRouteParams>();
-  const { isLoading, error, venue } = useVenue(venueId);
+  const { venue } = useVenue(venueId);
 
-  return <div>{JSON.stringify({ isLoading, error, venue }, null, 2)}</div>;
+  if (!venue) {
+    return <CircularProgress size={32} color="primary" />;
+  }
+
+  return <VenueBasicInfoPanel venue={venue} />;
 };
 
 export default React.memo(Venue);

@@ -47,7 +47,7 @@ const suggestionsForValue = (
 };
 
 const getOptionLabel = (option: Location, restrictToType?: LocationType) =>
-  restrictToType
+  restrictToType && restrictToType !== 'house'
     ? option[restrictToType] || (option.name as string)
     : option.name;
 

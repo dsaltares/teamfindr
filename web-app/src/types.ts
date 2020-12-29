@@ -10,7 +10,7 @@ export type AuthProvider = 'facebook' | 'google' | 'twitter';
 
 export type Coordinates = [number, number]; // longitude then latitude
 
-export type LocationType = 'street' | 'city' | 'country';
+export type LocationType = 'house' | 'street' | 'city' | 'country';
 
 export type GeoType = 'Point';
 

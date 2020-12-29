@@ -20,7 +20,7 @@ const usersRoutes = {
     },
     {
       method: 'get',
-      path: '',
+      path: ':venueId',
       controller: GetVenueController,
       requiresAuthentication: true,
     },
