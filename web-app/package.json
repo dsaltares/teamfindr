@@ -79,6 +79,7 @@
     "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-virtualized": "^9.21.10",
+    "babel-loader": "8.1.0",
     "eslint-config-prettier": "^7.1.0",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
