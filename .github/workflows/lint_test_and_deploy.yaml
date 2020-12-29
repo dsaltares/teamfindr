@@ -25,9 +25,27 @@ jobs:
         run: yarn test
         working-directory: ./web-app
 
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ./api
+      - name: Lint
+        run: yarn lint
+        working-directory: ./api
+      - name: Test
+        run: yarn test
+        working-directory: ./api
+
   deploy-web-app:
     needs:
       - test-web-app
+      - test-api
     runs-on: ubuntu-latest
     env:
       working-directory: ./web-app
@@ -47,3 +65,31 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./web-app/build
+
+  deploy-api:
+    needs:
+      - test-web-app
+      - test-api
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build & push Docker image
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t docker.io/dsaltares/teamfindr-api:latest .
+        docker push dsaltares/teamfindr-api:latest
+      working-directory: "./api"
+
+    - name: Update production image
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_EC2_HOST }}
+        username: ${{ secrets.AWS_EC2_USERNAME }}
+        key: ${{ secrets.AWS_EC2_KEY }}
+        script: |
+          docker pull dsaltares/teamfindr-api
+          docker stop teamfindr-api
+          docker rm teamfindr-api
+          docker run --env TEAM_FINDR_CONFIG=${{ secrets.TEAM_FINDR_CONFIG }} --name teamfindr-api -d -p 5000:5000 --restart unless-stopped dsaltares/teamfindr-api
+          docker image prune -a -f
