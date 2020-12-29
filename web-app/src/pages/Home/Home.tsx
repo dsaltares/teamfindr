@@ -1,3 +1,10 @@
-const Home = () => <div>Home</div>;
+import React from 'react';
+import Page from '../../components/Page';
 
-export default Home;
+const Home = () => (
+  <Page title="Home">
+    <div>Page content</div>
+  </Page>
+);
+
+export default React.memo(Home);

@@ -11,6 +11,7 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
+import Page from '../../components/Page';
 import Profile from './Profile';
 import NotificationSettings from './NotificationSettings';
 import useStyles from './Settings.styles';
@@ -80,40 +81,42 @@ const Settings = () => {
   }
 
   return (
-    <div className={classes.container}>
-      <Tabs
-        value={currentTab.value}
-        onChange={handleChangeTab}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="fullWidth"
-      >
-        {AllTabs.map((tab) => (
-          <Tab
-            key={tab.value}
-            value={tab.value}
-            component={Link}
-            to={`${match.url}/${tab.value}`}
-            label={
-              <div className={classes.tabLabelContainer}>
-                <SvgIcon className={classes.tabIcon}>
-                  <tab.Icon />
-                </SvgIcon>
-                {tab.label}
-              </div>
-            }
-            disabled={tab.disabled}
-            {...tabAllyProps(tab.value)}
-          />
-        ))}
-      </Tabs>
-      <div
-        className={classes.tabPanel}
-        {...tabPanelAllyProps(currentTab.value)}
-      >
-        <currentTab.Component />
-      </div>
-    </div>
+    <Page title="Settings">
+      <>
+        <Tabs
+          value={currentTab.value}
+          onChange={handleChangeTab}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
+        >
+          {AllTabs.map((tab) => (
+            <Tab
+              key={tab.value}
+              value={tab.value}
+              component={Link}
+              to={`${match.url}/${tab.value}`}
+              label={
+                <div className={classes.tabLabelContainer}>
+                  <SvgIcon className={classes.tabIcon}>
+                    <tab.Icon />
+                  </SvgIcon>
+                  {tab.label}
+                </div>
+              }
+              disabled={tab.disabled}
+              {...tabAllyProps(tab.value)}
+            />
+          ))}
+        </Tabs>
+        <div
+          className={classes.tabPanel}
+          {...tabPanelAllyProps(currentTab.value)}
+        >
+          <currentTab.Component />
+        </div>
+      </>
+    </Page>
   );
 };
 

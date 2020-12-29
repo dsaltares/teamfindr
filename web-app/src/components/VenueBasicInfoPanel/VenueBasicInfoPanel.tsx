@@ -7,27 +7,37 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { Venue } from '../../types';
 import Map from '../Map';
-import Typography from '@material-ui/core/Typography';
-
+import useStyles from './VenueBasicInfoPanel.styles';
 interface VenueBasicInfoPanelProps {
-  venue: Venue;
+  venue?: Venue;
 }
 
-const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
+const getGoogleMapsUrl = (venue?: Venue) => {
+  if (!venue) {
+    return '';
+  }
+
   const coords = venue.location.geo.coordinates;
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${coords[1]},${coords[0]}`;
+  return `https://www.google.com/maps/search/?api=1&query=${coords[1]},${coords[0]}`;
+};
+
+const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
+  const classes = useStyles();
 
   return (
-    <Card style={{ width: '100%' }}>
+    <Card className={classes.card}>
       <CardActionArea
         component={Link}
-        href={googleMapsUrl}
+        href={getGoogleMapsUrl(venue)}
         rel="nofollow noopener"
         target="_blank"
         color="inherit"
         underline="none"
+        disabled={!venue}
       >
         <CardContent>
           <Grid container direction="row" spacing={2} alignItems="center">
@@ -36,16 +46,20 @@ const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
                 <LocationOnIcon />
               </Typography>
             </Grid>
-            <Grid item>
-              <Typography color="textSecondary">
-                {venue.location.description || venue.location.name}
-              </Typography>
+            <Grid item className={classes.address}>
+              {venue ? (
+                <Typography color="textSecondary">
+                  {venue.location.description || venue.location.name}
+                </Typography>
+              ) : (
+                <Skeleton variant="text" />
+              )}
             </Grid>
           </Grid>
         </CardContent>
       </CardActionArea>
       <CardMedia>
-        <Map location={venue.location} />
+        <Map location={venue?.location || null} />
       </CardMedia>
     </Card>
   );

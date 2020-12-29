@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 0,
     paddingRight: theme.spacing(1),
   },
+  filler: {
+    height: 64,
+  },
 }));
 
 export default useStyles;

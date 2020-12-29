@@ -1,16 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  container: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'center',
-  },
-  content: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    maxWidth: '900px',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }));
 

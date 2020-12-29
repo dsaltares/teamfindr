@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import RadiusSlider from '../../components/RadiusSlider';
 import NewVenueDialog from '../../components/NewVenueDialog';
@@ -35,77 +34,52 @@ const Venues = () => {
   const classes = useStyles();
 
   return (
-    <Grid container direction="column" spacing={2}>
-      <Grid item>
-        <Grid container justify="space-between" alignItems="center">
-          <Grid item>
-            <Typography variant="h4">Venues</Typography>
-          </Grid>
-          <Grid item>
-            <Button
-              startIcon={<AddIcon />}
-              color="primary"
-              variant="contained"
-              onClick={handleNewVenueDialogOpen}
-            >
-              New venue
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Paper className={classes.filtersPaper}>
-              <Grid container direction="column" spacing={2}>
-                <Grid item>
-                  <LocationWithMapField
-                    location={location}
-                    onChange={setLocation}
-                    disabled={currentLocation.isLoading}
-                    around={currentLocation.location?.geo.coordinates}
-                    circleRadius={radius}
-                    markers={<VenueMarkers venues={venues} />}
-                  />
-                </Grid>
-                <Grid item>
-                  <RadiusSlider
-                    id="venue-search-radius"
-                    value={radius}
-                    onChange={handleRadiusChange}
-                  />
-                </Grid>
+    <Page
+      title="Venues"
+      titleAction={{
+        label: 'New venue',
+        icon: <AddIcon />,
+        onClick: handleNewVenueDialogOpen,
+      }}
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Paper className={classes.filtersPaper}>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <LocationWithMapField
+                  location={location}
+                  onChange={setLocation}
+                  disabled={currentLocation.isLoading}
+                  around={currentLocation.location?.geo.coordinates}
+                  circleRadius={radius}
+                  markers={<VenueMarkers venues={venues} />}
+                />
               </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {!venues ? (
-              <Skeleton width="100%" height="100%" variant="rect" />
-            ) : (
-              <Paper style={{ height: '100%' }}>
-                {/* {venues && (
-              <AutoSizer>
-                {({ height }) => {
-                  console.log('height', height);
-                  return (
-                    <Scrollbars autoHide height={height}>
-                      <VenueList venues={venues} />
-                    </Scrollbars>
-                  );
-                }}
-              </AutoSizer>
-            )} */}
-                {venues && <VenueList venues={venues} />}
-              </Paper>
-            )}
-          </Grid>
+              <Grid item>
+                <RadiusSlider
+                  id="venue-search-radius"
+                  value={radius}
+                  disabled={currentLocation.isLoading}
+                  onChange={handleRadiusChange}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
         </Grid>
+        <Grid item xs={12} md={6}>
+          {!venues ? (
+            <Skeleton width="100%" height="100%" variant="rect" />
+          ) : (
+            <Paper>{venues && <VenueList venues={venues} />}</Paper>
+          )}
+        </Grid>
+        <NewVenueDialog
+          open={newVenueDialogOpen}
+          onClose={handleNewVenueDialogClose}
+        />
       </Grid>
-      <NewVenueDialog
-        open={newVenueDialogOpen}
-        onClose={handleNewVenueDialogClose}
-      />
-    </Grid>
+    </Page>
   );
 };
 
