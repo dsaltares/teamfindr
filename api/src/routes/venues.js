@@ -4,7 +4,7 @@ const GetVenueController = require('../controllers/venues/getVenue');
 
 const usersRoutes = {
   basePath: '/venues',
-  routes: [
+  routes: () => [
     {
       method: 'post',
       path: '',

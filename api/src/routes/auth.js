@@ -3,11 +3,9 @@ const VerifyController = require('../controllers/auth/verify');
 const FailedController = require('../controllers/auth/failed');
 const LogoutController = require('../controllers/auth/logout');
 
-const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
-
 const authRoutes = {
   basePath: '/auth',
-  routes: [
+  routes: (config) => [
     {
       method: 'get',
       path: 'verify',
@@ -33,7 +31,7 @@ const authRoutes = {
       method: 'get',
       path: 'twitter/redirect',
       handler: passport.authenticate('twitter', {
-        successRedirect: CLIENT_HOME_PAGE_URL,
+        successRedirect: config.clientUrl,
         failureRedirect: '/auth/failed',
       }),
     },
@@ -46,7 +44,7 @@ const authRoutes = {
       method: 'get',
       path: 'facebook/redirect',
       handler: passport.authenticate('facebook', {
-        successRedirect: CLIENT_HOME_PAGE_URL,
+        successRedirect: config.clientUrl,
         failureRedirect: '/auth/failed',
       }),
     },
@@ -59,7 +57,7 @@ const authRoutes = {
       method: 'get',
       path: 'google/redirect',
       handler: passport.authenticate('google', {
-        successRedirect: CLIENT_HOME_PAGE_URL,
+        successRedirect: config.clientUrl,
         failureRedirect: '/auth/failed',
       }),
     },

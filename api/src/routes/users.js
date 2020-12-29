@@ -2,7 +2,7 @@ const PatchUserController = require('../controllers/users/patchUser');
 
 const usersRoutes = {
   basePath: '/users',
-  routes: [
+  routes: () => [
     {
       method: 'patch',
       path: ':userId',

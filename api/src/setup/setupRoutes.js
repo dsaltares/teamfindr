@@ -48,7 +48,7 @@ const setupRoutes = ({ app, services }) => {
     addRoutes({
       app,
       basePath,
-      routes,
+      routes: routes(services.config),
       services,
     });
   });

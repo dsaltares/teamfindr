@@ -2,7 +2,7 @@ const RootController = require('../controllers/root/root');
 
 const authRoutes = {
   basePath: '',
-  routes: [
+  routes: () => [
     {
       method: 'get',
       path: '',

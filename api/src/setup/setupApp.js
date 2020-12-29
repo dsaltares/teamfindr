@@ -6,13 +6,11 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const OpenApiValidator = require('express-openapi-validator');
 
-const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
-
 const setupApp = (config) => {
   const app = express();
   app.use(
     cors({
-      origin: CLIENT_HOME_PAGE_URL,
+      origin: config.clientUrl,
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true,
     })
