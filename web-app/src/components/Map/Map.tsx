@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { MapContainer, TileLayer, Marker, Circle, useMap } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Circle,
+  useMap,
+  useMapEvents,
+} from 'react-leaflet';
 import { Pin as PinIcon } from './icons';
 import { Location } from '../../types';
 import { toLeaflet } from '../../utils/leaflet';
@@ -17,6 +24,13 @@ const MapController: React.FC<MapControllerProps> = ({
 }) => {
   const map = useMap();
   const locationFromClick = useLocationFromMapClick();
+
+  useMapEvents({
+    click: (e) => {
+      map.setView([e.latlng.lat, e.latlng.lng], map.getZoom());
+    },
+  });
+
   const [
     oldLocationFromClick,
     setOldLocationFromClick,
