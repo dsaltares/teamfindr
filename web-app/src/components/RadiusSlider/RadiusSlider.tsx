@@ -8,6 +8,7 @@ interface RadiusSliderProps {
   value: number;
   onChange: (e: React.ChangeEvent<{}>, value: number) => void;
   name?: string;
+  disabled?: boolean;
 }
 
 function valuetext(value: number) {
@@ -42,6 +43,7 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
   value,
   onChange,
   name,
+  disabled,
 }) => {
   const classes = useStyles();
   const handleChange = useCallback(
@@ -66,6 +68,7 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
           name={name}
           value={value}
           onChange={handleChange}
+          disabled={disabled}
         />
       </div>
     </div>
