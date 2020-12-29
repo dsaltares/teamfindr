@@ -8,15 +8,15 @@ const setupLogger = (config) => {
     }),
   ];
   if (process.env.NODE_ENV !== 'development') {
-    transports.push(
-      new HumioTransport({
-        ingestToken: config.humioToken,
-        tags: {
-          app: 'teamfindr-api',
-        },
-        handleExceptions: true,
-      })
-    );
+    // transports.push(
+    //   new HumioTransport({
+    //     ingestToken: config.humioToken,
+    //     tags: {
+    //       app: 'teamfindr-api',
+    //     },
+    //     handleExceptions: true,
+    //   })
+    // );
   }
   const logger = winston.createLogger({
     format: winston.format.combine(
