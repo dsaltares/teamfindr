@@ -1,7 +1,7 @@
 const winston = require('winston');
-const HumioTransport = require('humio-winston');
+// const HumioTransport = require('humio-winston');
 
-const setupLogger = (config) => {
+const setupLogger = () => {
   const transports = [
     new winston.transports.Console({
       handleExceptions: true,
