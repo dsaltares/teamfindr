@@ -45,6 +45,7 @@ const setupApp = (config) => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.enable('trust proxy');
 
   return app;
 };
