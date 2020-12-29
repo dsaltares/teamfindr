@@ -4,7 +4,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useStyles from './Avatar.styles';
 import { User } from '../../types';
 
-type Size = 'small' | 'medium' | 'large';
+export type Size = 'small' | 'medium' | 'large';
 type Variant = 'circle' | 'rounded' | 'circular' | 'square';
 
 interface BaseProps {
