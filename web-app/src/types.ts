@@ -54,3 +54,17 @@ export type Price = {
   amount: number;
   currency: string;
 };
+
+export type Event = {
+  id: string;
+  createdAt: string;
+  startsAt: string;
+  venue: Venue;
+  sport: Sport;
+  duration: number;
+  numPlayers: number;
+  description: string;
+  participants: User[];
+  createdBy: User;
+  price: Price;
+};

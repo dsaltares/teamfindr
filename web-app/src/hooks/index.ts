@@ -10,3 +10,4 @@ export { default as usePrefetch } from './utils/usePrefetch';
 export { default as useCreateVenue } from './venues/useCreateVenue';
 export { default as useVenues } from './venues/useVenues';
 export { default as useVenue } from './venues/useVenue';
+export { default as useCreateEvent } from './events/useCreateEvent';

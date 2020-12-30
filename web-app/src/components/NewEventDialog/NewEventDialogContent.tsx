@@ -9,6 +9,7 @@ import { DateTimePicker } from '../DatePicker';
 import { PlayersSlider, DurationSlider } from '../Slider';
 import VenueWithMapField from './VenueWithMapField';
 import { Price, Sport, Venue } from '../../types';
+import { useCreateEvent } from '../../hooks';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -40,27 +41,32 @@ interface NewEventDialogContentProps {
 const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
   onClose,
 }) => {
+  const createEvent = useCreateEvent();
   const { enqueueSnackbar } = useSnackbar();
 
-  // useEffect(() => {
-  //   if (createVenue.isSuccess) {
-  //     onClose();
-  //     enqueueSnackbar('Venue created', { variant: 'success' });
-  //   }
-  //   if (createVenue.isError) {
-  //     enqueueSnackbar('Failed to create venue', { variant: 'error' });
-  //   }
-  // }, [enqueueSnackbar, createVenue.isSuccess, createVenue.isError, onClose]);
+  useEffect(() => {
+    if (createEvent.isSuccess) {
+      onClose();
+      enqueueSnackbar('Event created', { variant: 'success' });
+    }
+    if (createEvent.isError) {
+      enqueueSnackbar('Failed to create event', { variant: 'error' });
+    }
+  }, [enqueueSnackbar, createEvent.isSuccess, createEvent.isError, onClose]);
 
   return (
     <Formik
       initialValues={NewEventInitialFormValues}
       onSubmit={(values) => {
-        // createVenue.mutate({
-        //   name: values.name,
-        //   location: values.location as Location,
-        // });
-        console.log('VALUES:', values);
+        createEvent.mutate({
+          startsAt: values.startsAt?.toISOString() as string,
+          venue: values.venue?.id as string,
+          sport: values.sport as Sport,
+          duration: values.duration,
+          numPlayers: values.numPlayers,
+          description: values.description,
+          price: values.price,
+        });
       }}
       validate={(values) => {
         const errors: any = {};
@@ -180,7 +186,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               {
                 key: 'create',
                 label: 'Create',
-                loading: false, //createVenue.isLoading,
+                loading: createEvent.isLoading,
                 type: 'submit',
               },
             ]}
