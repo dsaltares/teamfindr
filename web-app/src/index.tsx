@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { SnackbarProvider } from 'notistack';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeProvider from './providers/ThemeProvider';
@@ -19,8 +21,10 @@ ReactDOM.render(
       <ThemeProvider>
         <ServicesProvider>
           <SnackbarProvider>
-            <App />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <App />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </MuiPickersUtilsProvider>
           </SnackbarProvider>
         </ServicesProvider>
       </ThemeProvider>
