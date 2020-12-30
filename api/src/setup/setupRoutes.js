@@ -2,6 +2,7 @@ const rootRoutes = require('../routes/root');
 const authRoutes = require('../routes/auth');
 const usersRoutes = require('../routes/users');
 const venueRoutes = require('../routes/venues');
+const eventRoutes = require('../routes/events');
 const makeController = require('./makeController');
 const withAuthenticatedUser = require('../utils/withAuthenticatedUser');
 const withAdminUser = require('../utils/withAdminUser');
@@ -41,7 +42,13 @@ const addRoutes = ({ app, basePath, routes, services }) => {
   });
 };
 
-const allRoutes = [rootRoutes, authRoutes, usersRoutes, venueRoutes];
+const allRoutes = [
+  rootRoutes,
+  authRoutes,
+  usersRoutes,
+  venueRoutes,
+  eventRoutes,
+];
 
 const setupRoutes = ({ app, services }) => {
   allRoutes.forEach(({ basePath, routes }) => {

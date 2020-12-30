@@ -171,6 +171,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /events:
+    post:
+      summary: creates an event
+      operationId: postEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEventRequest'
+      responses:
+        '201':
+          description: new event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostEventResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: venue not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -248,6 +276,44 @@ components:
       properties:
         venue:
           $ref: '#/components/schemas/Venue'
+    PostEventRequest:
+      type: object
+      required:
+        - event
+      properties:
+        venue:
+          type: object
+          required:
+            - venue
+            - sport
+            - startsAt
+            - duration
+            - numPlayers
+            - description
+            - price
+          properties:
+            startsAt:
+              type: string
+              format: date-time
+            venue:
+              type: string
+            sport:
+              $ref: '#/components/schemas/Sport'
+            duration:
+              type: number
+            numPlayers:
+              type: number
+            description:
+              type: string
+            price:
+              $ref: '#/components/schemas/Price'
+    PostEventResponse:
+      type: object
+      required:
+        - event
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
     User:
       type: object
       required:
@@ -345,3 +411,71 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Venue'
+    Sport:
+      type: string
+      enum:
+        [
+          Football,
+          Basketball,
+          Tennis,
+          Squash,
+          Volleyball,
+          Handball,
+          Padel,
+          Badminton,
+          Table tennis,
+        ]
+    Currency:
+      type: string
+      enum: [EUR, GBP, USD, RON]
+    Price:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: number
+        currency:
+          $ref: '#/components/schemas/Currency'
+    Event:
+      type: object
+      required:
+        - id
+        - createdAt
+        - venue
+        - sport
+        - startsAt
+        - duration
+        - numPlayers
+        - description
+        - participants
+        - createdBy
+        - price
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        startsAt:
+          type: string
+          format: date-time
+        venue:
+          $ref: '#/components/schemas/Venue'
+        sport:
+          $ref: '#/components/schemas/Sport'
+        duration:
+          type: number
+        numPlayers:
+          type: number
+        description:
+          type: string
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        createdBy:
+          $ref: '#/components/schemas/User'
+        price:
+          $ref: '#/components/schemas/Price'
