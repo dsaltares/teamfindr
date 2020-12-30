@@ -1,49 +1,41 @@
 import React, { useCallback } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import useStyles from './RadiusSlider.styles';
+import MuiSlider from '@material-ui/core/Slider';
+import useStyles from './Slider.styles';
 
-interface RadiusSliderProps {
+interface Mark {
+  value: number;
+  label: string;
+}
+
+type Marks = Mark[];
+
+interface SliderProps {
   id: string;
   value: number;
   onChange: (e: React.ChangeEvent<{}>, value: number) => void;
   name?: string;
   disabled?: boolean;
+  valueText?: (value: number) => string;
+  marks?: Marks;
+  label: string;
+  step: number;
+  min: number;
+  max: number;
 }
 
-function valuetext(value: number) {
-  return `${Math.round(value / 1000)}km`;
-}
-
-const marks = [
-  {
-    value: 1000,
-    label: '1km',
-  },
-  {
-    value: 5000,
-    label: '5km',
-  },
-  {
-    value: 10000,
-    label: '10km',
-  },
-  {
-    value: 20000,
-    label: '20km',
-  },
-  {
-    value: 30000,
-    label: '30km',
-  },
-];
-
-const RadiusSlider: React.FC<RadiusSliderProps> = ({
+const Slider: React.FC<SliderProps> = ({
   id,
   value,
   onChange,
   name,
   disabled,
+  valueText = (value) => value.toString(),
+  marks,
+  label,
+  step,
+  min,
+  max,
 }) => {
   const classes = useStyles();
   const handleChange = useCallback(
@@ -55,16 +47,16 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
   return (
     <div className={classes.root}>
       <Typography id={id} gutterBottom>
-        Radius: {`${valuetext(value)}`}
+        {label}: {`${valueText(value)}`}
       </Typography>
       <div className={classes.sliderContainer}>
-        <Slider
-          getAriaValueText={valuetext}
+        <MuiSlider
+          getAriaValueText={valueText}
           aria-labelledby={id}
-          step={1000}
+          step={step}
           marks={marks}
-          min={1000}
-          max={30000}
+          min={min}
+          max={max}
           name={name}
           value={value}
           onChange={handleChange}
@@ -75,4 +67,4 @@ const RadiusSlider: React.FC<RadiusSliderProps> = ({
   );
 };
 
-export default React.memo(RadiusSlider);
+export default React.memo(Slider);

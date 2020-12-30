@@ -38,3 +38,19 @@ export type Venue = {
   name: string;
   location: Location;
 };
+
+export type Sport =
+  | 'Football'
+  | 'Basketball'
+  | 'Tennis'
+  | 'Squash'
+  | 'Volleyball'
+  | 'Handball'
+  | 'Padel'
+  | 'Badminton'
+  | 'Table tennis';
+
+export type Price = {
+  amount: number;
+  currency: string;
+};

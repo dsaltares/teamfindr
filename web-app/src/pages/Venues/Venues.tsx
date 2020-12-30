@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
-import RadiusSlider from '../../components/RadiusSlider';
+import { RadiusSlider } from '../../components/Slider';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
 import { useCurrentLocation, useVenues } from '../../hooks';
