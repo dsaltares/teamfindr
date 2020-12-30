@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { isIOS } from 'react-device-detect';
 import { Venue } from '../../types';
 import Map from '../Map';
 import useStyles from './VenueBasicInfoPanel.styles';
@@ -21,8 +22,9 @@ const getGoogleMapsUrl = (venue?: Venue) => {
     return '';
   }
 
-  const coords = venue.location.geo.coordinates;
-  return `https://www.google.com/maps/search/?api=1&query=${coords[1]},${coords[0]}`;
+  const [lon, lat] = venue.location.geo.coordinates;
+  const protocol = isIOS ? `maps` : `https`;
+  return `${protocol}://maps.google.com/maps?daddr=${lat},${lon}&amp;ll=`;
 };
 
 const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
