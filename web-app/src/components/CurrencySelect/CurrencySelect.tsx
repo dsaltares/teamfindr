@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './CurrencySelect.styles';
+import Currencies from '../../utils/currencies';
 
 interface CurrencySelectProps {
   value?: string | null;
@@ -20,24 +21,13 @@ interface CurrencySelectProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const Currencies = [
-  {
-    value: 'EUR',
-    flag: '🇪🇺',
-  },
-  {
-    value: 'RON',
-    flag: '🇷🇴',
-  },
-  {
-    value: 'GBP',
-    flag: '🇬🇧',
-  },
-  {
-    value: 'USD',
-    flag: '🇺🇸',
-  },
-];
+type CurrencyFlagDict = Record<string, string>;
+const CurrencyFlags: CurrencyFlagDict = {
+  EUR: '🇪🇺',
+  RON: '🇷🇴',
+  GBP: '🇬🇧',
+  USD: '🇺🇸',
+};
 
 const CurrencySelect: React.FC<CurrencySelectProps> = ({
   value,
@@ -62,11 +52,11 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
         onBlur={onBlur}
       >
         {Currencies.map((currency) => (
-          <MenuItem key={currency.value} value={currency.value}>
+          <MenuItem key={currency} value={currency}>
             <ListItemIcon className={classes.itemIcon}>
-              {currency.flag}
+              {CurrencyFlags[currency]}
             </ListItemIcon>
-            <Typography variant="inherit"> {currency.value}</Typography>
+            <Typography variant="inherit"> {currency}</Typography>
           </MenuItem>
         ))}
       </Select>

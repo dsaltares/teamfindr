@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
@@ -9,8 +9,9 @@ import { DateTimePicker } from '../DatePicker';
 import { PlayersSlider, DurationSlider } from '../Slider';
 import VenueWithMapField from './VenueWithMapField';
 import { Sport, Venue } from '../../types';
-import { useCreateEvent } from '../../hooks';
+import { useCreateEvent, useCurrencyFromCurrentLocation } from '../../hooks';
 import CurrencySelect from '../CurrencySelect';
+import Currencies from '../../utils/currencies';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -23,16 +24,16 @@ interface NewEventFormValues {
   description: string;
 }
 
-const NewEventInitialFormValues: NewEventFormValues = {
+const getInitialValues = (currency: string): NewEventFormValues => ({
   venue: null,
   sport: null,
   capacity: 2,
   startsAt: null,
   duration: 60,
   amount: 5,
-  currency: 'EUR',
+  currency: Currencies.includes(currency) ? currency : 'EUR',
   description: '',
-};
+});
 
 interface NewEventDialogContentProps {
   onClose: () => void;
@@ -43,6 +44,11 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
 }) => {
   const createEvent = useCreateEvent();
   const { enqueueSnackbar } = useSnackbar();
+  const currency = useCurrencyFromCurrentLocation();
+  const initialValues = useMemo<NewEventFormValues>(
+    () => getInitialValues(currency),
+    [currency]
+  );
 
   useEffect(() => {
     if (createEvent.isSuccess) {
@@ -56,7 +62,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
 
   return (
     <Formik
-      initialValues={NewEventInitialFormValues}
+      initialValues={initialValues}
       onSubmit={(values) => {
         createEvent.mutate({
           startsAt: values.startsAt?.toISOString() as string,
