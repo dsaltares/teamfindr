@@ -15,12 +15,12 @@ interface EventMarkersProps {
 
 type EventsByVenue = Record<string, Event[]>;
 
-const EventMarkers: React.FC<EventMarkersProps> = ({ events = [] }) => {
+const EventMarkers: React.FC<EventMarkersProps> = ({ events }) => {
   const classes = useStyles();
   const [eventsByVenue, setEventsByVenue] = useState<EventsByVenue>({});
   useEffect(() => {
     const newByVenue: EventsByVenue = {};
-    events.forEach((event) => {
+    (events || []).forEach((event) => {
       const byVenue = newByVenue[event.venue.id] || [];
       byVenue.push(event);
       newByVenue[event.venue.id] = byVenue;
