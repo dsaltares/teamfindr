@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
-import { DialogContent, DialogActions } from '../Dialog';
+import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import LocationWithMapField from './LocationWithMapField';
 import { useCreateVenue } from '../../hooks';
 import { Location } from '../../types';
@@ -66,7 +66,7 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
         handleSubmit,
         setFieldValue,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <DialogForm onSubmit={handleSubmit}>
           <DialogContent>
             <Grid container direction="column" spacing={2}>
               <Grid item>
@@ -107,7 +107,7 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
               },
             ]}
           />
-        </form>
+        </DialogForm>
       )}
     </Formik>
   );

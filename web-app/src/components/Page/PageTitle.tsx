@@ -20,14 +20,14 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, action }) => {
   return (
     <div className={classes.container}>
       <div>
-        <Typography variant="h4">{title}</Typography>
+        <Typography variant="h6">{title}</Typography>
       </div>
       {action && (
         <div>
           <Button
             startIcon={action.icon}
             color="primary"
-            variant="contained"
+            variant="outlined"
             onClick={action.onClick}
           >
             {action.label}

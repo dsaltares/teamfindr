@@ -28,6 +28,7 @@ const DialogActions: React.FC<DialogActionProps> = ({
         type={action.type}
         onClick={action.onClick}
         color="primary"
+        variant="outlined"
         disabled={action.disabled || loading}
       >
         {action.loading ? (

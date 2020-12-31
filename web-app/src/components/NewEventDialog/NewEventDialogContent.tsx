@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
-import { DialogContent, DialogActions } from '../Dialog';
+import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import SportsAutocomplete from '../SportsAutocomplete';
 import { DateTimePicker } from '../DatePicker';
 import { PlayersSlider, DurationSlider } from '../Slider';
@@ -100,7 +100,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
         handleSubmit,
         setFieldValue,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <DialogForm onSubmit={handleSubmit}>
           <DialogContent>
             <Grid container direction="column" spacing={2}>
               <Grid item>
@@ -115,7 +115,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={2}>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} md={6}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
@@ -125,7 +125,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       helperText={touched.sport && errors.sport}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} md={6}>
                     <PlayersSlider
                       id="new-event-players-slider"
                       name="numPlayers"
@@ -138,7 +138,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 </Grid>
                 <Grid item>
                   <Grid container direction="row" spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                       <DateTimePicker
                         required
                         name="startsAt"
@@ -152,7 +152,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                         helperText={touched.startsAt && errors.startsAt}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                       <DurationSlider
                         id="new-event-duration-slider"
                         name="duration"
@@ -191,7 +191,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               },
             ]}
           />
-        </form>
+        </DialogForm>
       )}
     </Formik>
   );
