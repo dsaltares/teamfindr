@@ -12,6 +12,9 @@ const createEvent = ({ eventCollection, logger }) => async ({
     _id: uuid(),
     createdAt: new Date(),
     ...event,
+    startsAt: new Date(event.startsAt),
+    createdBy: user.id,
+    numParticipants: 0,
   };
 
   await eventCollection.insertOne(mongoFields);

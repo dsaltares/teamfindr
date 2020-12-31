@@ -199,6 +199,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: gets a list of events
+      operationId: getEvents
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: number
+          required: false
+          description: latitude
+        - in: query
+          name: lon
+          schema:
+            type: number
+          required: false
+          description: longitude
+        - in: query
+          name: radius
+          schema:
+            type: number
+          required: false
+          description: radius in m
+        - in: query
+          name: sports
+          schema:
+            type: string
+          required: false
+          description: sport to filter by
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: date of the event
+        - in: query
+          name: excludeFull
+          schema:
+            type: boolean
+          required: false
+          description: whether to exclude full events
+      responses:
+        '200':
+          description: list of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -288,7 +342,7 @@ components:
             - sport
             - startsAt
             - duration
-            - numPlayers
+            - capacity
             - description
             - price
           properties:
@@ -301,7 +355,7 @@ components:
               $ref: '#/components/schemas/Sport'
             duration:
               type: number
-            numPlayers:
+            capacity:
               type: number
             description:
               type: string
@@ -314,6 +368,13 @@ components:
       properties:
         event:
           $ref: '#/components/schemas/Event'
+    GetEventsResponse:
+      type: object
+      required:
+        - events
+      properties:
+        events:
+          $ref: '#/components/schemas/Events'
     User:
       type: object
       required:
@@ -447,7 +508,8 @@ components:
         - sport
         - startsAt
         - duration
-        - numPlayers
+        - capacity
+        - numParticipants
         - description
         - participants
         - createdBy
@@ -467,7 +529,9 @@ components:
           $ref: '#/components/schemas/Sport'
         duration:
           type: number
-        numPlayers:
+        capacity:
+          type: number
+        numParticipants:
           type: number
         description:
           type: string
@@ -479,3 +543,7 @@ components:
           $ref: '#/components/schemas/User'
         price:
           $ref: '#/components/schemas/Price'
+    Events:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'

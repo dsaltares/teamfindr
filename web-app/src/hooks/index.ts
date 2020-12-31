@@ -7,7 +7,9 @@ export { default as useLoginViaSocialMedia } from './user/useLoginViaSocialMedia
 export { default as useChangeAvatar } from './user/useChangeAvatar';
 export { default as useDeferredState } from './utils/useDeferredState';
 export { default as usePrefetch } from './utils/usePrefetch';
+export { default as useWindowSize } from './utils/useWindowSize';
 export { default as useCreateVenue } from './venues/useCreateVenue';
 export { default as useVenues } from './venues/useVenues';
 export { default as useVenue } from './venues/useVenue';
 export { default as useCreateEvent } from './events/useCreateEvent';
+export { default as useEvents } from './events/useEvents';

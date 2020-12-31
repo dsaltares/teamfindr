@@ -5,6 +5,7 @@ import { AutoSizer } from 'react-virtualized';
 import DesktopNavigation from '../../components/Navigation/DesktopNavigation';
 import MobileNavigation from '../../components/Navigation/MobileNavigation';
 import PageTitle, { PageTitleAction } from './PageTitle';
+import { useWindowSize } from '../../hooks';
 import useStyles from './Page.styles';
 
 interface PageProps {
@@ -15,6 +16,7 @@ interface PageProps {
 
 const Page: React.FC<PageProps> = ({ title, titleAction, children }) => {
   const classes = useStyles();
+  const dimensions = useWindowSize();
 
   return (
     <div className={classes.root}>
@@ -27,7 +29,7 @@ const Page: React.FC<PageProps> = ({ title, titleAction, children }) => {
             autoHide
             style={{
               width: '100%',
-              height: document.documentElement.clientHeight - height,
+              height: dimensions.clientHeight - height,
             }}
           >
             <div className={classes.centered}>

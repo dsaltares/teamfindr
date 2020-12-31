@@ -11,19 +11,28 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import useStyles from './Events.styles';
-import { Location } from '../../types';
-import { useCurrentLocation } from '../../hooks';
+import { Location, Sport } from '../../types';
+import { useCurrentLocation, useEvents } from '../../hooks';
 import NewEventDialog from '../../components/NewEventDialog';
+import EventList from './EventList';
+import EventMarkers from './EventMarkers';
 
 const Events = () => {
   const classes = useStyles();
 
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number>(5000);
-  const [sports, setSports] = useState<string[]>([]);
+  const [sports, setSports] = useState<Sport[]>([]);
   const [date, setDate] = useState<Date | null>(new Date());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
+  const { events, isLoading } = useEvents(
+    location,
+    radius,
+    sports,
+    date,
+    excludeFull
+  );
 
   const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
   const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);
@@ -62,7 +71,7 @@ const Events = () => {
                     disabled={currentLocation.isLoading}
                     around={currentLocation.location?.geo.coordinates}
                     circleRadius={radius}
-                    // markers={<VenueMarkers venues={venues} />}
+                    markers={<EventMarkers events={events} />}
                   />
                 </Grid>
                 <Grid item>
@@ -86,6 +95,7 @@ const Events = () => {
                     value={date}
                     onChange={setDate}
                     disabled={currentLocation.isLoading}
+                    disablePast
                   />
                 </Grid>
                 <Grid item>
@@ -105,7 +115,11 @@ const Events = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Skeleton width="100%" height="100%" variant="rect" />
+            {!events || isLoading ? (
+              <Skeleton width="100%" height="400" variant="rect" />
+            ) : (
+              <Paper>{events && <EventList events={events} />}</Paper>
+            )}
           </Grid>
         </Grid>
       </Page>

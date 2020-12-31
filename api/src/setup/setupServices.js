@@ -8,6 +8,7 @@ const CreateVenue = require('../services/createVenue');
 const SearchVenues = require('../services/searchVenues');
 const GetVenueById = require('../services/getVenueById');
 const CreateEvent = require('../services/createEvent');
+const SearchEvents = require('../services/searchEvents');
 
 const setupServices = async ({ config, logger }) => {
   const client = new MongoClient(config.databaseURI, {
@@ -25,6 +26,8 @@ const setupServices = async ({ config, logger }) => {
 
   await createIndexes(deps);
 
+  const searchVenues = SearchVenues(deps);
+
   return {
     config,
     logger,
@@ -33,9 +36,13 @@ const setupServices = async ({ config, logger }) => {
     getUserById: GetUserById(deps),
     updateUser: UpdateUser(deps),
     createVenue: CreateVenue(deps),
-    searchVenues: SearchVenues(deps),
+    searchVenues,
     getVenueById: GetVenueById(deps),
     createEvent: CreateEvent(deps),
+    searchEvents: SearchEvents({
+      ...deps,
+      searchVenues,
+    }),
   };
 };
 

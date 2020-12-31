@@ -7,6 +7,13 @@ export const Marker = L.icon({
   popupAnchor: [0, -20],
 });
 
+export const MarkerSelected = L.icon({
+  iconUrl: '/icons/marker-selected.svg',
+  iconSize: [38, 95],
+  iconAnchor: [19, 60],
+  popupAnchor: [0, -20],
+});
+
 export const Pin = L.icon({
   iconUrl: '/icons/pin.svg',
   iconSize: [38, 95],

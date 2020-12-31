@@ -62,7 +62,8 @@ export type Event = {
   venue: Venue;
   sport: Sport;
   duration: number;
-  numPlayers: number;
+  capacity: number;
+  numParticipants: number;
   description: string;
   participants: User[];
   createdBy: User;

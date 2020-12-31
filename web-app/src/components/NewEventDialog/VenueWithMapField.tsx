@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Location, Venue } from '../../types';
 import VenueAutocomplete from './VenueAutocomplete';
+import VenueMarkers from './VenueMarkers';
 import Map from '../Map';
 import { useCurrentLocation, useVenues } from '../../hooks';
 import { RadiusSlider } from '../Slider';
@@ -54,7 +55,18 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
         />
       </Grid>
       <Grid item>
-        <Map location={location} onChange={setLocation} circleRadius={radius} />
+        <Map
+          location={location}
+          onChange={setLocation}
+          circleRadius={radius}
+          markers={
+            <VenueMarkers
+              selected={value}
+              venues={venues}
+              onSelect={onChange}
+            />
+          }
+        />
       </Grid>
       <Grid item>
         <RadiusSlider
