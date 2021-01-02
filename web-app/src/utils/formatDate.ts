@@ -1,9 +1,11 @@
-import isThisYear from 'date-fns/isThisYear';
-import isToday from 'date-fns/is_today';
-import isTomorrow from 'date-fns/is_today';
-import isYesterday from 'date-fns/is_today';
-import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
+import {
+  isToday,
+  isThisYear,
+  isTomorrow,
+  isYesterday,
+  format,
+  parseISO,
+} from 'date-fns';
 
 const TimeFormat = 'HH:mm';
 const DateFormat = 'MMM dd';
