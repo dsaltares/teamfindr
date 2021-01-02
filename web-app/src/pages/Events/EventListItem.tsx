@@ -76,14 +76,14 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
               alignItems="flex-end"
             >
               <Grid item>
-                <Typography variant="caption">
+                <Typography variant="caption" color="textSecondary">
                   {`${event.price.amount} ${event.price.currency} ${
                     CurrencyFlags[event.price.currency]
                   }`}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="caption">
+                <Typography variant="caption" color="textSecondary">
                   {`${event.numParticipants} / ${event.capacity}`}
                 </Typography>
               </Grid>
