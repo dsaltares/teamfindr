@@ -6,6 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
+import SportsTennisIcon from '@material-ui/icons/SportsTennis';
+import SportsVolleyballIcon from '@material-ui/icons/SportsVolleyball';
+import SportsHandballIcon from '@material-ui/icons/SportsHandball';
 import { Sport } from '../../types';
 
 const Sports: Sport[] = [
@@ -22,14 +26,14 @@ const Sports: Sport[] = [
 
 const SportIcons = {
   Football: SportsSoccerIcon,
-  Basketball: SportsSoccerIcon,
-  Tennis: SportsSoccerIcon,
-  Squash: SportsSoccerIcon,
-  Volleyball: SportsSoccerIcon,
-  Handball: SportsSoccerIcon,
-  Padel: SportsSoccerIcon,
-  Badminton: SportsSoccerIcon,
-  'Table tennis': SportsSoccerIcon,
+  Basketball: SportsBasketballIcon,
+  Tennis: SportsTennisIcon,
+  Squash: SportsTennisIcon,
+  Volleyball: SportsVolleyballIcon,
+  Handball: SportsHandballIcon,
+  Padel: SportsTennisIcon,
+  Badminton: SportsTennisIcon,
+  'Table tennis': SportsTennisIcon,
 };
 
 interface SportsAutocompleteProps {
