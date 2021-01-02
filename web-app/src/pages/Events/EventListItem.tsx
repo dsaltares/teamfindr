@@ -29,7 +29,7 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
           spacing={1}
         >
           <Grid item>
-            <Grid container direction="row" alignItems="center" spacing={1}>
+            <Grid container direction="row" alignItems="center" spacing={2}>
               <Grid item>
                 <Avatar variant="rounded">
                   <Icon />
