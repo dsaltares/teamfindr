@@ -9,6 +9,7 @@ const SearchVenues = require('../services/searchVenues');
 const GetVenueById = require('../services/getVenueById');
 const CreateEvent = require('../services/createEvent');
 const SearchEvents = require('../services/searchEvents');
+const GetEventById = require('../services/getEventById');
 
 const setupServices = async ({ config, logger }) => {
   const client = new MongoClient(config.databaseURI, {
@@ -43,6 +44,7 @@ const setupServices = async ({ config, logger }) => {
       ...deps,
       searchVenues,
     }),
+    getEventById: GetEventById(deps),
   };
 };
 

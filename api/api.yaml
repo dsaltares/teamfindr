@@ -254,6 +254,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /events/{eventId}:
+    get:
+      summary: gets an event by its id
+      operationId: getEvent
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: string
+          required: true
+          description: id of the event
+      responses:
+        '200':
+          description: event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventResponse'
+        '404':
+          description: event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     VerifySuccessResponse:
@@ -375,6 +406,13 @@ components:
       properties:
         events:
           $ref: '#/components/schemas/Events'
+    GetEventResponse:
+      type: object
+      required:
+        - event
+      properties:
+        events:
+          $ref: '#/components/schemas/Event'
     User:
       type: object
       required:

@@ -1,11 +1,4 @@
-const formatMongoRecord = require('../utils/formatMongoRecord');
-
-const formatEvent = (mongoEvent) => ({
-  ...formatMongoRecord(mongoEvent),
-  createdBy: formatMongoRecord(mongoEvent.createdBy),
-  venue: formatMongoRecord(mongoEvent.venue),
-  participants: [],
-});
+const formatEvent = require('../utils/formatEvent');
 
 const searchEvents = ({ eventCollection, searchVenues }) => async ({
   lat,
