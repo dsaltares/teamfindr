@@ -49,7 +49,7 @@ const suggestionsForValue = (
 const getOptionLabel = (option: Location, restrictToType?: LocationType) =>
   restrictToType && restrictToType !== 'house'
     ? option[restrictToType] || (option.name as string)
-    : option.name;
+    : option.name || option.description || '';
 
 const geTextFieldLabel = (restrictToType?: LocationType) =>
   `Enter a ${restrictToType || 'location'}`;
