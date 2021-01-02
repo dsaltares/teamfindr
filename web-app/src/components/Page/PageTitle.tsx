@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './PageTitle.styles';
 import Button from '@material-ui/core/Button';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export interface PageTitleAction {
   label: string;
@@ -10,7 +11,7 @@ export interface PageTitleAction {
 }
 
 interface PageTitleProps {
-  title: string;
+  title?: string;
   action?: PageTitleAction;
 }
 
@@ -20,7 +21,11 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, action }) => {
   return (
     <div className={classes.container}>
       <div>
-        <Typography variant="h6">{title}</Typography>
+        {title ? (
+          <Typography variant="h6">{title}</Typography>
+        ) : (
+          <Skeleton width={200} variant="text" />
+        )}
       </div>
       {action && (
         <div>

@@ -23,3 +23,4 @@ export { default as useVenue } from './venues/useVenue';
 // Events
 export { default as useCreateEvent } from './events/useCreateEvent';
 export { default as useEvents } from './events/useEvents';
+export { default as useEvent } from './events/useEvent';

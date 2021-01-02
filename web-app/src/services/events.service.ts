@@ -68,6 +68,19 @@ const eventsService = {
     });
     return events;
   },
+  getEvent: async (id: string): Promise<Event> => {
+    const {
+      data: { event },
+    } = await axios.get(`${API_URL}/events/${id}`, {
+      withCredentials: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+    });
+    return event;
+  },
 };
 
 export default eventsService;

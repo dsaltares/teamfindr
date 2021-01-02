@@ -115,8 +115,8 @@ const Events = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            {!events || isLoading ? (
-              <Skeleton width="100%" height="400" variant="rect" />
+            {!events ? (
+              <Skeleton width="100%" height="100%" variant="rect" />
             ) : (
               <Paper>{events && <EventList events={events} />}</Paper>
             )}

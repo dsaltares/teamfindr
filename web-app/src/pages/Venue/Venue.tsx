@@ -13,7 +13,7 @@ const Venue = () => {
   const { venue } = useVenue(venueId);
 
   return (
-    <Page title={venue?.name || ''}>
+    <Page title={venue?.name}>
       <VenueBasicInfoPanel venue={venue} />
     </Page>
   );

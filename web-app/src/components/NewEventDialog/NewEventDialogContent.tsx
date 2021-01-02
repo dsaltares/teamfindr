@@ -175,7 +175,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={2}>
-                  <Grid item xs={8} md={8}>
+                  <Grid item xs={7} md={8}>
                     <TextField
                       name="amount"
                       inputProps={{
@@ -192,7 +192,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       helperText={touched.amount && errors.amount}
                     />
                   </Grid>
-                  <Grid item xs={4} md={4}>
+                  <Grid item xs={5} md={4}>
                     <CurrencySelect
                       name="currency"
                       value={values.currency}

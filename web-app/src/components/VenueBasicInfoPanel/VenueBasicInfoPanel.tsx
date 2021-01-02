@@ -1,4 +1,3 @@
-import '../../App.css';
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,23 +8,13 @@ import Link from '@material-ui/core/Link';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { isIOS } from 'react-device-detect';
 import { Venue } from '../../types';
 import Map from '../Map';
 import useStyles from './VenueBasicInfoPanel.styles';
+import getGoogleMapsUrl from '../../utils/getGoogleMapsUrl';
 interface VenueBasicInfoPanelProps {
   venue?: Venue;
 }
-
-const getGoogleMapsUrl = (venue?: Venue) => {
-  if (!venue) {
-    return '';
-  }
-
-  const [lon, lat] = venue.location.geo.coordinates;
-  const protocol = isIOS ? `maps` : `https`;
-  return `${protocol}://maps.google.com/maps?daddr=${lat},${lon}&amp;ll=`;
-};
 
 const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
   const classes = useStyles();

@@ -12,6 +12,7 @@ interface VenueAutocompleteProps {
   options: Venue[];
   disabled?: boolean;
   required?: boolean;
+  loading?: boolean;
   name?: string;
   error?: boolean;
   helperText?: string | false;
@@ -35,6 +36,7 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
   value,
   onChange,
   options,
+  loading,
   disabled,
   required,
   name,
@@ -48,6 +50,7 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
       onChange={(_event, newValue) => onChange(newValue)}
       disabled={disabled}
       options={optionsForValue(value, options)}
+      loading={loading}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => (
         <TextField

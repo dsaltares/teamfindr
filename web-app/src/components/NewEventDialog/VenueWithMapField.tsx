@@ -28,7 +28,7 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
 }) => {
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number>(5000);
-  const { venues } = useVenues(location, radius);
+  const { venues, isLoading: loadingVenues } = useVenues(location, radius);
   const { location: current, isLoading } = useCurrentLocation();
   useEffect(() => {
     if (!location && current) {
@@ -45,6 +45,7 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
         <VenueAutocomplete
           value={value}
           options={venues || []}
+          loading={loadingVenues}
           onChange={onChange}
           disabled={disabled}
           required

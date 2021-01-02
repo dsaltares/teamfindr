@@ -9,7 +9,7 @@ import { useWindowSize } from '../../hooks';
 import useStyles from './Page.styles';
 
 interface PageProps {
-  title: string;
+  title?: string;
   titleAction?: PageTitleAction;
   children: React.ReactElement;
 }
