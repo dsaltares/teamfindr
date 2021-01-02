@@ -48,14 +48,9 @@ const EventMarkers: React.FC<EventMarkersProps> = ({ events }) => {
                     {events.map((event) => (
                       <li key={event.id}>
                         <Link to={`/events/${event.id}`}>
-                          <Grid item>
-                            <Typography variant="caption">
-                              {formatDate(event.startsAt)}
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <Typography variant="caption">{`${event.sport} at ${event.venue.name}`}</Typography>
-                          </Grid>
+                          <Typography variant="caption">
+                            {`${formatDate(event.startsAt)} - ${event.sport}`}
+                          </Typography>
                         </Link>
                       </li>
                     ))}
