@@ -4,12 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
-import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
-import SportsTennisIcon from '@material-ui/icons/SportsTennis';
-import SportsVolleyballIcon from '@material-ui/icons/SportsVolleyball';
-import SportsHandballIcon from '@material-ui/icons/SportsHandball';
+import SportIcons from '../../utils/sportIcons';
 import { Sport } from '../../types';
 
 const Sports: Sport[] = [
@@ -23,18 +18,6 @@ const Sports: Sport[] = [
   'Badminton',
   'Table tennis',
 ];
-
-const SportIcons = {
-  Football: SportsSoccerIcon,
-  Basketball: SportsBasketballIcon,
-  Tennis: SportsTennisIcon,
-  Squash: SportsTennisIcon,
-  Volleyball: SportsVolleyballIcon,
-  Handball: SportsHandballIcon,
-  Padel: SportsTennisIcon,
-  Badminton: SportsTennisIcon,
-  'Table tennis': SportsTennisIcon,
-};
 
 interface SportsAutocompleteProps {
   value: any;

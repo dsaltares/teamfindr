@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './CurrencySelect.styles';
-import Currencies from '../../utils/currencies';
+import Currencies, { CurrencyFlags } from '../../utils/currencies';
 
 interface CurrencySelectProps {
   value?: string | null;
@@ -20,14 +20,6 @@ interface CurrencySelectProps {
   helperText?: string | false;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
-
-type CurrencyFlagDict = Record<string, string>;
-const CurrencyFlags: CurrencyFlagDict = {
-  EUR: '🇪🇺',
-  RON: '🇷🇴',
-  GBP: '🇬🇧',
-  USD: '🇺🇸',
-};
 
 const CurrencySelect: React.FC<CurrencySelectProps> = ({
   value,
