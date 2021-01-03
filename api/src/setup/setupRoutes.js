@@ -3,6 +3,7 @@ const authRoutes = require('../routes/auth');
 const usersRoutes = require('../routes/users');
 const venueRoutes = require('../routes/venues');
 const eventRoutes = require('../routes/events');
+const participantRoutes = require('../routes/participants');
 const makeController = require('./makeController');
 const withAuthenticatedUser = require('../utils/withAuthenticatedUser');
 const withAdminUser = require('../utils/withAdminUser');
@@ -48,6 +49,7 @@ const allRoutes = [
   usersRoutes,
   venueRoutes,
   eventRoutes,
+  participantRoutes,
 ];
 
 const setupRoutes = ({ app, services }) => {

@@ -285,6 +285,108 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /participants/{eventId}:
+    get:
+      summary: get a lot of participants for an event
+      operationId: getParticipants
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: string
+          required: true
+          description: id of the event
+      responses:
+        '200':
+          description: event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetParticipantsResponse'
+        '404':
+          description: event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: add requester as a participant to an event
+      operationId: postParticipant
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: string
+          required: true
+          description: id of the event
+      responses:
+        '201':
+          description: participant added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifyParticipantsResponse'
+        '200':
+          description: participant was already added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifyParticipantsResponse'
+        '404':
+          description: event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: event full
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: remove requesters from event participants
+      operationId: deleteParticipant
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: string
+          required: true
+          description: id of the event
+      responses:
+        '200':
+          description: participant deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifyParticipantsResponse'
+        '404':
+          description: event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: the session for the user is not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     VerifySuccessResponse:
@@ -413,6 +515,23 @@ components:
       properties:
         events:
           $ref: '#/components/schemas/Event'
+    GetParticipantsResponse:
+      type: object
+      required:
+        - participants
+      properties:
+        participants:
+          $ref: '#/components/schemas/Participants'
+    ModifyParticipantsResponse:
+      type: object
+      required:
+        - event
+        - participants
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+        participants:
+          $ref: '#/components/schemas/Participants'
     User:
       type: object
       required:
@@ -549,7 +668,6 @@ components:
         - capacity
         - numParticipants
         - description
-        - participants
         - createdBy
         - price
       properties:
@@ -573,10 +691,6 @@ components:
           type: number
         description:
           type: string
-        participants:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
         createdBy:
           $ref: '#/components/schemas/User'
         price:
@@ -585,3 +699,24 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Event'
+    Participant:
+      type: object
+      required:
+        - id
+        - createdAt
+        - user
+        - event
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+        event:
+          type: string
+    Participants:
+      type: array
+      items:
+        $ref: '#/components/schemas/Participant'

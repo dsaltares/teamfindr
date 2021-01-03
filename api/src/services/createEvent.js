@@ -21,7 +21,6 @@ const createEvent = ({ eventCollection, logger }) => async ({
 
   return {
     ...formatMongoRecord(mongoFields),
-    participants: [],
     createdBy: user,
     venue,
   };
