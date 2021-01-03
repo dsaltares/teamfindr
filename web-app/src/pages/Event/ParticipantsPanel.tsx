@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Paper } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useSnackbar } from 'notistack';
 import ParticipantList from './ParticipantList';
 import {
   useEvent,
   useUser,
   useParticipants,
   useAddParticipant,
+  useRemoveParticipant,
 } from '../../hooks';
 import useStyles from './ParticipantsPanel.styles';
 import SportsIcons from '../../utils/sportIcons';
@@ -22,10 +24,12 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const classes = useStyles();
   const { event } = useEvent(eventId);
   const { user } = useUser();
+  const { enqueueSnackbar } = useSnackbar();
   const { participants, isLoading: loadingParticipants } = useParticipants(
     eventId
   );
   const addParticipant = useAddParticipant();
+  const removeParticipant = useRemoveParticipant();
   const isFull = event && event.numParticipants >= event.capacity;
   const isParticipant =
     participants && user && !!participants.find((p) => p.user.id === user.id);
@@ -34,6 +38,24 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const capacityMsg = event
     ? ` (${event.numParticipants}/${event.capacity})`
     : '';
+
+  useEffect(() => {
+    if (addParticipant.isSuccess) {
+      enqueueSnackbar('Joined event!', { variant: 'success' });
+    }
+    if (addParticipant.isError) {
+      enqueueSnackbar('Failed to join event', { variant: 'error' });
+    }
+  }, [enqueueSnackbar, addParticipant.isSuccess, addParticipant.isError]);
+
+  useEffect(() => {
+    if (removeParticipant.isSuccess) {
+      enqueueSnackbar('Left event!', { variant: 'success' });
+    }
+    if (removeParticipant.isError) {
+      enqueueSnackbar('Failed to leave event', { variant: 'error' });
+    }
+  }, [enqueueSnackbar, removeParticipant.isSuccess, removeParticipant.isError]);
 
   return (
     <Paper className={classes.paper}>
@@ -78,7 +100,11 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
           </Grid>
         </Grid>
         <Grid item>
-          <ParticipantList eventId={eventId} participants={participants} />
+          <ParticipantList
+            participants={participants}
+            onLeave={() => removeParticipant.mutate(eventId)}
+            leaving={removeParticipant.isLoading}
+          />
         </Grid>
       </Grid>
     </Paper>

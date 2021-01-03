@@ -6,20 +6,23 @@ import ParticipantListItem from './ParticipantListItem';
 
 interface ParticipantListProps {
   participants?: Participant[];
-  eventId: string;
+  onLeave: () => void;
+  leaving: boolean;
 }
 
 const ParticipantList: React.FC<ParticipantListProps> = ({
   participants,
-  eventId,
+  onLeave,
+  leaving,
 }) => {
   return participants ? (
     <List>
       {participants.map((participant) => (
         <ParticipantListItem
           key={participant.id}
-          eventId={eventId}
           participant={participant}
+          onLeave={onLeave}
+          leaving={leaving}
         />
       ))}
     </List>
