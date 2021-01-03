@@ -240,6 +240,19 @@ paths:
             type: boolean
           required: false
           description: whether to exclude full events
+        - in: query
+          name: venue
+          schema:
+            type: string
+          required: false
+          description: venue id
+        - in: query
+          name: after
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: filter and only return events after this date
       responses:
         '200':
           description: list of events

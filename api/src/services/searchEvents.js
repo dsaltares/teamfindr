@@ -7,6 +7,8 @@ const searchEvents = ({ eventCollection, searchVenues }) => async ({
   sports,
   date,
   excludeFull,
+  venue,
+  after,
 }) => {
   const basicMatchQuery = {};
 
@@ -20,6 +22,11 @@ const searchEvents = ({ eventCollection, searchVenues }) => async ({
   if (sports) {
     basicMatchQuery.sport = { $in: sports.split(':') };
   }
+  if (after) {
+    basicMatchQuery.startsAt = {
+      $gte: new Date(after),
+    };
+  }
   if (date) {
     const fromDate = new Date(date);
     fromDate.setUTCHours(0, 0, 0, 0);
@@ -31,6 +38,9 @@ const searchEvents = ({ eventCollection, searchVenues }) => async ({
       $gte: fromDate,
       $lt: toDate,
     };
+  }
+  if (venue) {
+    basicMatchQuery.venue = venue;
   }
 
   const excludeFullQuery = {};

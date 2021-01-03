@@ -46,7 +46,11 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             alignItems="center"
           >
             <Grid item>
-              <Typography variant="body1" color="textSecondary">
+              <Typography
+                className={classes.titleContainer}
+                variant="body1"
+                color="textSecondary"
+              >
                 Participants{capacityMsg}
               </Typography>
             </Grid>

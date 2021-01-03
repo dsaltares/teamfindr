@@ -14,7 +14,7 @@ import useStyles from './Events.styles';
 import { Location, Sport } from '../../types';
 import { useCurrentLocation, useEvents } from '../../hooks';
 import NewEventDialog from '../../components/NewEventDialog';
-import EventList from './EventList';
+import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
 
 const Events = () => {
@@ -26,7 +26,7 @@ const Events = () => {
   const [date, setDate] = useState<Date | null>(new Date());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
-  const { events } = useEvents(location, radius, sports, date, excludeFull);
+  const { events } = useEvents({ location, radius, sports, date, excludeFull });
 
   const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
   const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);

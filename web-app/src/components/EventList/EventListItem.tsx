@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Event } from '../../types';
 import { Link } from 'react-router-dom';
 import useStyles from './EventListItem.styles';
-import UserAvatar from '../../components/Avatar';
+import UserAvatar from '../Avatar';
 import formatDate from '../../utils/formatDate';
 import SportIcons from '../../utils/sportIcons';
 import { CurrencyFlags } from '../../utils/currencies';

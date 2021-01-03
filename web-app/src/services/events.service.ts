@@ -19,6 +19,8 @@ export interface GetEventsParams {
   sports?: Sport[];
   date?: Date | null;
   excludeFull?: boolean;
+  venue?: string;
+  after?: Date | null;
 }
 
 export interface ModifyParticipantResponse {
@@ -51,6 +53,8 @@ const eventsService = {
     sports,
     date,
     excludeFull,
+    venue,
+    after,
   }: GetEventsParams): Promise<Event[]> => {
     const coords = location?.geo.coordinates || [];
     const query = encodeQueryData({
@@ -60,6 +64,8 @@ const eventsService = {
       sports: sports ? sports?.join(':') : undefined,
       date: date ? date.toISOString() : undefined,
       excludeFull,
+      venue,
+      after: after ? after.toISOString() : undefined,
     });
     const {
       data: { events },
