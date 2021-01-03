@@ -69,3 +69,9 @@ export type Event = {
   createdBy: User;
   price: Price;
 };
+
+export type Participant = {
+  id: string;
+  event: string;
+  user: User;
+};

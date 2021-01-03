@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../endpoints';
-import { Event, Price, Sport, Location } from '../types';
+import { Event, Price, Sport, Location, Participant } from '../types';
 import encodeQueryData from '../utils/encodeQueryData';
 
 export interface CreateEventParams {
@@ -19,6 +19,11 @@ export interface GetEventsParams {
   sports?: Sport[];
   date?: Date | null;
   excludeFull?: boolean;
+}
+
+export interface ModifyParticipantResponse {
+  event: Event;
+  participants: Participant[];
 }
 
 const eventsService = {
@@ -80,6 +85,45 @@ const eventsService = {
       },
     });
     return event;
+  },
+  getParticipants: async (id: string): Promise<Participant[]> => {
+    const {
+      data: { participants },
+    } = await axios.get(`${API_URL}/participants/${id}`, {
+      withCredentials: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+    });
+    return participants;
+  },
+  addParticipant: async (id: string): Promise<ModifyParticipantResponse> => {
+    const {
+      data: { participants, event },
+    } = await axios.post(`${API_URL}/participants/${id}`, undefined, {
+      withCredentials: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+    });
+    return { participants, event };
+  },
+  deleteParticipant: async (id: string): Promise<ModifyParticipantResponse> => {
+    const {
+      data: { participants, event },
+    } = await axios.delete(`${API_URL}/participants/${id}`, {
+      withCredentials: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      },
+    });
+    return { participants, event };
   },
 };
 

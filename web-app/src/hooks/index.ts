@@ -24,3 +24,6 @@ export { default as useVenue } from './venues/useVenue';
 export { default as useCreateEvent } from './events/useCreateEvent';
 export { default as useEvents } from './events/useEvents';
 export { default as useEvent } from './events/useEvent';
+export { default as useParticipants } from './events/useParticipants';
+export { default as useAddParticipant } from './events/useAddParticipant';
+export { default as useRemoveParticipant } from './events/useRemoveParticipant';

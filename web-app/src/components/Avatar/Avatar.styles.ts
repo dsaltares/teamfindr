@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
+    width: 20,
+    height: 20,
   },
   medium: {
     width: theme.spacing(5),

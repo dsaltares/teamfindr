@@ -71,7 +71,9 @@ const Venues = () => {
           {!venues ? (
             <Skeleton width="100%" height="100%" variant="rect" />
           ) : (
-            <Paper>{venues && <VenueList venues={venues} />}</Paper>
+            <Paper className={classes.venuesPaper}>
+              {venues && <VenueList venues={venues} />}
+            </Paper>
           )}
         </Grid>
         <NewVenueDialog

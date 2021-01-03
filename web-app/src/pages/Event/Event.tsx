@@ -21,7 +21,7 @@ const Event = () => {
           <EventBasicInfoPanel event={event} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <ParticipantsPanel event={event} />
+          <ParticipantsPanel eventId={eventId} />
         </Grid>
       </Grid>
     </Page>

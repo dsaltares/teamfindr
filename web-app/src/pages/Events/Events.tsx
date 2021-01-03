@@ -26,13 +26,7 @@ const Events = () => {
   const [date, setDate] = useState<Date | null>(new Date());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
-  const { events, isLoading } = useEvents(
-    location,
-    radius,
-    sports,
-    date,
-    excludeFull
-  );
+  const { events } = useEvents(location, radius, sports, date, excludeFull);
 
   const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
   const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);
@@ -118,7 +112,9 @@ const Events = () => {
             {!events ? (
               <Skeleton width="100%" height="100%" variant="rect" />
             ) : (
-              <Paper>{events && <EventList events={events} />}</Paper>
+              <Paper className={classes.eventsPaper}>
+                {events && <EventList events={events} />}
+              </Paper>
             )}
           </Grid>
         </Grid>

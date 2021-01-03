@@ -48,7 +48,12 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Grid container direction="row" spacing={1}>
+                    <Grid
+                      container
+                      direction="row"
+                      alignItems="center"
+                      spacing={1}
+                    >
                       <Grid item>
                         <UserAvatar
                           firstName={event.createdBy.firstName}
