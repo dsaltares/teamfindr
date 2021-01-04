@@ -8,12 +8,14 @@ interface ParticipantListProps {
   participants?: Participant[];
   onLeave: () => void;
   leaving: boolean;
+  isPast: boolean;
 }
 
 const ParticipantList: React.FC<ParticipantListProps> = ({
   participants,
   onLeave,
   leaving,
+  isPast,
 }) => {
   return participants ? (
     <List>
@@ -23,6 +25,7 @@ const ParticipantList: React.FC<ParticipantListProps> = ({
           participant={participant}
           onLeave={onLeave}
           leaving={leaving}
+          isPast={isPast}
         />
       ))}
     </List>

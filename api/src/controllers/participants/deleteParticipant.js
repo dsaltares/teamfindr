@@ -12,6 +12,13 @@ const PostParticipantController = ({
     };
   }
 
+  if (event.startsAt < new Date().toISOString()) {
+    return {
+      status: 409,
+      body: { message: 'Event is in the past' },
+    };
+  }
+
   const participant = await getParticipant({ eventId, userId: user.id });
   if (!participant) {
     return {

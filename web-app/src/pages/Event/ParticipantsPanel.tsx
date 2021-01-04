@@ -33,6 +33,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const isFull = event && event.numParticipants >= event.capacity;
   const isParticipant =
     participants && user && !!participants.find((p) => p.user.id === user.id);
+  const isPast = Boolean(event && event.startsAt < new Date().toISOString());
   const Icon = event ? SportsIcons[event.sport] : null;
   const icon = Icon ? <Icon /> : null;
   const capacityMsg = event
@@ -66,13 +67,10 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             direction="row"
             justify="space-between"
             alignItems="center"
+            className={classes.titleContainer}
           >
             <Grid item>
-              <Typography
-                className={classes.titleContainer}
-                variant="body1"
-                color="textSecondary"
-              >
+              <Typography variant="body1" color="textSecondary">
                 Participants{capacityMsg}
               </Typography>
             </Grid>
@@ -83,7 +81,10 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
                   color="primary"
                   variant="outlined"
                   disabled={
-                    loadingParticipants || addParticipant.isLoading || isFull
+                    loadingParticipants ||
+                    addParticipant.isLoading ||
+                    isFull ||
+                    isPast
                   }
                   onClick={() => addParticipant.mutate(eventId)}
                 >
@@ -104,6 +105,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             participants={participants}
             onLeave={() => removeParticipant.mutate(eventId)}
             leaving={removeParticipant.isLoading}
+            isPast={isPast}
           />
         </Grid>
       </Grid>

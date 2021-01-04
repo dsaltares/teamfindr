@@ -16,12 +16,14 @@ interface ParticipantProps {
   participant: Participant;
   onLeave: () => void;
   leaving: boolean;
+  isPast: boolean;
 }
 
 const ParticipantListItem: React.FC<ParticipantProps> = ({
   participant,
   onLeave,
   leaving,
+  isPast,
 }) => {
   const { user } = participant;
   const classes = useStyles();
@@ -39,7 +41,7 @@ const ParticipantListItem: React.FC<ParticipantProps> = ({
           />
         </ListItemAvatar>
         <ListItemText primary={`${user.firstName} ${user.lastName}`} />
-        {isCurrentUser && (
+        {isCurrentUser && !isPast && (
           <ListItemSecondaryAction>
             <Button
               className={classes.button}
