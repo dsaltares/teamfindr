@@ -14,6 +14,7 @@ import CurrencySelect from '../CurrencySelect';
 import Currencies from '../../utils/currencies';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { useHistory } from 'react-router-dom';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -46,6 +47,7 @@ interface NewEventDialogContentProps {
 const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
   onClose,
 }) => {
+  const history = useHistory();
   const createEvent = useCreateEvent();
   const { enqueueSnackbar } = useSnackbar();
   const currency = useCurrencyFromCurrentLocation();
@@ -57,12 +59,20 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
   useEffect(() => {
     if (createEvent.isSuccess) {
       onClose();
+      history.push(`/events/${createEvent.data?.id}`);
       enqueueSnackbar('Event created', { variant: 'success' });
     }
     if (createEvent.isError) {
       enqueueSnackbar('Failed to create event', { variant: 'error' });
     }
-  }, [enqueueSnackbar, createEvent.isSuccess, createEvent.isError, onClose]);
+  }, [
+    enqueueSnackbar,
+    createEvent.isSuccess,
+    createEvent.isError,
+    createEvent.data,
+    onClose,
+    history,
+  ]);
 
   return (
     <Formik
