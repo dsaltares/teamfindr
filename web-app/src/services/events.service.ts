@@ -21,6 +21,8 @@ export interface GetEventsParams {
   excludeFull?: boolean;
   venue?: string;
   after?: Date | null;
+  before?: Date | null;
+  isParticipant?: boolean;
 }
 
 export interface ModifyParticipantResponse {
@@ -55,6 +57,8 @@ const eventsService = {
     excludeFull,
     venue,
     after,
+    before,
+    isParticipant,
   }: GetEventsParams): Promise<Event[]> => {
     const coords = location?.geo.coordinates || [];
     const query = encodeQueryData({
@@ -66,6 +70,8 @@ const eventsService = {
       excludeFull,
       venue,
       after: after ? after.toISOString() : undefined,
+      before: before ? before.toISOString() : undefined,
+      isParticipant,
     });
     const {
       data: { events },

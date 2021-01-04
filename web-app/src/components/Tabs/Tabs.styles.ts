@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   tabPanel: {
-    padding: theme.spacing(3),
+    paddingTop: theme.spacing(2),
   },
   tabLabelContainer: {
     display: 'flex',

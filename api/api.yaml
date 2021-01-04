@@ -253,6 +253,19 @@ paths:
             format: date-time
           required: false
           description: filter and only return events after this date
+        - in: query
+          name: before
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: filter and only return events before this date
+        - in: query
+          name: isParticipant
+          schema:
+            type: boolean
+          required: false
+          description: whether to only include events where the user is the participant
       responses:
         '200':
           description: list of events

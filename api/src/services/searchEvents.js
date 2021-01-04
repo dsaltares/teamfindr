@@ -1,16 +1,26 @@
 const formatEvent = require('../utils/formatEvent');
 
-const searchEvents = ({ eventCollection, searchVenues }) => async ({
-  lat,
-  lon,
-  radius,
-  sports,
-  date,
-  excludeFull,
-  venue,
-  after,
+const searchEvents = ({
+  eventCollection,
+  searchVenues,
+  getEventIdsForUser,
+}) => async ({
+  query: {
+    lat,
+    lon,
+    radius,
+    sports,
+    date,
+    excludeFull,
+    venue,
+    after,
+    before,
+    isParticipant,
+  },
+  userId,
 }) => {
   const basicMatchQuery = {};
+  const sortQuery = { startsAt: 1 };
 
   if (lat && lon && radius) {
     const venues = await searchVenues({ lat, lon, radius });
@@ -19,25 +29,36 @@ const searchEvents = ({ eventCollection, searchVenues }) => async ({
     };
   }
 
+  if (isParticipant) {
+    const eventIds = await getEventIdsForUser(userId);
+    basicMatchQuery['_id'] = {
+      $in: eventIds,
+    };
+  }
+
   if (sports) {
     basicMatchQuery.sport = { $in: sports.split(':') };
   }
-  if (after) {
-    basicMatchQuery.startsAt = {
-      $gte: new Date(after),
-    };
-  }
-  if (date) {
-    const fromDate = new Date(date);
-    fromDate.setUTCHours(0, 0, 0, 0);
+  if (after || before || date) {
+    const startsAtQuery = {};
+    if (after) {
+      startsAtQuery['$gte'] = new Date(after);
+    }
+    if (before) {
+      startsAtQuery['$lt'] = new Date(before);
+      sortQuery.startsAt = -1;
+    }
+    if (date) {
+      const fromDate = new Date(date);
+      fromDate.setUTCHours(0, 0, 0, 0);
 
-    const toDate = new Date(fromDate);
-    toDate.setDate(toDate.getDate() + 1);
+      const toDate = new Date(fromDate);
+      toDate.setDate(toDate.getDate() + 1);
+      startsAtQuery['$gte'] = fromDate;
+      startsAtQuery['$lt'] = toDate;
+    }
 
-    basicMatchQuery.startsAt = {
-      $gte: fromDate,
-      $lt: toDate,
-    };
+    basicMatchQuery.startsAt = startsAtQuery;
   }
   if (venue) {
     basicMatchQuery.venue = venue;
@@ -77,7 +98,7 @@ const searchEvents = ({ eventCollection, searchVenues }) => async ({
       },
       { $addFields: { createdBy: { $arrayElemAt: ['$createdBy', 0] } } },
       {
-        $sort: { startsAt: 1 },
+        $sort: sortQuery,
       },
     ])
     .toArray();

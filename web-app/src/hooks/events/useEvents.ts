@@ -5,7 +5,7 @@ import useDebounce from '../utils/useDebounce';
 
 const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
 
-const useVenues = ({
+const useEvents = ({
   location,
   radius,
   sports,
@@ -13,6 +13,8 @@ const useVenues = ({
   excludeFull,
   venue,
   after,
+  before,
+  isParticipant,
 }: GetEventsParams) => {
   const queryClient = useQueryClient();
   const services = useServices();
@@ -28,6 +30,8 @@ const useVenues = ({
         excludeFull,
         venue,
         after,
+        before,
+        isParticipant,
       ],
     ],
     () =>
@@ -39,10 +43,12 @@ const useVenues = ({
         excludeFull,
         venue,
         after,
+        before,
+        isParticipant,
       }),
     {
       staleTime: STALE_TIME_MS,
-      enabled: !!location || !!venue,
+      enabled: !!location || !!venue || !!isParticipant,
       onSuccess: (events) => {
         events.forEach((event) => {
           queryClient.setQueryData(`events/${event.id}`, event);
@@ -57,4 +63,4 @@ const useVenues = ({
   };
 };
 
-export default useVenues;
+export default useEvents;

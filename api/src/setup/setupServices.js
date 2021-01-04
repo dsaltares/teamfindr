@@ -14,6 +14,7 @@ const GetParticipants = require('../services/getParticipants');
 const GetParticipant = require('../services/getParticipant');
 const CreateParticipant = require('../services/createParticipant');
 const DeleteParticipant = require('../services/deleteParticipant');
+const GetEventIdsForUser = require('../services/getEventIdsForUser');
 
 const setupServices = async ({ config, logger }) => {
   const client = new MongoClient(config.databaseURI, {
@@ -48,6 +49,7 @@ const setupServices = async ({ config, logger }) => {
     searchEvents: SearchEvents({
       ...deps,
       searchVenues,
+      getEventIdsForUser: GetEventIdsForUser(deps),
     }),
     getEventById: GetEventById(deps),
     getParticipants: GetParticipants(deps),
