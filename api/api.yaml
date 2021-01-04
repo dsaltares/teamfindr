@@ -499,7 +499,7 @@ components:
       required:
         - event
       properties:
-        venue:
+        event:
           type: object
           required:
             - venue
@@ -525,6 +525,8 @@ components:
               type: string
             price:
               $ref: '#/components/schemas/Price'
+        autoJoin:
+          type: boolean
     PostEventResponse:
       type: object
       required:

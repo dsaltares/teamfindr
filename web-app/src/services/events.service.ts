@@ -11,6 +11,7 @@ export interface CreateEventParams {
   capacity: number;
   description: string;
   price: Price;
+  autoJoin: boolean;
 }
 
 export interface GetEventsParams {
@@ -31,12 +32,15 @@ export interface ModifyParticipantResponse {
 }
 
 const eventsService = {
-  createEvent: async (params: CreateEventParams): Promise<Event> => {
+  createEvent: async ({
+    autoJoin,
+    ...params
+  }: CreateEventParams): Promise<Event> => {
     const {
       data: { event },
     } = await axios.post(
       `${API_URL}/events`,
-      { event: params },
+      { event: params, autoJoin },
       {
         withCredentials: true,
         headers: {

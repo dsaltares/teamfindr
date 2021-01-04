@@ -12,6 +12,8 @@ import { Sport, Venue } from '../../types';
 import { useCreateEvent, useCurrencyFromCurrentLocation } from '../../hooks';
 import CurrencySelect from '../CurrencySelect';
 import Currencies from '../../utils/currencies';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -22,6 +24,7 @@ interface NewEventFormValues {
   amount: number;
   currency: string | null;
   description: string;
+  autoJoin: boolean;
 }
 
 const getInitialValues = (currency: string): NewEventFormValues => ({
@@ -33,6 +36,7 @@ const getInitialValues = (currency: string): NewEventFormValues => ({
   amount: 5,
   currency: Currencies.includes(currency) ? currency : 'EUR',
   description: '',
+  autoJoin: true,
 });
 
 interface NewEventDialogContentProps {
@@ -75,6 +79,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
             amount: values.amount as number,
             currency: values.currency as string,
           },
+          autoJoin: values.autoJoin,
         });
       }}
       validate={(values) => {
@@ -126,8 +131,8 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 />
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2}>
-                  <Grid item xs={12} md={6}>
+                <Grid container direction="row" spacing={2} alignItems="center">
+                  <Grid item xs={12} md={5}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
@@ -137,7 +142,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       helperText={touched.sport && errors.sport}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={6} md={5}>
                     <PlayersSlider
                       id="new-event-players-slider"
                       name="capacity"
@@ -145,10 +150,23 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       onChange={(e, value) => setFieldValue('capacity', value)}
                     />
                   </Grid>
+                  <Grid item xs={6} md={2}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="autoJoin"
+                          checked={values.autoJoin}
+                          onChange={handleChange}
+                          color="primary"
+                        />
+                      }
+                      label="Join"
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2}>
+                <Grid container direction="row" spacing={2} alignItems="center">
                   <Grid item xs={12} md={6}>
                     <DateTimePicker
                       required

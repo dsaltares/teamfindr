@@ -1,7 +1,9 @@
-const postEvent = ({ getVenueById, createEvent }) => async ({
-  body: { event },
-  user,
-}) => {
+const postEvent = ({
+  getVenueById,
+  createEvent,
+  createParticipant,
+  getEventById,
+}) => async ({ body: { event, autoJoin }, user }) => {
   const venue = await getVenueById(event.venue);
   if (!venue) {
     return {
@@ -10,9 +12,19 @@ const postEvent = ({ getVenueById, createEvent }) => async ({
     };
   }
   const createdEvent = await createEvent({ user, event, venue });
+
+  if (!autoJoin) {
+    return {
+      status: 201,
+      body: { event: createdEvent },
+    };
+  }
+
+  await createParticipant({ eventId: createdEvent.id, user });
+  const updatedEvent = await getEventById(createdEvent.id);
   return {
     status: 201,
-    body: { event: createdEvent },
+    body: { event: updatedEvent },
   };
 };
 
