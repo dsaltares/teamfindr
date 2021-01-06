@@ -1,6 +1,6 @@
-const PostEventController = require('../controllers/events/postEvent');
-const GetEventsController = require('../controllers/events/getEvents');
-const GetEventController = require('../controllers/events/getEvent');
+const PostEventController = require('./postEvent');
+const GetEventsController = require('./getEvents');
+const GetEventController = require('./getEvent');
 
 const usersRoutes = {
   basePath: '/events',

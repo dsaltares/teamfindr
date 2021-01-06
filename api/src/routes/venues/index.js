@@ -1,6 +1,6 @@
-const PostVenueController = require('../controllers/venues/postVenue');
-const GetVenuesController = require('../controllers/venues/getVenues');
-const GetVenueController = require('../controllers/venues/getVenue');
+const PostVenueController = require('./postVenue');
+const GetVenuesController = require('./getVenues');
+const GetVenueController = require('./getVenue');
 
 const usersRoutes = {
   basePath: '/venues',

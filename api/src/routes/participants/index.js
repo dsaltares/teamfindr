@@ -1,6 +1,6 @@
-const GetParticipantsController = require('../controllers/participants/getParticipants');
-const PostParticipantController = require('../controllers/participants/postParticipant');
-const DeleteParticipantController = require('../controllers/participants/deleteParticipant');
+const GetParticipantsController = require('./getParticipants');
+const PostParticipantController = require('./postParticipant');
+const DeleteParticipantController = require('./deleteParticipant');
 
 const usersRoutes = {
   basePath: '/participants',

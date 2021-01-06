@@ -1,7 +1,7 @@
 const passport = require('passport');
-const VerifyController = require('../controllers/auth/verify');
-const FailedController = require('../controllers/auth/failed');
-const LogoutController = require('../controllers/auth/logout');
+const VerifyController = require('./verify');
+const FailedController = require('./failed');
+const LogoutController = require('./logout');
 
 const authRoutes = {
   basePath: '/auth',

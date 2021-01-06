@@ -1,4 +1,3 @@
-const rootRoutes = require('../routes/root');
 const authRoutes = require('../routes/auth');
 const usersRoutes = require('../routes/users');
 const venueRoutes = require('../routes/venues');
@@ -44,7 +43,6 @@ const addRoutes = ({ app, basePath, routes, services }) => {
 };
 
 const allRoutes = [
-  rootRoutes,
   authRoutes,
   usersRoutes,
   venueRoutes,

@@ -1,4 +1,4 @@
-const PatchUserController = require('../controllers/users/patchUser');
+const PatchUserController = require('./patchUser');
 
 const usersRoutes = {
   basePath: '/users',
