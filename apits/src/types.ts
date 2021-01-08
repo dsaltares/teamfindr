@@ -22,6 +22,7 @@ export interface User {
   avatar?: string;
   firstName?: string;
   lastName?: string;
+  roles: string[];
 }
 
 export type AuthProvider = 'facebook' | 'google' | 'twitter';

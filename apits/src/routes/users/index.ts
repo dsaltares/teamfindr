@@ -1,6 +1,7 @@
+import { RouteDefinitions } from '../routeDef';
 import PatchUserController from './patchUser';
 
-const usersRoutes = {
+const usersRoutes: RouteDefinitions = {
   basePath: '/users',
   routes: () => [
     {

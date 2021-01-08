@@ -1,6 +1,18 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+import { User } from '../types';
 import formatMongoRecord from '../utils/formatMongoRecord';
 
-const updateUser = ({ userCollection }) => async ({ userId, user }) => {
+interface UpdateUserParams {
+  userId: string;
+  user: {
+    avatar?: string;
+  };
+}
+
+const updateUser = ({ userCollection }: ServiceDependencies) => async ({
+  userId,
+  user,
+}: UpdateUserParams) => {
   const { value: updatedUser } = await userCollection.findOneAndUpdate(
     { _id: userId },
     {
@@ -11,7 +23,7 @@ const updateUser = ({ userCollection }) => async ({ userId, user }) => {
     },
     { returnOriginal: false }
   );
-  return formatMongoRecord(updatedUser);
+  return formatMongoRecord(updatedUser) as User;
 };
 
 export default updateUser;

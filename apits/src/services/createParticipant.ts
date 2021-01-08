@@ -1,11 +1,21 @@
 import { v4 as uuid } from 'uuid';
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+import { Participant, User } from '../types';
 import formatMongoRecord from '../utils/formatMongoRecord';
+
+interface CreateParticipantParams {
+  eventId: string;
+  user: User;
+}
 
 const createParticipant = ({
   logger,
   participantCollection,
   eventCollection,
-}) => async ({ eventId, user }) => {
+}: ServiceDependencies) => async ({
+  eventId,
+  user,
+}: CreateParticipantParams) => {
   logger.info('creating participant', { eventId, userId: user.id });
 
   const mongoFields = {
@@ -23,7 +33,7 @@ const createParticipant = ({
   return {
     ...formatMongoRecord(mongoFields),
     user,
-  };
+  } as Participant;
 };
 
 export default createParticipant;

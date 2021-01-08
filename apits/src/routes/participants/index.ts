@@ -1,8 +1,9 @@
 import GetParticipantsController from './getParticipants';
 import PostParticipantController from './postParticipant';
 import DeleteParticipantController from './deleteParticipant';
+import { RouteDefinitions } from '../routeDef';
 
-const usersRoutes = {
+const participantRoutes: RouteDefinitions = {
   basePath: '/participants',
   routes: () => [
     {
@@ -26,4 +27,4 @@ const usersRoutes = {
   ],
 };
 
-export default usersRoutes;
+export default participantRoutes;

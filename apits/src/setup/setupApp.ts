@@ -4,9 +4,10 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
-import OpenApiValidator from 'express-openapi-validator';
+import { middleware as OpenApiMiddleware } from 'express-openapi-validator';
+import { Config } from '../types';
 
-const setupApp = (config) => {
+const setupApp = (config: Config) => {
   const app = express();
   app.use(
     cors({
@@ -25,11 +26,11 @@ const setupApp = (config) => {
   app.use(cookieParser());
   app.use(bodyParser.json());
   app.use(
-    OpenApiValidator.middleware({
+    OpenApiMiddleware({
       apiSpec: './api.yaml',
       validateRequests: true,
       validateResponses: true,
-      ignorePaths: (path) => {
+      ignorePaths: (path: string) => {
         const ignoredPaths = [
           '/auth/failed',
           '/auth/twitter',

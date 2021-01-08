@@ -1,4 +1,6 @@
-const postVenue = ({ createVenue }) => async ({
+import { ControllerCreator } from '../controller';
+
+const postVenue: ControllerCreator = ({ createVenue }) => async ({
   body: { venue },
   user: { id: userId },
 }) => {

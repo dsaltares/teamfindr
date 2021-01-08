@@ -1,5 +1,7 @@
 import getConfig from './getConfig';
 import setupLogger from './setupLogger';
+import setupServiceDependencies from './setupServiceDependencies';
+import createIndexes from './createIndexes';
 import setupServices from './setupServices';
 import setupPassport from './setupPassport';
 import setupApp from './setupApp';
@@ -8,7 +10,9 @@ import setupRoutes from './setupRoutes';
 const startServer = async () => {
   const config = await getConfig();
   const logger = setupLogger(config);
-  const services = await setupServices({ config, logger });
+  const dependencies = await setupServiceDependencies({ config, logger });
+  await createIndexes(dependencies);
+  const services = setupServices(dependencies);
   const app = setupApp(config);
 
   setupPassport(services);

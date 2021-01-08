@@ -1,8 +1,9 @@
 import PostEventController from './postEvent';
 import GetEventsController from './getEvents';
 import GetEventController from './getEvent';
+import { RouteDefinitions } from '../routeDef';
 
-const usersRoutes = {
+const eventRoutes: RouteDefinitions = {
   basePath: '/events',
   routes: () => [
     {
@@ -26,4 +27,4 @@ const usersRoutes = {
   ],
 };
 
-export default usersRoutes;
+export default eventRoutes;

@@ -1,6 +1,9 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import formatEvent from '../utils/formatEvent';
 
-const getEventById = ({ eventCollection }) => async (id) => {
+const getEventById = ({ eventCollection }: ServiceDependencies) => async (
+  id: string
+) => {
   const mongoEvents = await eventCollection
     .aggregate([
       {

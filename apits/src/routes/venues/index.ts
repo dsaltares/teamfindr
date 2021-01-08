@@ -1,8 +1,9 @@
 import PostVenueController from './postVenue';
 import GetVenuesController from './getVenues';
 import GetVenueController from './getVenue';
+import { RouteDefinitions } from '../routeDef';
 
-const usersRoutes = {
+const venueRoutes: RouteDefinitions = {
   basePath: '/venues',
   routes: () => [
     {
@@ -27,4 +28,4 @@ const usersRoutes = {
   ],
 };
 
-export default usersRoutes;
+export default venueRoutes;

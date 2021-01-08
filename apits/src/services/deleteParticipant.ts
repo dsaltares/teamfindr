@@ -1,8 +1,17 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+interface DeleteParticipantParams {
+  eventId: string;
+  userId: string;
+}
+
 const deleteParticipant = ({
   logger,
   participantCollection,
   eventCollection,
-}) => async ({ eventId, userId }) => {
+}: ServiceDependencies) => async ({
+  eventId,
+  userId,
+}: DeleteParticipantParams) => {
   logger.info('deleting participant', { eventId, userId });
   await participantCollection.deleteOne({
     user: userId,

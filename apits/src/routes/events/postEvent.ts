@@ -1,4 +1,6 @@
-const postEvent = ({
+import { ControllerCreator } from '../controller';
+
+const postEvent: ControllerCreator = ({
   getVenueById,
   createEvent,
   createParticipant,

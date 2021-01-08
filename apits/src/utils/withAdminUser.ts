@@ -1,4 +1,6 @@
-const withAdminUser = (controller) => (req) => {
+import { Controller } from '../routes/controller';
+
+const withAdminUser = (controller: Controller): Controller => async (req) => {
   const { user } = req;
   if (!user || !user.roles.includes('admin')) {
     return {

@@ -1,11 +1,15 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+import { Participant } from '../types';
 import formatMongoRecord from '../utils/formatMongoRecord';
 
-const formatParticipant = (participant) => ({
+const formatParticipant = (participant: any): Participant => ({
   ...formatMongoRecord(participant),
   user: formatMongoRecord(participant.user),
 });
 
-const getParticipants = ({ participantCollection }) => async (eventId) => {
+const getParticipants = ({
+  participantCollection,
+}: ServiceDependencies) => async (eventId: string) => {
   const mongoParticipants = await participantCollection
     .aggregate([
       {

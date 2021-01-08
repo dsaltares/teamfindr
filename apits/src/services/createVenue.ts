@@ -1,10 +1,23 @@
 import { v4 as uuid } from 'uuid';
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+import { Location, Venue } from '../types';
 import formatMongoRecord from '../utils/formatMongoRecord';
 
-const createVenue = ({ venueCollection, logger }) => async ({
+interface CreateVenueParams {
+  venue: {
+    name: string;
+    location: Location;
+  };
+  userId: string;
+}
+
+const createVenue = ({
+  venueCollection,
+  logger,
+}: ServiceDependencies) => async ({
   venue: { name, location },
   userId,
-}) => {
+}: CreateVenueParams) => {
   logger.info('creating venue', { name, userId });
 
   const mongoFields = {
@@ -16,7 +29,7 @@ const createVenue = ({ venueCollection, logger }) => async ({
 
   await venueCollection.insertOne(mongoFields);
 
-  return formatMongoRecord(mongoFields);
+  return formatMongoRecord(mongoFields) as Venue;
 };
 
 export default createVenue;

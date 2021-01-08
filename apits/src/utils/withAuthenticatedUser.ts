@@ -1,4 +1,8 @@
-const withAuthenticatedUser = (controller) => (req) => {
+import { Controller } from '../routes/controller';
+
+const withAuthenticatedUser = (controller: Controller): Controller => async (
+  req
+) => {
   if (!req.user) {
     return {
       status: 401,

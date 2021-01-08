@@ -1,4 +1,16 @@
-const makeController = ({ controller, services }) => async (req, res) => {
+import express from 'express';
+import { Controller, Request } from '../routes/controller';
+import { Services } from './setupServices';
+
+interface MakeControllerArgs {
+  controller: Controller;
+  services: Services;
+}
+
+const makeController = ({ controller, services }: MakeControllerArgs) => async (
+  req: Request,
+  res: express.Response
+) => {
   try {
     const response = await controller(req);
     const { status, body, redirect } = response;

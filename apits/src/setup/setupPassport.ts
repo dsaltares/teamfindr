@@ -7,8 +7,9 @@ import DeserializeUser from '../passport/deserializeUser';
 import VerifyFacebook from '../passport/verifyFacebook';
 import VerifyTwitter from '../passport/verifyTwitter';
 import VerifyGoogle from '../passport/verifyGoogle';
+import { Services } from './setupServices';
 
-const setupPassport = (services) => {
+const setupPassport = (services: Services) => {
   const { config } = services;
   passport.serializeUser(SerializeUser());
   passport.deserializeUser(DeserializeUser(services));

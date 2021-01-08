@@ -1,10 +1,34 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import formatEvent from '../utils/formatEvent';
+import getEventIdsForUser from './getEventIdsForUser';
+import searchVenues from './searchVenues';
+
+type SearchEventsDependencies = ServiceDependencies & {
+  searchVenues: ReturnType<typeof searchVenues>;
+  getEventIdsForUser: ReturnType<typeof getEventIdsForUser>;
+};
+
+interface SearchEventParams {
+  query: {
+    lat?: number;
+    lon?: number;
+    radius?: number;
+    sports?: string;
+    date?: string;
+    excludeFull?: string;
+    venue?: string;
+    after?: string;
+    before?: string;
+    isParticipant?: boolean;
+  };
+  userId: string;
+}
 
 const searchEvents = ({
   eventCollection,
   searchVenues,
   getEventIdsForUser,
-}) => async ({
+}: SearchEventsDependencies) => async ({
   query: {
     lat,
     lon,
@@ -18,8 +42,8 @@ const searchEvents = ({
     isParticipant,
   },
   userId,
-}) => {
-  const basicMatchQuery = {};
+}: SearchEventParams) => {
+  const basicMatchQuery: any = {};
   const sortQuery = { startsAt: 1 };
 
   if (lat && lon && radius) {
@@ -40,7 +64,7 @@ const searchEvents = ({
     basicMatchQuery.sport = { $in: sports.split(':') };
   }
   if (after || before || date) {
-    const startsAtQuery = {};
+    const startsAtQuery: any = {};
     if (after) {
       startsAtQuery['$gte'] = new Date(after);
     }
@@ -64,7 +88,7 @@ const searchEvents = ({
     basicMatchQuery.venue = venue;
   }
 
-  const excludeFullQuery = {};
+  const excludeFullQuery: any = {};
   if (excludeFull) {
     excludeFullQuery['$expr'] = {
       $gt: ['$capacity', '$numParticipants'],

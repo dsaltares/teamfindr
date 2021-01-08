@@ -1,4 +1,6 @@
-const GetEventsController = ({ getEventById }) => async ({
+import { ControllerCreator } from '../controller';
+
+const GetEventsController: ControllerCreator = ({ getEventById }) => async ({
   params: { eventId },
 }) => {
   const event = await getEventById(eventId);

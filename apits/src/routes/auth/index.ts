@@ -2,8 +2,9 @@ import passport from 'passport';
 import VerifyController from './verify';
 import FailedController from './failed';
 import LogoutController from './logout';
+import { RouteDefinitions } from '../routeDef';
 
-const authRoutes = {
+const authRoutes: RouteDefinitions = {
   basePath: '/auth',
   routes: (config) => [
     {

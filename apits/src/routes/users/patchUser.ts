@@ -1,4 +1,9 @@
-const patchUserController = ({ getUserById, updateUser }) => async ({
+import { ControllerCreator } from '../controller';
+
+const patchUserController: ControllerCreator = ({
+  getUserById,
+  updateUser,
+}) => async ({
   params: { userId },
   body: { user },
   user: { id: requestUserId },

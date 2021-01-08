@@ -1,7 +1,19 @@
+import { ServiceDependencies } from '../setup/setupServiceDependencies';
+import { Venue } from '../types';
 import formatMongoRecord from '../utils/formatMongoRecord';
 
-const searchVenues = ({ venueCollection }) => async ({ lat, lon, radius }) => {
-  const query = {};
+interface SearchVenuesParams {
+  lat?: number;
+  lon?: number;
+  radius?: number;
+}
+
+const searchVenues = ({ venueCollection }: ServiceDependencies) => async ({
+  lat,
+  lon,
+  radius,
+}: SearchVenuesParams) => {
+  const query: any = {};
   if (lat && lon && radius) {
     query['location.geo'] = {
       $near: {
@@ -15,7 +27,7 @@ const searchVenues = ({ venueCollection }) => async ({ lat, lon, radius }) => {
     };
   }
   const mongoVenues = await venueCollection.find(query).toArray();
-  return mongoVenues.map(formatMongoRecord);
+  return mongoVenues.map(formatMongoRecord) as Venue[];
 };
 
 export default searchVenues;

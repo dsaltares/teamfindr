@@ -1,7 +1,9 @@
-const GetVenuesController = ({ searchVenues }) => async ({
-  query: { lat, lon, radius },
+import { ControllerCreator } from '../controller';
+
+const GetVenuesController: ControllerCreator = ({ searchVenues }) => async ({
+  query,
 }) => {
-  const venues = await searchVenues({ lat, lon, radius });
+  const venues = await searchVenues(query);
   return {
     status: 200,
     body: { venues },

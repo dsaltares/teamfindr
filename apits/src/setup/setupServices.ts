@@ -1,5 +1,3 @@
-import { MongoClient } from 'mongodb';
-import createIndexes from './createIndexes';
 import CreateUser from '../services/createUser';
 import GetUserByEmail from '../services/getUserByEmail';
 import GetUserById from '../services/getUserById';
@@ -15,29 +13,14 @@ import GetParticipant from '../services/getParticipant';
 import CreateParticipant from '../services/createParticipant';
 import DeleteParticipant from '../services/deleteParticipant';
 import GetEventIdsForUser from '../services/getEventIdsForUser';
+import { ServiceDependencies } from './setupServiceDependencies';
 
-const setupServices = async ({ config, logger }) => {
-  const client = new MongoClient(config.databaseURI, {
-    useUnifiedTopology: true,
-  });
-  await client.connect();
-  const db = client.db();
-
-  const deps = {
-    logger,
-    userCollection: db.collection('User'),
-    venueCollection: db.collection('Venue'),
-    eventCollection: db.collection('Event'),
-    participantCollection: db.collection('Participant'),
-  };
-
-  await createIndexes(deps);
-
+const setupServices = (deps: ServiceDependencies) => {
   const searchVenues = SearchVenues(deps);
 
   return {
-    config,
-    logger,
+    config: deps.config,
+    logger: deps.logger,
     createUser: CreateUser(deps),
     getUserByEmail: GetUserByEmail(deps),
     getUserById: GetUserById(deps),
@@ -58,5 +41,7 @@ const setupServices = async ({ config, logger }) => {
     deleteParticipant: DeleteParticipant(deps),
   };
 };
+
+export type Services = ReturnType<typeof setupServices>;
 
 export default setupServices;

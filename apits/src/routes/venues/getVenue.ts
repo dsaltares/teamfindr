@@ -1,4 +1,6 @@
-const GetVenuesController = ({ getVenueById }) => async ({
+import { ControllerCreator } from '../controller';
+
+const GetVenuesController: ControllerCreator = ({ getVenueById }) => async ({
   params: { venueId },
 }) => {
   const venue = await getVenueById(venueId);

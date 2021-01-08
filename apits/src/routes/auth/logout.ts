@@ -1,4 +1,6 @@
-const logoutController = ({ config }) => (req) => {
+import { ControllerCreator } from '../controller';
+
+const logoutController: ControllerCreator = ({ config }) => async (req) => {
   req.logout();
   return {
     redirect: config.clientUrl,

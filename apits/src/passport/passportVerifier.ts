@@ -1,7 +1,15 @@
-const passportVerifier = (profileToUserParams) => ({
+import { Services } from '../setup/setupServices';
+import { AnyProfile, DoneFn, ProfileToUserParamsFn } from './types';
+
+const passportVerifier = (profileToUserParams: ProfileToUserParamsFn) => ({
   getUserByEmail,
   createUser,
-}) => async (_accessToken, _refreshToken, profile, done) => {
+}: Services) => async (
+  _accessToken: string,
+  _refreshToken: string,
+  profile: AnyProfile,
+  done: DoneFn
+) => {
   const params = profileToUserParams(profile);
   const existingUser = await getUserByEmail(params.email);
   if (existingUser) {

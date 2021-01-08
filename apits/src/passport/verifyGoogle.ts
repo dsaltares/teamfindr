@@ -1,6 +1,7 @@
 import passportVerifier from './passportVerifier';
+import { AnyProfile } from './types';
 
-const profileToUserParams = (profile) => {
+const profileToUserParams = (profile: AnyProfile) => {
   const email = profile.emails[0].value;
   const { familyName, givenName } = profile.name;
   const avatar = profile.photos[0].value;

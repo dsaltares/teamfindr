@@ -1,4 +1,6 @@
-const PostParticipantController = ({
+import { ControllerCreator } from '../controller';
+
+const PostParticipantController: ControllerCreator = ({
   getEventById,
   getParticipant,
   deleteParticipant,
