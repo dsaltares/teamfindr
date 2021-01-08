@@ -424,12 +424,9 @@ components:
       type: object
       required:
         - user
-        - cookies
       properties:
         user:
           $ref: '#/components/schemas/User'
-        cookies:
-          $ref: '#/components/schemas/Cookies'
     ErrorResponse:
       type: object
       required:
@@ -584,16 +581,6 @@ components:
           type: string
           format: date-time
         avatar:
-          type: string
-    Cookies:
-      type: object
-      required:
-        - session
-        - session.sig
-      properties:
-        session:
-          type: string
-        session.sig:
           type: string
     Coordinates:
       type: array
