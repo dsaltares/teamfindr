@@ -14,6 +14,7 @@ export { default as useChangeAvatar } from './user/useChangeAvatar';
 export { default as useDeferredState } from './utils/useDeferredState';
 export { default as usePrefetch } from './utils/usePrefetch';
 export { default as useWindowSize } from './utils/useWindowSize';
+export { default as useLocationQuery } from './utils/useLocationQuery';
 
 // Venues
 export { default as useCreateVenue } from './venues/useCreateVenue';

@@ -9,7 +9,11 @@ const WithAuthentication = <P extends object>(
   const { user } = useUser();
 
   if (!user) {
-    return <Redirect to="/login" />;
+    return (
+      <Redirect
+        to={`/login?redirect=${encodeURIComponent(window.location.href)}`}
+      />
+    );
   }
 
   return <Component {...props} />;

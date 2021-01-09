@@ -23,8 +23,11 @@ const userService = {
       throw error;
     }
   },
-  openIdpAuthPage: (provider: AuthProvider) => {
-    window.open(`${API_URL}/auth/${provider}`, '_self');
+  openIdpAuthPage: (provider: AuthProvider, redirect: string) => {
+    window.open(
+      `${API_URL}/auth/${provider}?redirect=${encodeURIComponent(redirect)}`,
+      '_self'
+    );
   },
   logout: () => {
     window.open(`${API_URL}/auth/logout`, '_self');

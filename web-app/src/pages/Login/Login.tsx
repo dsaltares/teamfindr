@@ -7,7 +7,7 @@ import {
   TwitterLoginButton,
 } from '../../components/LoginButtons';
 import useStyles from './Login.styles';
-import { useLoginViaSocialMedia } from '../../hooks';
+import { useLoginViaSocialMedia, useLocationQuery } from '../../hooks';
 import { AuthProvider } from '../../types';
 
 const LoginButtons = [
@@ -27,6 +27,7 @@ const LoginButtons = [
 
 function Login() {
   const loginViaSocialMedia = useLoginViaSocialMedia();
+  const { redirect } = useLocationQuery();
   const classes = useStyles();
 
   return (
@@ -66,7 +67,8 @@ function Login() {
                 <loginButton.Button
                   onClick={() =>
                     loginViaSocialMedia(
-                      loginButton.authProvider as AuthProvider
+                      loginButton.authProvider as AuthProvider,
+                      redirect as string
                     )
                   }
                 />

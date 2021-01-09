@@ -26,41 +26,59 @@ const authRoutes: RouteDefinitions = {
     {
       method: 'get',
       path: 'twitter',
-      handler: passport.authenticate('twitter'),
+      handler: (req, res) => {
+        req.session.redirect = req.query.redirect;
+        return passport.authenticate('twitter')(req, res);
+      },
     },
     {
       method: 'get',
       path: 'twitter/redirect',
-      handler: passport.authenticate('twitter', {
-        successRedirect: config.clientUrl,
-        failureRedirect: '/auth/failed',
-      }),
+      handler: (req, res) => {
+        passport.authenticate('twitter', {
+          successRedirect: req.session.redirect || config.clientUrl,
+          failureRedirect: '/auth/failed',
+        })(req, res);
+      },
     },
     {
       method: 'get',
       path: 'facebook',
-      handler: passport.authenticate('facebook'),
+      handler: (req, res) => {
+        req.session.redirect = req.query.redirect;
+        return passport.authenticate('facebook')(req, res);
+      },
     },
     {
       method: 'get',
       path: 'facebook/redirect',
-      handler: passport.authenticate('facebook', {
-        successRedirect: config.clientUrl,
-        failureRedirect: '/auth/failed',
-      }),
+      handler: (req, res) => {
+        passport.authenticate('facebook', {
+          successRedirect: req.session.redirect || config.clientUrl,
+          failureRedirect: '/auth/failed',
+        })(req, res);
+      },
     },
     {
       method: 'get',
       path: 'google',
-      handler: passport.authenticate('google', { scope: ['email', 'profile'] }),
+      handler: (req, res) => {
+        req.session.redirect = req.query.redirect;
+        return passport.authenticate('google', { scope: ['email', 'profile'] })(
+          req,
+          res
+        );
+      },
     },
     {
       method: 'get',
       path: 'google/redirect',
-      handler: passport.authenticate('google', {
-        successRedirect: config.clientUrl,
-        failureRedirect: '/auth/failed',
-      }),
+      handler: (req, res) => {
+        passport.authenticate('google', {
+          successRedirect: req.session.redirect || config.clientUrl,
+          failureRedirect: '/auth/failed',
+        })(req, res);
+      },
     },
   ],
 };
