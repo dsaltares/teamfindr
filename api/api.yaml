@@ -522,6 +522,8 @@ components:
               type: string
             price:
               $ref: '#/components/schemas/Price'
+            linkOnly:
+              type: boolean
         autoJoin:
           type: boolean
     PostEventResponse:
@@ -715,6 +717,8 @@ components:
           $ref: '#/components/schemas/User'
         price:
           $ref: '#/components/schemas/Price'
+        linkOnly:
+          type: boolean
     Events:
       type: array
       items:

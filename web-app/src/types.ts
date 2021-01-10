@@ -68,6 +68,7 @@ export type Event = {
   participants: User[];
   createdBy: User;
   price: Price;
+  linkOnly?: boolean;
 };
 
 export type Participant = {

@@ -26,6 +26,7 @@ interface NewEventFormValues {
   currency: string | null;
   description: string;
   autoJoin: boolean;
+  linkOnly: boolean;
 }
 
 const getInitialValues = (currency: string): NewEventFormValues => ({
@@ -38,6 +39,7 @@ const getInitialValues = (currency: string): NewEventFormValues => ({
   currency: Currencies.includes(currency) ? currency : 'EUR',
   description: '',
   autoJoin: true,
+  linkOnly: false,
 });
 
 interface NewEventDialogContentProps {
@@ -90,6 +92,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
             currency: values.currency as string,
           },
           autoJoin: values.autoJoin,
+          linkOnly: values.linkOnly,
         });
       }}
       validate={(values) => {
@@ -142,7 +145,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={12} md={5}>
+                  <Grid item xs={12} md={6}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
@@ -152,7 +155,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       helperText={touched.sport && errors.sport}
                     />
                   </Grid>
-                  <Grid item xs={6} md={5}>
+                  <Grid item xs={12} md={6}>
                     <PlayersSlider
                       id="new-event-players-slider"
                       name="capacity"
@@ -160,7 +163,11 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       onChange={(e, value) => setFieldValue('capacity', value)}
                     />
                   </Grid>
-                  <Grid item xs={6} md={2}>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="row" spacing={2} alignItems="center">
+                  <Grid item xs={6} md={6}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -171,6 +178,19 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                         />
                       }
                       label="Join"
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={6}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="linkOnly"
+                          checked={values.linkOnly}
+                          onChange={handleChange}
+                          color="primary"
+                        />
+                      }
+                      label="Private (link-only)"
                     />
                   </Grid>
                 </Grid>

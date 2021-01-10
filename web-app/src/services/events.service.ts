@@ -12,6 +12,7 @@ export interface CreateEventParams {
   description: string;
   price: Price;
   autoJoin: boolean;
+  linkOnly: boolean;
 }
 
 export interface GetEventsParams {

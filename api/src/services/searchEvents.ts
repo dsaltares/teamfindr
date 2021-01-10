@@ -58,6 +58,8 @@ const searchEvents = ({
     basicMatchQuery['_id'] = {
       $in: eventIds,
     };
+  } else {
+    basicMatchQuery.linkOnly = { $ne: true };
   }
 
   if (sports) {
