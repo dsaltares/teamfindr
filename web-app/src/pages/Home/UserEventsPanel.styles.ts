@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    minHeight: 300,
+  eventContainer: {
+    minHeight: 200,
   },
   buttonContainer: {
     paddingTop: theme.spacing(3),

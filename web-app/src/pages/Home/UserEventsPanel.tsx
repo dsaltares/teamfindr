@@ -24,7 +24,12 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
   });
 
   return events ? (
-    <Grid container direction="column">
+    <Grid
+      container
+      className={classes.eventContainer}
+      direction="column"
+      justify="space-between"
+    >
       <Grid item>
         <EventList events={events} />
       </Grid>
@@ -64,10 +69,9 @@ const AllTabs: TabType[] = [
 
 const UserEventsPanel = () => {
   const [currentTab, setCurrentTab] = useState('future');
-  const classes = useStyles();
 
   return (
-    <Paper className={classes.paper}>
+    <Paper>
       <Tabs value={currentTab} onChange={setCurrentTab} tabs={AllTabs} />
     </Paper>
   );
