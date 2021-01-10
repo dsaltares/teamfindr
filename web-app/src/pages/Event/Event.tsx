@@ -15,7 +15,7 @@ const Event = () => {
   const { event } = useEvent(eventId);
 
   return (
-    <Page title={event ? `${event.sport} at ${event.venue.name}` : ''}>
+    <Page title="Event">
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} md={6}>
           <EventBasicInfoPanel event={event} />

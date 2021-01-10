@@ -10,21 +10,24 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import LockIcon from '@material-ui/icons/Lock';
 import { Event } from '../../types';
 import Map from '../../components/Map';
 import useStyles from './EventBasicInfoPanel.styles';
 import getGoogleMapsUrl from '../../utils/getGoogleMapsUrl';
 import formatDate from '../../utils/formatDate';
 import { CurrencyFlags } from '../../utils/currencies';
+import SportIcons from '../../utils/sportIcons';
 
 interface InfoRowProps {
   icon: React.ReactNode;
   text?: string;
+  link?: string;
 }
 
-const InfoRow: React.FC<InfoRowProps> = ({ icon, text }) => {
+const InfoRow: React.FC<InfoRowProps> = ({ icon, text, link }) => {
   const classes = useStyles();
-  return (
+  const content = (
     <Grid
       container
       direction="row"
@@ -46,6 +49,21 @@ const InfoRow: React.FC<InfoRowProps> = ({ icon, text }) => {
       </Grid>
     </Grid>
   );
+
+  return link ? (
+    <Link
+      component="a"
+      href={link}
+      rel="nofollow noopener"
+      target="_blank"
+      color="inherit"
+      underline="none"
+    >
+      {content}
+    </Link>
+  ) : (
+    content
+  );
 };
 
 interface EventBasicInfoPanelProps {
@@ -56,48 +74,60 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
   const classes = useStyles();
   const venue = event?.venue;
 
+  const items = [
+    {
+      key: 'sport',
+      Icon: event ? SportIcons[event.sport] : SportIcons['Football'],
+      text: event?.sport,
+    },
+    {
+      key: 'location',
+      Icon: LocationOnIcon,
+      text:
+        venue &&
+        `${venue.name} - ${
+          venue.location.description || venue.location.name || ''
+        }`,
+      link: getGoogleMapsUrl(venue),
+    },
+    {
+      key: 'date',
+      Icon: EventIcon,
+      text: event ? formatDate(event?.startsAt) : '',
+    },
+    {
+      key: 'price',
+      Icon: CreditCardIcon,
+      text: event
+        ? `${event.price.amount} ${event.price.currency} ${
+            CurrencyFlags[event.price.currency]
+          }`
+        : '',
+    },
+    {
+      key: 'linkOnly',
+      Icon: LockIcon,
+      text: 'Private event - only users with the link can see it.',
+      hidden: !event || !event.linkOnly,
+    },
+    {
+      key: 'description',
+      Icon: InfoIcon,
+      text: event?.description,
+    },
+  ];
+
   return (
     <Card className={classes.card}>
       <Grid container direction="column">
-        <Grid item>
-          <Link
-            component="a"
-            href={getGoogleMapsUrl(venue)}
-            rel="nofollow noopener"
-            target="_blank"
-            color="inherit"
-            underline="none"
-          >
-            <InfoRow
-              icon={<LocationOnIcon />}
-              text={venue?.location.description || venue?.location.name || ''}
-            />
-          </Link>
-        </Grid>
-        <Divider />
-        <Grid item>
-          <InfoRow
-            icon={<EventIcon />}
-            text={event ? formatDate(event?.startsAt) : ''}
-          />
-        </Grid>
-        <Divider />
-        <Grid item>
-          <InfoRow
-            icon={<CreditCardIcon />}
-            text={
-              event
-                ? `${event.price.amount} ${event.price.currency} ${
-                    CurrencyFlags[event.price.currency]
-                  }`
-                : ''
-            }
-          />
-        </Grid>
-        <Divider />
-        <Grid item>
-          <InfoRow icon={<InfoIcon />} text={event?.description} />
-        </Grid>
+        {items.map((item, index) =>
+          !item.hidden ? (
+            <React.Fragment key={item.key}>
+              {index > 0 && <Divider />}
+              <InfoRow icon={<item.Icon />} text={item.text} link={item.link} />
+            </React.Fragment>
+          ) : null
+        )}
       </Grid>
       <CardMedia>
         <Map location={venue?.location || null} />
