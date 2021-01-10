@@ -46,7 +46,10 @@ const authRoutes: RouteDefinitions = {
       path: 'facebook',
       handler: (req, res) => {
         req.session.redirect = req.query.redirect;
-        return passport.authenticate('facebook')(req, res);
+        return passport.authenticate('facebook', { scope: ['email'] })(
+          req,
+          res
+        );
       },
     },
     {
