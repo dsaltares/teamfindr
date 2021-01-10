@@ -1,16 +1,18 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import AvatarUploader from './AvatarUploader';
 import useStyles from './Profile.styles';
-import { useUser } from '../../../hooks';
+import { useUser, useLogout } from '../../../hooks';
 import { User } from '../../../types';
 
 const Profile = () => {
   const classes = useStyles();
   const user = useUser().user as User;
+  const logout = useLogout();
 
   const dataItems = [
     {
@@ -34,7 +36,7 @@ const Profile = () => {
       alignContent="center"
     >
       <Grid item>
-        <div className={classes.avatarContainer}>
+        <div className={classes.centeredContainer}>
           <AvatarUploader />
         </div>
       </Grid>
@@ -59,6 +61,13 @@ const Profile = () => {
             </Grid>
           ))}
         </Grid>
+      </Grid>
+      <Grid item alignItems="center">
+        <div className={classes.centeredContainer}>
+          <Button color="primary" variant="text" onClick={logout}>
+            Log out
+          </Button>
+        </div>
       </Grid>
     </Grid>
   );

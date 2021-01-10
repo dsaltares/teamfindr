@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  avatarContainer: {
+  centeredContainer: {
     display: 'flex',
     justifyContent: 'center',
   },
