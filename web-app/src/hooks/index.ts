@@ -20,6 +20,7 @@ export { default as useLocationQuery } from './utils/useLocationQuery';
 export { default as useCreateVenue } from './venues/useCreateVenue';
 export { default as useVenues } from './venues/useVenues';
 export { default as useVenue } from './venues/useVenue';
+export { default as useShareVenue } from './venues/useShareVenue';
 
 // Events
 export { default as useCreateEvent } from './events/useCreateEvent';
