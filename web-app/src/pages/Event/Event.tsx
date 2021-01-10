@@ -1,21 +1,29 @@
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import { useParams } from 'react-router';
+import ShareIcon from '@material-ui/icons/Share';
 import Page from '../../components/Page';
 import EventBasicInfoPanel from './EventBasicInfoPanel';
-import { useEvent } from '../../hooks';
+import { useEvent, useShareEvent } from '../../hooks';
 import ParticipantsPanel from './ParticipantsPanel';
 
 interface EventRouteParams {
   eventId: string;
 }
-
-const Event = () => {
+const EventPage = () => {
   const { eventId } = useParams<EventRouteParams>();
   const { event } = useEvent(eventId);
+  const shareEvent = useShareEvent(event);
 
   return (
-    <Page title="Event">
+    <Page
+      title="Event"
+      titleAction={{
+        icon: <ShareIcon />,
+        disabled: !event,
+        onClick: shareEvent,
+      }}
+    >
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} md={6}>
           <EventBasicInfoPanel event={event} />
@@ -28,4 +36,4 @@ const Event = () => {
   );
 };
 
-export default React.memo(Event);
+export default React.memo(EventPage);
