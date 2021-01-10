@@ -4,6 +4,7 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 import { middleware as OpenApiMiddleware } from 'express-openapi-validator';
 import { Config } from '../types';
 
@@ -46,6 +47,7 @@ const setupApp = (config: Config) => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(helmet());
   app.enable('trust proxy');
 
   return app;
