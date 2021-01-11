@@ -18,11 +18,14 @@ const EventPage = () => {
   return (
     <Page
       title="Event"
-      titleAction={{
-        icon: <ShareIcon />,
-        disabled: !event,
-        onClick: shareEvent,
-      }}
+      titleActions={[
+        {
+          key: 'share',
+          icon: <ShareIcon />,
+          disabled: !event,
+          onClick: shareEvent,
+        },
+      ]}
     >
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} md={6}>

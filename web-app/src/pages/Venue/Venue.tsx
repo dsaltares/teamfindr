@@ -22,11 +22,14 @@ const Venue = () => {
   return (
     <Page
       title={venue?.name}
-      titleAction={{
-        icon: <ShareIcon />,
-        disabled: !venue,
-        onClick: shareVenue,
-      }}
+      titleActions={[
+        {
+          key: 'share',
+          icon: <ShareIcon />,
+          disabled: !venue,
+          onClick: shareVenue,
+        },
+      ]}
     >
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} md={6}>

@@ -36,11 +36,14 @@ const Venues = () => {
   return (
     <Page
       title="Venues"
-      titleAction={{
-        label: 'New venue',
-        icon: <AddIcon />,
-        onClick: handleNewVenueDialogOpen,
-      }}
+      titleActions={[
+        {
+          key: 'newVenue',
+          label: 'New venue',
+          icon: <AddIcon />,
+          onClick: handleNewVenueDialogOpen,
+        },
+      ]}
     >
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>

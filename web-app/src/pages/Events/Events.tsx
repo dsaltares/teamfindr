@@ -48,11 +48,14 @@ const Events = () => {
     <>
       <Page
         title="Events"
-        titleAction={{
-          label: 'New event',
-          icon: <AddIcon />,
-          onClick: handleNewEventDialogOpen,
-        }}
+        titleActions={[
+          {
+            key: 'newEvent',
+            label: 'New event',
+            icon: <AddIcon />,
+            onClick: handleNewEventDialogOpen,
+          },
+        ]}
       >
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
