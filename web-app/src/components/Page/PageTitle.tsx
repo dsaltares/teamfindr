@@ -27,7 +27,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
   const showIconsOnly = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container>
+    <Grid container alignItems="center" justify="space-between">
       <Grid item>
         {title ? (
           <Typography variant="h6">{title}</Typography>
@@ -40,6 +40,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
           showIconsOnly || !action.label ? (
             <IconButton
               key={action.key}
+              className={action.danger ? classes.dangerButton : undefined}
               color="primary"
               disabled={action.disabled}
               onClick={action.onClick}
@@ -48,7 +49,9 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
             </IconButton>
           ) : (
             <Button
+              key={action.key}
               startIcon={action.icon}
+              className={action.danger ? classes.dangerButton : undefined}
               color="primary"
               variant="outlined"
               onClick={action.onClick}

@@ -36,10 +36,14 @@ const useCurrentLocation = () => {
   const ipLocation = useCurrentIpLocation();
 
   const ipLocationFinished = !!ipLocation.location || !!ipLocation.error;
-  const geoError = !!geoLocation.error;
   const validIp = ipLocationFinished && !!ipLocation;
+  const validGeo = !!geoLocation.location && !geoLocation.error;
 
-  if (geoError && validIp) {
+  if (validGeo) {
+    return geoLocation;
+  }
+
+  if (validIp) {
     return ipLocation;
   }
 
