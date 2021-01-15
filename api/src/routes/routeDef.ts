@@ -11,6 +11,7 @@ export type Route = {
   handler?: Handler;
   requiresAuthentication?: boolean;
   requiresAdmin?: boolean;
+  renewSession?: boolean;
 };
 
 export type RouteDefinitions = {

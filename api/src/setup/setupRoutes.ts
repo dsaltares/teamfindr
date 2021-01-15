@@ -6,6 +6,7 @@ import participantRoutes from '../routes/participants';
 import makeController from './makeController';
 import withAuthenticatedUser from '../utils/withAuthenticatedUser';
 import withAdminUser from '../utils/withAdminUser';
+import withRenewSession from '../utils/withRenewSession';
 import { Services } from './setupServices';
 import setupApp from './setupApp';
 import { Route } from '../routes/routeDef';
@@ -25,6 +26,10 @@ const decorators: NamedDecorator[] = [
   {
     name: 'requiresAdmin',
     fn: withAdminUser,
+  },
+  {
+    name: 'renewSession',
+    fn: withRenewSession,
   },
 ];
 

@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useServices } from '../../providers/ServicesProvider';
 
-const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
+const STALE_TIME_MS = 24 * 60 * 60 * 1000; // 24h
 
 const useUser = () => {
   const services = useServices();

@@ -12,6 +12,7 @@ const authRoutes: RouteDefinitions = {
       path: 'verify',
       controller: VerifyController,
       requiresAuthentication: true,
+      renewSession: true,
     },
     {
       method: 'get',
