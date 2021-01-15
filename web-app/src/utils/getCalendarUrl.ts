@@ -5,8 +5,6 @@ import {
   yahoo as getYahooLink,
   ics as getICSLink,
 } from 'calendar-link';
-import { isMobile } from 'react-device-detect';
-import fileDownload from 'js-file-download';
 import { Event } from '../types';
 import getEventUrl from './getEventUrl';
 
@@ -38,19 +36,4 @@ const getCalendarUrl = (type: CalendarType, event: Event) => {
   return CalendarUrlFnMap[type](calendarEvent);
 };
 
-const addToCalendar = (type: CalendarType, event: Event) => {
-  const url = getCalendarUrl(type, event);
-
-  const shouldDownload = !isMobile && url.startsWith('data');
-  if (shouldDownload) {
-    const filename = 'download.ics';
-    const data = decodeURIComponent(
-      url.replace('data:text/calendar;charset=utf8,', '')
-    );
-    fileDownload(data, filename);
-  } else {
-    window.open(url, '_blank', 'noopener noreferrer');
-  }
-};
-
-export default addToCalendar;
+export default getCalendarUrl;

@@ -3,9 +3,12 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddIcon from '@material-ui/icons/Add';
+import { isMobile } from 'react-device-detect';
+import fileDownload from 'js-file-download';
 import { Event } from '../../types';
 import useStyles from './AddToCalendarMenu.styles';
-import addToCalendar, { CalendarType } from '../../utils/addToCalendar';
+import getCalendarUrl, { CalendarType } from '../../utils/getCalendarUrl';
+import Link from '@material-ui/core/Link';
 
 const MenuItems = [
   {
@@ -25,6 +28,49 @@ const MenuItems = [
     label: 'ICS',
   },
 ];
+
+interface AddToCalendarMenuItemProps {
+  type: CalendarType;
+  label: string;
+  event: Event;
+  onClose: () => void;
+}
+
+const AddToCalendarMenuItem: React.FC<AddToCalendarMenuItemProps> = ({
+  type,
+  label,
+  event,
+  onClose,
+}) => {
+  const url = getCalendarUrl(type, event);
+  const shouldDownload = !isMobile && url.startsWith('data');
+
+  const menuItemProps = shouldDownload
+    ? {
+        onClick: () => {
+          onClose();
+          const filename = 'download.ics';
+          const data = decodeURIComponent(
+            url.replace('data:text/calendar;charset=utf8,', '')
+          );
+          fileDownload(data, filename);
+        },
+      }
+    : {
+        component: Link,
+        rel: 'nofollow noreferrer',
+        target: '_blank',
+        href: url,
+        underline: 'none',
+        onClick: onClose,
+      };
+
+  return (
+    <MenuItem dense {...menuItemProps}>
+      {label}
+    </MenuItem>
+  );
+};
 
 interface AddToCalendarMenuProps {
   event?: Event;
@@ -72,18 +118,16 @@ const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
           horizontal: 'right',
         }}
       >
-        {MenuItems.map((item) => (
-          <MenuItem
-            dense
-            key={item.key}
-            onClick={() => {
-              addToCalendar(item.key as CalendarType, event as Event);
-              handleClose();
-            }}
-          >
-            {item.label}
-          </MenuItem>
-        ))}
+        {event &&
+          MenuItems.map((item) => (
+            <AddToCalendarMenuItem
+              key={item.key}
+              type={item.key as CalendarType}
+              label={item.label}
+              event={event as Event}
+              onClose={handleClose}
+            />
+          ))}
       </Menu>
     </>
   );
