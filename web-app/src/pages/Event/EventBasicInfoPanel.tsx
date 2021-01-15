@@ -4,12 +4,12 @@ import Divider from '@material-ui/core/Divider';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import EventIcon from '@material-ui/icons/Event';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
-import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import EventIcon from '@material-ui/icons/Event';
+import InfoIcon from '@material-ui/icons/Info';
 import LockIcon from '@material-ui/icons/Lock';
 import { Event } from '../../types';
 import Map from '../../components/Map';
@@ -18,14 +18,21 @@ import getGoogleMapsUrl from '../../utils/getGoogleMapsUrl';
 import formatDate from '../../utils/formatDate';
 import { CurrencyFlags } from '../../utils/currencies';
 import SportIcons from '../../utils/sportIcons';
+import AddToCalendarMenu from './AddToCalendarMenu';
 
 interface InfoRowProps {
   icon: React.ReactNode;
   text?: string;
   link?: string;
+  rightDecoration?: React.ReactNode;
 }
 
-const InfoRow: React.FC<InfoRowProps> = ({ icon, text, link }) => {
+const InfoRow: React.FC<InfoRowProps> = ({
+  icon,
+  text,
+  link,
+  rightDecoration,
+}) => {
   const classes = useStyles();
   const content = (
     <Grid
@@ -39,13 +46,24 @@ const InfoRow: React.FC<InfoRowProps> = ({ icon, text, link }) => {
         {icon}
       </Grid>
       <Grid item className={classes.address}>
-        {text ? (
-          <Typography variant="body2" color="textSecondary">
-            {text}
-          </Typography>
-        ) : (
-          <Skeleton variant="text" />
-        )}
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="space-between"
+        >
+          <Grid item>
+            {text ? (
+              <Typography variant="body2" color="textSecondary">
+                {text}
+              </Typography>
+            ) : (
+              <Skeleton variant="text" />
+            )}
+          </Grid>
+          {/* <Grid item>{right || null}</Grid> */}
+          <Grid item>{rightDecoration || null}</Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
@@ -94,6 +112,7 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
       key: 'date',
       Icon: EventIcon,
       text: event ? formatDate(event?.startsAt) : '',
+      rightDecoration: <AddToCalendarMenu event={event} />,
     },
     {
       key: 'price',
@@ -124,7 +143,12 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
           !item.hidden ? (
             <React.Fragment key={item.key}>
               {index > 0 && <Divider />}
-              <InfoRow icon={<item.Icon />} text={item.text} link={item.link} />
+              <InfoRow
+                icon={<item.Icon />}
+                text={item.text}
+                link={item.link}
+                rightDecoration={item.rightDecoration}
+              />
             </React.Fragment>
           ) : null
         )}

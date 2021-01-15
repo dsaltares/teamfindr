@@ -1,16 +1,16 @@
 import useShare from '../utils/useShare';
 import { Event } from '../../types';
+import getEventUrl from '../../utils/getEventUrl';
 
 const getShareDataForEvent = (event?: Event) => {
   if (!event) {
     return;
   }
-  const location = window.location;
-  const url = `${location.protocol}//${location.host}/#/events/${event.id}`;
+
   return {
     title: 'TeamFindr',
     text: `Come play ${event.sport.toLowerCase()} at ${event.venue.name}.`,
-    url,
+    url: getEventUrl(event.id),
   };
 };
 

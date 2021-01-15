@@ -48,7 +48,7 @@ const AvatarMenu = () => {
         <Avatar avatar={user.avatar} />
       </Button>
       <Menu
-        id="simple-menu"
+        id="avatar-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
