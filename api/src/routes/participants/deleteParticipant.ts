@@ -5,6 +5,7 @@ const PostParticipantController: ControllerCreator = ({
   getParticipant,
   deleteParticipant,
   getParticipants,
+  pushEvent,
 }) => async ({ params: { eventId }, user }) => {
   const event = await getEventById(eventId);
   if (!event) {
@@ -34,6 +35,15 @@ const PostParticipantController: ControllerCreator = ({
     getEventById(eventId),
     getParticipants(eventId),
   ]);
+
+  pushEvent({
+    name: 'Participants:Left',
+    users: updatedParticipants.map((participant) => participant.user.id),
+    payload: {
+      event: updatedEvent,
+      participants: updatedParticipants,
+    },
+  });
 
   return {
     status: 200,

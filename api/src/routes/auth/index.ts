@@ -28,7 +28,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'twitter',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect;
+        req.session.redirect = req.query.redirect as string;
         return passport.authenticate('twitter')(req, res);
       },
     },
@@ -46,7 +46,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'facebook',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect;
+        req.session.redirect = req.query.redirect as string;
         return passport.authenticate('facebook', { scope: ['email'] })(
           req,
           res
@@ -67,7 +67,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'google',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect;
+        req.session.redirect = req.query.redirect as string;
         return passport.authenticate('google', { scope: ['email', 'profile'] })(
           req,
           res

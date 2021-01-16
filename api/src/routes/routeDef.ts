@@ -1,8 +1,8 @@
 import express from 'express';
-import { Config } from '../types';
+import { Config, Request } from '../types';
 import { ControllerCreator } from './controller';
 
-type Handler = (req: express.Request, res: express.Response) => Promise<any>;
+type Handler = (req: Request, res: express.Response) => Promise<any>;
 
 export type Route = {
   method: 'get' | 'post' | 'put' | 'patch' | 'delete';

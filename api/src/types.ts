@@ -1,3 +1,5 @@
+import express from 'express';
+
 type PassportProviderConfig = {
   clientID: string;
   clientSecret: string;
@@ -94,4 +96,12 @@ export type Participant = {
   id: string;
   event: string;
   user: User;
+};
+
+export type Request = express.Request & {
+  user: User;
+  session: typeof express.request.session & {
+    forceRenew: Date;
+    redirect: string;
+  };
 };

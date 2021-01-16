@@ -21,6 +21,8 @@ const setupServices = (deps: ServiceDependencies) => {
   return {
     config: deps.config,
     logger: deps.logger,
+    getSocketsForUserIds: deps.socketStore.getSocketsForUserIds,
+    pushEvent: deps.pushEvent,
     createUser: CreateUser(deps),
     getUserByEmail: GetUserByEmail(deps),
     getUserById: GetUserById(deps),
