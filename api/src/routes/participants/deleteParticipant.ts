@@ -38,7 +38,10 @@ const PostParticipantController: ControllerCreator = ({
 
   pushEvent({
     name: 'Participants:Left',
-    users: updatedParticipants.map((participant) => participant.user.id),
+    users: [
+      ...updatedParticipants.map((participant) => participant.user.id),
+      user.id,
+    ],
     payload: {
       event: updatedEvent,
       participants: updatedParticipants,
