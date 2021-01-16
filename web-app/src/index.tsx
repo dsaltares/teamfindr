@@ -2,33 +2,18 @@ import 'typeface-roboto';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { SnackbarProvider } from 'notistack';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ThemeProvider from './providers/ThemeProvider';
-import ServicesProvider from './providers/ServicesProvider';
-
-const queryClient = new QueryClient();
+import Providers from './providers';
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <Providers>
       <CssBaseline />
-      <ThemeProvider>
-        <ServicesProvider>
-          <SnackbarProvider>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <App />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </MuiPickersUtilsProvider>
-          </SnackbarProvider>
-        </ServicesProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      <App />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </Providers>
   </React.StrictMode>,
   document.getElementById('root')
 );

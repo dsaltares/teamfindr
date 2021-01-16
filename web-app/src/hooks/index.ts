@@ -30,3 +30,6 @@ export { default as useParticipants } from './events/useParticipants';
 export { default as useAddParticipant } from './events/useAddParticipant';
 export { default as useRemoveParticipant } from './events/useRemoveParticipant';
 export { default as useShareEvent } from './events/useShareEvent';
+
+// Socket
+export { default as useSubscribeToSocketEvents } from './socket/useSubscribeToSocketEvents';
