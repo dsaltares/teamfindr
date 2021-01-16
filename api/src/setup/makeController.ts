@@ -1,6 +1,7 @@
 import express from 'express';
-import { Controller, Request } from '../routes/controller';
+import { Controller } from '../routes/controller';
 import { Services } from './setupServices';
+import { Request } from '../types';
 
 interface MakeControllerArgs {
   controller: Controller;
