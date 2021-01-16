@@ -29,49 +29,6 @@ const MenuItems = [
   },
 ];
 
-interface AddToCalendarMenuItemProps {
-  type: CalendarType;
-  label: string;
-  event: Event;
-  onClose: () => void;
-}
-
-const AddToCalendarMenuItem: React.FC<AddToCalendarMenuItemProps> = ({
-  type,
-  label,
-  event,
-  onClose,
-}) => {
-  const url = getCalendarUrl(type, event);
-  const shouldDownload = !isMobile && url.startsWith('data');
-
-  const menuItemProps = shouldDownload
-    ? {
-        onClick: () => {
-          onClose();
-          const filename = 'download.ics';
-          const data = decodeURIComponent(
-            url.replace('data:text/calendar;charset=utf8,', '')
-          );
-          fileDownload(data, filename);
-        },
-      }
-    : {
-        component: Link,
-        rel: 'nofollow noreferrer',
-        target: '_blank',
-        href: url,
-        underline: 'none',
-        onClick: onClose,
-      };
-
-  return (
-    <MenuItem dense {...menuItemProps}>
-      {label}
-    </MenuItem>
-  );
-};
-
 interface AddToCalendarMenuProps {
   event?: Event;
 }
@@ -119,15 +76,36 @@ const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
         }}
       >
         {event &&
-          MenuItems.map((item) => (
-            <AddToCalendarMenuItem
-              key={item.key}
-              type={item.key as CalendarType}
-              label={item.label}
-              event={event as Event}
-              onClose={handleClose}
-            />
-          ))}
+          MenuItems.map((item) => {
+            const url = getCalendarUrl(item.key as CalendarType, event);
+            const shouldDownload = !isMobile && url.startsWith('data');
+
+            const menuItemProps = shouldDownload
+              ? {
+                  onClick: () => {
+                    handleClose();
+                    const filename = 'download.ics';
+                    const data = decodeURIComponent(
+                      url.replace('data:text/calendar;charset=utf8,', '')
+                    );
+                    fileDownload(data, filename);
+                  },
+                }
+              : {
+                  component: Link,
+                  rel: 'nofollow noreferrer',
+                  target: '_blank',
+                  href: url,
+                  underline: 'none',
+                  onClick: handleClose,
+                };
+
+            return (
+              <MenuItem key={item.key} dense {...menuItemProps}>
+                {item.label}
+              </MenuItem>
+            );
+          })}
       </Menu>
     </>
   );
