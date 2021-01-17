@@ -1,5 +1,6 @@
 import passport from 'passport';
 import VerifyController from './verify';
+import PostPushController from './postPush';
 import FailedController from './failed';
 import LogoutController from './logout';
 import { RouteDefinitions } from '../routeDef';
@@ -13,6 +14,12 @@ const authRoutes: RouteDefinitions = {
       controller: VerifyController,
       requiresAuthentication: true,
       renewSession: true,
+    },
+    {
+      method: 'post',
+      path: 'push',
+      controller: PostPushController,
+      requiresAuthentication: true,
     },
     {
       method: 'get',

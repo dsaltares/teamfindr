@@ -1,4 +1,5 @@
 import express from 'express';
+import WebPush from 'web-push';
 
 type PassportProviderConfig = {
   clientID: string;
@@ -16,6 +17,10 @@ export type Config = {
   databaseURI: string;
   cookieKey: string;
   humioToken: string;
+  push: {
+    privateKey: string;
+    publicKey: string;
+  };
 };
 
 export interface User {
@@ -96,6 +101,13 @@ export type Participant = {
   id: string;
   event: string;
   user: User;
+};
+
+export type PushDevice = {
+  id: string;
+  createdAt: string;
+  user: string;
+  subscription: WebPush.PushSubscription;
 };
 
 export type Request = express.Request & {

@@ -1,11 +1,5 @@
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
-import { Participant } from '../types';
-import formatMongoRecord from '../utils/formatMongoRecord';
-
-const formatParticipant = (participant: any): Participant => ({
-  ...formatMongoRecord(participant),
-  user: formatMongoRecord(participant.user),
-});
+import formatParticipant from '../utils/formatParticipant';
 
 const getParticipants = ({
   participantCollection,

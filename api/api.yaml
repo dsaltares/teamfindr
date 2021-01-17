@@ -34,6 +34,29 @@ paths:
         '301':
           description: redirect to the application
 
+  /auth/push:
+    post:
+      summary: registers for push notifications
+      operationId: postPush
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPushRequest'
+      responses:
+        '201':
+          description: registered device for push notifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPushResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /users/{userId}:
     patch:
       summary: patches a user
@@ -424,9 +447,12 @@ components:
       type: object
       required:
         - user
+        - pushPublicKey
       properties:
         user:
           $ref: '#/components/schemas/User'
+        pushPublicKey:
+          type: string
     ErrorResponse:
       type: object
       required:
@@ -434,6 +460,15 @@ components:
       properties:
         message:
           type: string
+    PostPushRequest:
+      type: object
+      required:
+        - subscription
+      properties:
+        subscription:
+          $ref: '#/components/schemas/PushSubscription'
+    PostPushResponse:
+      type: object
     PatchUserRequest:
       type: object
       required:
@@ -744,3 +779,24 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Participant'
+    PushSubscription:
+      type: object
+      required:
+        - endpoint
+        - keys
+      properties:
+        endpoint:
+          type: string
+        expirationTime:
+          type: number
+          nullable: true
+        keys:
+          type: object
+          required:
+            - p256dh
+            - auth
+          properties:
+            p256dh:
+              type: string
+            auth:
+              type: string

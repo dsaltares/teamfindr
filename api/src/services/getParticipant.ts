@@ -1,6 +1,5 @@
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
-import { Participant } from '../types';
-import formatMongoRecord from '../utils/formatMongoRecord';
+import formatParticipant from '../utils/formatParticipant';
 
 interface GetParticipantParams {
   eventId: string;
@@ -13,12 +12,31 @@ const getParticipant = ({
   eventId,
   userId,
 }: GetParticipantParams) => {
-  const mongoParticipant = await participantCollection.findOne({
-    event: eventId,
-    user: userId,
-  });
-  return mongoParticipant
-    ? (formatMongoRecord(mongoParticipant) as Participant)
+  const mongoParticipants = await participantCollection
+    .aggregate([
+      {
+        $match: {
+          event: eventId,
+          user: userId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'User',
+          localField: 'user',
+          foreignField: '_id',
+          as: 'user',
+        },
+      },
+      { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+      {
+        $sort: { createdAt: 1 },
+      },
+    ])
+    .toArray();
+
+  return mongoParticipants.length > 0
+    ? formatParticipant(mongoParticipants[0])
     : null;
 };
 

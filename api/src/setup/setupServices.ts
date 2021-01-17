@@ -1,3 +1,4 @@
+import { ServiceDependencies } from './setupServiceDependencies';
 import CreateUser from '../services/createUser';
 import GetUserByEmail from '../services/getUserByEmail';
 import GetUserById from '../services/getUserById';
@@ -13,7 +14,10 @@ import GetParticipant from '../services/getParticipant';
 import CreateParticipant from '../services/createParticipant';
 import DeleteParticipant from '../services/deleteParticipant';
 import GetEventIdsForUser from '../services/getEventIdsForUser';
-import { ServiceDependencies } from './setupServiceDependencies';
+import UpsertPushDevice from '../services/upsertPushDevice';
+import GetPushDevicesForUser from '../services/getPushDevicesForUser';
+import DeletePushDeviceByEndpoint from '../services/deletePushDeviceByEndpoint';
+import SendPushNotificationToUser from '../services/sendPushNotificationToUser';
 
 const setupServices = (deps: ServiceDependencies) => {
   const searchVenues = SearchVenues(deps);
@@ -41,6 +45,12 @@ const setupServices = (deps: ServiceDependencies) => {
     getParticipant: GetParticipant(deps),
     createParticipant: CreateParticipant(deps),
     deleteParticipant: DeleteParticipant(deps),
+    upsertPushDevice: UpsertPushDevice(deps),
+    sendPushNotificationToUser: SendPushNotificationToUser({
+      ...deps,
+      getPushDevicesForUser: GetPushDevicesForUser(deps),
+      deletePushDeviceByEndpoint: DeletePushDeviceByEndpoint(deps),
+    }),
   };
 };
 

@@ -17,5 +17,9 @@
   },
   "databaseURI": "DATABASE_URI",
   "cookieKey": "COOKIE_KEY",
-  "humioToken": "HUMIO_TOKEN"
+  "humioToken": "HUMIO_TOKEN",
+  "push": {
+    "privateKey": "PUSH_PRIVATE_KEY",
+    "publicKey": "PUSH_PUBLIC_KEY"
+  }
 }

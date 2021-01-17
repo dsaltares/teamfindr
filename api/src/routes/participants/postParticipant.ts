@@ -37,7 +37,7 @@ const PostParticipantController: ControllerCreator = ({
     };
   }
 
-  await createParticipant({ eventId, user });
+  const createdParticipant = await createParticipant({ eventId, user });
   const [updatedEvent, updatedParticipants] = await Promise.all([
     getEventById(eventId),
     getParticipants(eventId),
@@ -49,6 +49,7 @@ const PostParticipantController: ControllerCreator = ({
     payload: {
       event: updatedEvent,
       participants: updatedParticipants,
+      participant: createdParticipant,
     },
   });
 
