@@ -19,7 +19,8 @@
     }
   ],
   "display": "standalone",
+  "scope": "https://teamfindr.saltares.com/",
+  "start_url": "/",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "scope": "https://teamfindr.saltares.com/"
+  "background_color": "#ffffff"
 }
