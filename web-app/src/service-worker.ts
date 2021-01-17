@@ -78,4 +78,119 @@ self.addEventListener('message', (event) => {
   }
 });
 
-// Any other custom service worker logic can go here.
+// // Any other custom service worker logic can go here.
+interface Store {
+  pushPublicKey: string | null;
+}
+
+const store: Store = {
+  pushPublicKey: null,
+};
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+});
+
+export const API_URL =
+  location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://api.teamfindr.saltares.com';
+
+function urlBase64ToUint8Array(base64String: string) {
+  var padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  // eslint-disable-next-line no-useless-escape
+  var base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+
+  var rawData = atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+
+  for (var i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+const subscribe = () => {
+  if (!store.pushPublicKey) {
+    return Promise.resolve();
+  }
+
+  return self.registration.pushManager
+    .getSubscription()
+    .then((subscription) => {
+      if (subscription) {
+        return subscription;
+      }
+
+      return self.registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(
+          store.pushPublicKey as string
+        ),
+      });
+    })
+    .then((subscription) => {
+      return fetch(`${API_URL}/auth/push`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subscription }),
+      });
+    })
+    .catch((error) => {
+      console.error('failed to subscribe to push notifications', error);
+    });
+};
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SUBSCRIBE_TO_PUSH') {
+    store.pushPublicKey = event.data.payload.pushPublicKey;
+    subscribe();
+  }
+});
+
+self.addEventListener('push', (event) => {
+  const { title, body, url } = JSON.parse(event.data?.text() as string);
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      data: { url },
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url: string = event.notification.data.url;
+  if (!url) {
+    return;
+  }
+  event.waitUntil(
+    self.clients.matchAll().then((matchedClients) => {
+      const clientOnSameUrl = matchedClients.find(
+        (client) => client.url === url && 'focus' in client
+      ) as WindowClient;
+      if (clientOnSameUrl) {
+        return clientOnSameUrl.focus();
+      }
+
+      const firstClient = matchedClients.find(
+        (client) => 'focus' in client
+      ) as WindowClient;
+      if (firstClient) {
+        firstClient.navigate(url);
+        return firstClient.focus();
+      }
+
+      return self.clients.openWindow(url);
+    })
+  );
+});
+
+self.addEventListener('pushsubscriptionchange', (event) => {
+  if (!event.newSubscription) {
+    event.waitUntil(subscribe());
+  }
+});

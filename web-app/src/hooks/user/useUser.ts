@@ -16,7 +16,8 @@ const useUser = () => {
   return {
     isLoading,
     error,
-    user: data,
+    user: data?.user,
+    pushPublicKey: data?.pushPublicKey,
   };
 };
 

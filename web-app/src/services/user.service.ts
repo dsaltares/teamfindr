@@ -3,10 +3,13 @@ import { User, AuthProvider } from '../types';
 import { API_URL } from '../endpoints';
 
 const userService = {
-  verify: async (): Promise<User | null> => {
+  verify: async (): Promise<{
+    user: User | null;
+    pushPublicKey: string | null;
+  }> => {
     try {
       const {
-        data: { user },
+        data: { user, pushPublicKey },
       } = await axios.get(`${API_URL}/auth/verify`, {
         withCredentials: true,
         headers: {
@@ -15,10 +18,10 @@ const userService = {
           'Access-Control-Allow-Credentials': true,
         },
       });
-      return user;
+      return { user, pushPublicKey };
     } catch (error) {
       if (error?.response?.status === 401) {
-        return null;
+        return { user: null, pushPublicKey: null };
       }
       throw error;
     }
