@@ -152,11 +152,12 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('push', (event) => {
-  const { title, body, url } = JSON.parse(event.data?.text() as string);
+  const { title, body, url, tag } = JSON.parse(event.data?.text() as string);
   event.waitUntil(
     self.registration.showNotification(title, {
       body,
       data: { url },
+      tag,
     })
   );
 });
