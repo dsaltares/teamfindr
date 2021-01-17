@@ -154,10 +154,19 @@ self.addEventListener('message', (event) => {
 self.addEventListener('push', (event) => {
   const { title, body, url, tag } = JSON.parse(event.data?.text() as string);
   event.waitUntil(
-    self.registration.showNotification(title, {
-      body,
-      data: { url },
-      tag,
+    self.clients.matchAll().then((matchedClients) => {
+      const clientOnSameUrl = matchedClients.find(
+        (client) => client.url === url && 'focus' in client
+      ) as WindowClient;
+      if (clientOnSameUrl) {
+        return;
+      }
+
+      return self.registration.showNotification(title, {
+        body,
+        data: { url },
+        tag,
+      });
     })
   );
 });
