@@ -1,6 +1,6 @@
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import getPushDevicesForUser from './getPushDevicesForUser';
-import deletePushDeviceByEndpoint from './deletePushDeviceByEndPoint';
+import deletePushDeviceByEndpoint from './deletePushDeviceByEndpoint';
 import { PushMessage } from '../utils/sendPushNotification';
 
 type Dependencies = ServiceDependencies & {
