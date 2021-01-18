@@ -1,6 +1,6 @@
 {
   "short_name": "TeamFindr",
-  "name": "Play sports anytime anywhere",
+  "name": "TeamFindr",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,6 +21,6 @@
   "display": "standalone",
   "scope": "https://teamfindr.saltares.com/",
   "start_url": "/",
-  "theme_color": "#000000",
+  "theme_color": "#8bc34a",
   "background_color": "#ffffff"
 }
