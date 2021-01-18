@@ -1,33 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/Add';
-import { isMobile } from 'react-device-detect';
-import fileDownload from 'js-file-download';
 import { Event } from '../../types';
 import useStyles from './AddToCalendarMenu.styles';
-import getCalendarUrl, { CalendarType } from '../../utils/getCalendarUrl';
+import { getGoogleCalendarUrl, downloadICS } from '../../utils/calendar';
 import Link from '@material-ui/core/Link';
-
-const MenuItems = [
-  {
-    key: 'google',
-    label: 'Google Calendar',
-  },
-  {
-    key: 'outlook',
-    label: 'Outlook',
-  },
-  {
-    key: 'office365',
-    label: 'Office365',
-  },
-  {
-    key: 'ics',
-    label: 'ICS',
-  },
-];
 
 interface AddToCalendarMenuProps {
   event?: Event;
@@ -35,35 +15,51 @@ interface AddToCalendarMenuProps {
 
 const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
 
-  const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    setAnchorEl(event.currentTarget);
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
   return (
     <>
-      <Button
-        className={classes.denseButton}
-        color="primary"
+      <ButtonGroup
         variant="outlined"
-        onClick={handleOpen}
-        startIcon={<AddIcon />}
+        color="primary"
+        ref={anchorRef}
         disabled={!event}
       >
-        Add to calendar
-      </Button>
+        <Button
+          className={classes.denseButton}
+          component={Link}
+          href={event ? getGoogleCalendarUrl(event) : undefined}
+          rel="nofollow noreferrer"
+          target="_blank"
+          underline="none"
+          onClick={handleClose}
+          disabled={!event}
+        >
+          Add to Google Calendar
+        </Button>
+        <Button
+          className={classes.denseButton}
+          color="primary"
+          size="small"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
       <Menu
         id="add-to-calendar-menu"
-        anchorEl={anchorEl}
+        anchorEl={anchorRef.current}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={open}
         onClose={handleClose}
         getContentAnchorEl={null}
         anchorOrigin={{
@@ -75,37 +71,15 @@ const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
           horizontal: 'right',
         }}
       >
-        {event &&
-          MenuItems.map((item) => {
-            const url = getCalendarUrl(item.key as CalendarType, event);
-            const shouldDownload = !isMobile && url.startsWith('data');
-
-            const menuItemProps = shouldDownload
-              ? {
-                  onClick: () => {
-                    handleClose();
-                    const filename = 'download.ics';
-                    const data = decodeURIComponent(
-                      url.replace('data:text/calendar;charset=utf8,', '')
-                    );
-                    fileDownload(data, filename);
-                  },
-                }
-              : {
-                  component: Link,
-                  rel: 'nofollow noreferrer',
-                  target: '_blank',
-                  href: url,
-                  underline: 'none',
-                  onClick: handleClose,
-                };
-
-            return (
-              <MenuItem key={item.key} dense {...menuItemProps}>
-                {item.label}
-              </MenuItem>
-            );
-          })}
+        <MenuItem
+          dense
+          onClick={() => {
+            handleClose();
+            downloadICS(event as Event);
+          }}
+        >
+          Download ICS
+        </MenuItem>
       </Menu>
     </>
   );
