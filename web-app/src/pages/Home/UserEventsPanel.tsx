@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import EventIcon from '@material-ui/icons/Event';
 import HistoryIcon from '@material-ui/icons/History';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import SearchIcon from '@material-ui/icons/Search';
 import useStyles from './UserEventsPanel.styles';
 import { useEvents } from '../../hooks';
 import EventList from '../../components/EventList';
@@ -40,7 +40,7 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
             variant="outlined"
             component={Link}
             to="/events"
-            startIcon={<SportsSoccerIcon />}
+            startIcon={<SearchIcon />}
           >
             Look for an event
           </Button>
