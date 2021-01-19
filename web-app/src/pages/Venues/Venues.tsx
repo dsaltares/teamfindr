@@ -5,7 +5,6 @@ import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
-import { RadiusSlider } from '../../components/Slider';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
 import { useCurrentLocation, useVenues } from '../../hooks';
@@ -56,15 +55,8 @@ const Venues = () => {
                   disabled={currentLocation.isLoading}
                   around={currentLocation.location?.geo.coordinates}
                   circleRadius={radius}
+                  onRadiusChange={handleRadiusChange}
                   markers={<VenueMarkers venues={venues} />}
-                />
-              </Grid>
-              <Grid item>
-                <RadiusSlider
-                  id="venue-search-radius"
-                  value={radius}
-                  disabled={currentLocation.isLoading}
-                  onChange={handleRadiusChange}
                 />
               </Grid>
             </Grid>

@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
-import { RadiusSlider } from '../../components/Slider';
 import SportsAutocomplete from '../../components/SportsAutocomplete';
 import DatePicker from '../../components/DatePicker';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -68,15 +67,8 @@ const Events = () => {
                     disabled={currentLocation.isLoading}
                     around={currentLocation.location?.geo.coordinates}
                     circleRadius={radius}
+                    onRadiusChange={handleRadiusChange}
                     markers={<EventMarkers events={events} />}
-                  />
-                </Grid>
-                <Grid item>
-                  <RadiusSlider
-                    id="venue-search-radius"
-                    value={radius}
-                    disabled={currentLocation.isLoading}
-                    onChange={handleRadiusChange}
                   />
                 </Grid>
                 <Grid item>
