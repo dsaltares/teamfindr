@@ -12,6 +12,7 @@ import {
   useParticipants,
   useAddParticipant,
   useRemoveParticipant,
+  useEnablePushSnackbar,
 } from '../../hooks';
 import useStyles from './ParticipantsPanel.styles';
 import SportsIcons from '../../utils/sportIcons';
@@ -25,6 +26,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const { event } = useEvent(eventId);
   const { user } = useUser();
   const { enqueueSnackbar } = useSnackbar();
+  const enqueueEnablePushSnackbar = useEnablePushSnackbar();
   const { participants, isLoading: loadingParticipants } = useParticipants(
     eventId
   );
@@ -43,11 +45,17 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   useEffect(() => {
     if (addParticipant.isSuccess) {
       enqueueSnackbar('Joined event!', { variant: 'success' });
+      enqueueEnablePushSnackbar();
     }
     if (addParticipant.isError) {
       enqueueSnackbar('Failed to join event', { variant: 'error' });
     }
-  }, [enqueueSnackbar, addParticipant.isSuccess, addParticipant.isError]);
+  }, [
+    enqueueSnackbar,
+    enqueueEnablePushSnackbar,
+    addParticipant.isSuccess,
+    addParticipant.isError,
+  ]);
 
   useEffect(() => {
     if (removeParticipant.isSuccess) {
