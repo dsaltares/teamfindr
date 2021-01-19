@@ -3,6 +3,7 @@ export { default as useCurrentLocation } from './location/useCurrentLocation';
 export { default as useLocationAutocomplete } from './location/useLocationAutocomplete';
 export { default as useLocationFromMapClick } from './location/useLocationFromMapClick';
 export { default as useCurrencyFromCurrentLocation } from './location/useCurrencyFromCurrentLocation';
+export { default as useLocationPermission } from './location/useLocationPermission';
 
 // User
 export { default as useUser } from './user/useUser';

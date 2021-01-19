@@ -2,9 +2,15 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import GpsFixedIcon from '@material-ui/icons/GpsFixed';
 import Avatar from '../../components/Avatar';
-import { useUser, useCurrentLocation } from '../../hooks';
+import {
+  useUser,
+  useCurrentLocation,
+  useLocationPermission,
+} from '../../hooks';
 import { Location } from '../../types';
 
 const getCityCountry = (location: Location) => {
@@ -19,6 +25,7 @@ const getCityCountry = (location: Location) => {
 const UserInfoPanel = () => {
   const { user } = useUser();
   const { location } = useCurrentLocation();
+  const { permission, request, requesting } = useLocationPermission();
 
   return (
     <Grid container direction="column" alignItems="center" spacing={2}>
@@ -48,6 +55,19 @@ const UserInfoPanel = () => {
             )}
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item>
+        {permission === 'prompt' && (
+          <Button
+            startIcon={<GpsFixedIcon />}
+            color="primary"
+            variant="outlined"
+            onClick={request}
+            disabled={requesting}
+          >
+            Improve accuracy
+          </Button>
+        )}
       </Grid>
     </Grid>
   );

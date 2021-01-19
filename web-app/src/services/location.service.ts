@@ -165,11 +165,18 @@ const getLocationSuggestions = async (
   }
 };
 
+const requestGeoLocationPermission = async () => {
+  try {
+    await getCoordinatesFromGeolocation();
+  } catch (_e) {}
+};
+
 const locationService = {
   getLocationFromGeolocation,
   getLocationFromIp,
   getLocationSuggestions,
   getLocationFromCoordinates,
+  requestGeoLocationPermission,
 };
 
 export default locationService;
