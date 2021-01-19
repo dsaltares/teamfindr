@@ -60,7 +60,7 @@
     "eject": "react-scripts eject",
     "with-worker": "yarn build && serve -s build -p 3000",
     "prettier": "prettier --write .",
-    "lint": "eslint .",
+    "lint": "eslint ./src",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
