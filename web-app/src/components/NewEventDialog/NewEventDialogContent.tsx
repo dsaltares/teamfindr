@@ -1,20 +1,24 @@
 import React, { useEffect, useMemo } from 'react';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
+import { useHistory } from 'react-router-dom';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import SportsAutocomplete from '../SportsAutocomplete';
 import { DateTimePicker } from '../DatePicker';
 import { PlayersSlider, DurationSlider } from '../Slider';
 import VenueWithMapField from './VenueWithMapField';
 import { Sport, Venue } from '../../types';
-import { useCreateEvent, useCurrencyFromCurrentLocation } from '../../hooks';
+import {
+  useCreateEvent,
+  useCurrencyFromCurrentLocation,
+  useEnablePushSnackbar,
+} from '../../hooks';
 import CurrencySelect from '../CurrencySelect';
 import Currencies from '../../utils/currencies';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { useHistory } from 'react-router-dom';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -52,6 +56,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
   const history = useHistory();
   const createEvent = useCreateEvent();
   const { enqueueSnackbar } = useSnackbar();
+  const enqueueEnablePushSnackbar = useEnablePushSnackbar();
   const currency = useCurrencyFromCurrentLocation();
   const initialValues = useMemo<NewEventFormValues>(
     () => getInitialValues(currency),
@@ -63,12 +68,14 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
       onClose();
       history.push(`/events/${createEvent.data?.id}`);
       enqueueSnackbar('Event created', { variant: 'success' });
+      enqueueEnablePushSnackbar();
     }
     if (createEvent.isError) {
       enqueueSnackbar('Failed to create event', { variant: 'error' });
     }
   }, [
     enqueueSnackbar,
+    enqueueEnablePushSnackbar,
     createEvent.isSuccess,
     createEvent.isError,
     createEvent.data,

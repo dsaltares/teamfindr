@@ -12,7 +12,6 @@ export { default as useChangeAvatar } from './user/useChangeAvatar';
 
 // Utils
 export { default as useDeferredState } from './utils/useDeferredState';
-export { default as usePrefetch } from './utils/usePrefetch';
 export { default as useWindowSize } from './utils/useWindowSize';
 export { default as useLocationQuery } from './utils/useLocationQuery';
 
@@ -33,3 +32,7 @@ export { default as useShareEvent } from './events/useShareEvent';
 
 // Socket
 export { default as useSubscribeToSocketEvents } from './socket/useSubscribeToSocketEvents';
+
+// Notifications
+export { default as useEnablePushSnackbar } from './notifications/useEnablePushSnackbar';
+export { default as useSubscribePush } from './notifications/useSubscribePush';
