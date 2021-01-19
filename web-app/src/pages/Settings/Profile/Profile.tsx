@@ -62,7 +62,7 @@ const Profile = () => {
           ))}
         </Grid>
       </Grid>
-      <Grid item alignItems="center">
+      <Grid item>
         <div className={classes.centeredContainer}>
           <Button color="primary" variant="text" onClick={logout}>
             Log out
