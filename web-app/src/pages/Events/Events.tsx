@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,18 +9,19 @@ import DatePicker from '../../components/DatePicker';
 import Skeleton from '@material-ui/lab/Skeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TuneIcon from '@material-ui/icons/Tune';
 import useStyles from './Events.styles';
 import { Location, Sport } from '../../types';
 import { useCurrentLocation, useEvents } from '../../hooks';
 import NewEventDialog from '../../components/NewEventDialog';
 import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
+import Collapsable from '../../components/Collapsable';
 
 const Events = () => {
   const classes = useStyles();
-
   const [location, setLocation] = useState<Location | null>(null);
-  const [radius, setRadius] = useState<number>(5000);
+  const [radius, setRadius] = useState<number | undefined>(5);
   const [sports, setSports] = useState<Sport[]>([]);
   const [date, setDate] = useState<Date | null>(new Date());
   const [excludeFull, setNotFull] = useState<boolean>(false);
@@ -31,9 +32,6 @@ const Events = () => {
   const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);
   const handleNewEventDialogClose = () => setNewEventDialogOpen(false);
 
-  const handleRadiusChange = (e: React.ChangeEvent<{}>, value: number) =>
-    setRadius(value);
-
   const handleNotFullChange = (e: React.ChangeEvent<{}>, value: boolean) =>
     setNotFull(value);
 
@@ -42,6 +40,11 @@ const Events = () => {
       setLocation(currentLocation.location);
     }
   }, [currentLocation, location]);
+
+  const [filtersExpanded, setFiltersExpanded] = useState(false);
+  const onToggleFilters = useCallback(() => {
+    setFiltersExpanded(!filtersExpanded);
+  }, [filtersExpanded, setFiltersExpanded]);
 
   return (
     <>
@@ -58,8 +61,14 @@ const Events = () => {
       >
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Paper className={classes.filtersPaper}>
-              <Grid container direction="column" spacing={2}>
+            <Collapsable
+              title="Filters"
+              icon={<TuneIcon />}
+              expanded={filtersExpanded || true}
+              onToggle={onToggleFilters}
+              smallOnly
+            >
+              <Grid container direction="column" spacing={1}>
                 <Grid item>
                   <LocationWithMapField
                     location={location}
@@ -67,7 +76,7 @@ const Events = () => {
                     disabled={currentLocation.isLoading}
                     around={currentLocation.location?.geo.coordinates}
                     circleRadius={radius}
-                    onRadiusChange={handleRadiusChange}
+                    onRadiusChange={setRadius}
                     markers={<EventMarkers events={events} />}
                   />
                 </Grid>
@@ -101,7 +110,7 @@ const Events = () => {
                   />
                 </Grid>
               </Grid>
-            </Paper>
+            </Collapsable>
           </Grid>
           <Grid item xs={12} md={6}>
             {!events ? (

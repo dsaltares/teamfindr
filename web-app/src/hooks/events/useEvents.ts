@@ -37,7 +37,7 @@ const useEvents = ({
     () =>
       services.events.getEvents({
         location,
-        radius: debouncedRadius,
+        radius: (debouncedRadius || 1) * 1000,
         sports,
         date,
         excludeFull,

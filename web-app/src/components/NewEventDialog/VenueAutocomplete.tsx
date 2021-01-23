@@ -64,6 +64,7 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
           helperText={helperText}
           onBlur={onBlur}
           label="Venue"
+          margin="dense"
         />
       )}
       renderOption={(option) => (

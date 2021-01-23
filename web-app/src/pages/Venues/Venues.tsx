@@ -14,15 +14,12 @@ import useStyles from './Venues.styles';
 
 const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
-  const [radius, setRadius] = useState<number>(5000);
+  const [radius, setRadius] = useState<number | undefined>(5);
   const { venues } = useVenues(location, radius);
   const currentLocation = useCurrentLocation();
   const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
   const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
   const handleNewVenueDialogOpen = () => setNewVenueDialogOpen(true);
-
-  const handleRadiusChange = (e: React.ChangeEvent<{}>, value: number) =>
-    setRadius(value);
 
   useEffect(() => {
     if (currentLocation.location && !location) {
@@ -55,7 +52,7 @@ const Venues = () => {
                   disabled={currentLocation.isLoading}
                   around={currentLocation.location?.geo.coordinates}
                   circleRadius={radius}
-                  onRadiusChange={handleRadiusChange}
+                  onRadiusChange={setRadius}
                   markers={<VenueMarkers venues={venues} />}
                 />
               </Grid>

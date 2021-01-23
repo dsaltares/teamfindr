@@ -27,6 +27,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
       format="yyyy/MM/dd"
       placeholder="yyyy/mm/dd"
       disabled={disabled}
+      margin="dense"
     />
   );
 };

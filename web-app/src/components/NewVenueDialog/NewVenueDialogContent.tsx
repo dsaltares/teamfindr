@@ -81,6 +81,7 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
                   error={touched.name && !!errors.name}
                   helperText={touched.name && errors.name}
                   onBlur={handleBlur}
+                  margin="dense"
                 />
               </Grid>
               <Grid item>

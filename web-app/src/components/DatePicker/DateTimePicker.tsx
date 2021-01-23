@@ -40,10 +40,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       clearable
       value={value}
       onChange={onChange}
-      format="yyyy/MM/dd HH:mm"
-      placeholder="yyyy/mm/dd hh:mm"
+      format="dd/MM/yy HH:mm"
+      placeholder="dd/mm/yy hh:mm"
       disabled={disabled}
       onBlur={onBlur}
+      margin="dense"
     />
   );
 };

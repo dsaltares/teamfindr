@@ -83,6 +83,7 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
           helperText={helperText}
           onBlur={onBlur}
           label={multiple ? 'Sports' : 'Sport'}
+          margin="dense"
         />
       )}
       renderOption={(option) => {

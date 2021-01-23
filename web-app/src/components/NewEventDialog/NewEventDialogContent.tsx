@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import SportsAutocomplete from '../SportsAutocomplete';
 import { DateTimePicker } from '../DatePicker';
-import { PlayersSlider, DurationSlider } from '../Slider';
 import VenueWithMapField from './VenueWithMapField';
 import { Sport, Venue } from '../../types';
 import {
@@ -18,6 +17,7 @@ import {
   useEnablePushSnackbar,
 } from '../../hooks';
 import CurrencySelect from '../CurrencySelect';
+import NumberInput from '../NumberInput';
 import Currencies from '../../utils/currencies';
 
 interface NewEventFormValues {
@@ -36,7 +36,7 @@ interface NewEventFormValues {
 const getInitialValues = (currency: string): NewEventFormValues => ({
   venue: null,
   sport: null,
-  capacity: 2,
+  capacity: 10,
   startsAt: null,
   duration: 60,
   amount: 5,
@@ -152,22 +152,83 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={7}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
                       onChange={(value: any) => setFieldValue('sport', value)}
                       onBlur={handleBlur}
                       error={touched.sport && !!errors.sport}
-                      helperText={touched.sport && errors.sport}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
-                    <PlayersSlider
-                      id="new-event-players-slider"
-                      name="capacity"
+                  <Grid item xs={5}>
+                    <NumberInput
                       value={values.capacity}
-                      onChange={(e, value) => setFieldValue('capacity', value)}
+                      onChange={handleChange}
+                      name="capacity"
+                      min={2}
+                      max={30}
+                      label="Number of players"
+                      unitLabel="players"
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="row" spacing={2} alignItems="center">
+                  <Grid item xs={7}>
+                    <DateTimePicker
+                      required
+                      name="startsAt"
+                      value={values.startsAt}
+                      onChange={(startsAt) =>
+                        setFieldValue('startsAt', startsAt)
+                      }
+                      onBlur={handleBlur}
+                      disablePast
+                      error={touched.startsAt && !!errors.startsAt}
+                    />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <NumberInput
+                      value={values.duration}
+                      onChange={handleChange}
+                      name="duration"
+                      min={15}
+                      max={180}
+                      label="Duration"
+                      unitLabel="minutes"
+                      error={touched.duration && !!errors.duration}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="row" spacing={2}>
+                  <Grid item xs={7} md={8}>
+                    <TextField
+                      name="amount"
+                      inputProps={{
+                        style: { textAlign: 'right' },
+                      }}
+                      value={values.amount}
+                      label="Price"
+                      type="number"
+                      fullWidth
+                      variant="outlined"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.amount && !!errors.amount}
+                      margin="dense"
+                    />
+                  </Grid>
+                  <Grid item xs={5} md={4}>
+                    <CurrencySelect
+                      name="currency"
+                      value={values.currency}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.currency && !!errors.currency}
                     />
                   </Grid>
                 </Grid>
@@ -203,63 +264,6 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={12} md={6}>
-                    <DateTimePicker
-                      required
-                      name="startsAt"
-                      value={values.startsAt}
-                      onChange={(startsAt) =>
-                        setFieldValue('startsAt', startsAt)
-                      }
-                      onBlur={handleBlur}
-                      disablePast
-                      error={touched.startsAt && !!errors.startsAt}
-                      helperText={touched.startsAt && errors.startsAt}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                    <DurationSlider
-                      id="new-event-duration-slider"
-                      name="duration"
-                      value={values.duration}
-                      onChange={(e, value) => setFieldValue('duration', value)}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container direction="row" spacing={2}>
-                  <Grid item xs={7} md={8}>
-                    <TextField
-                      name="amount"
-                      inputProps={{
-                        style: { textAlign: 'right' },
-                      }}
-                      value={values.amount}
-                      label="Price"
-                      type="number"
-                      fullWidth
-                      variant="outlined"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.amount && !!errors.amount}
-                      helperText={touched.amount && errors.amount}
-                    />
-                  </Grid>
-                  <Grid item xs={5} md={4}>
-                    <CurrencySelect
-                      name="currency"
-                      value={values.currency}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.currency && !!errors.currency}
-                      helperText={touched.currency && errors.currency}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
                 <TextField
                   name="description"
                   label="Description"
@@ -271,6 +275,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                   onBlur={handleBlur}
                   error={touched.description && !!errors.description}
                   helperText={touched.description && errors.description}
+                  margin="dense"
                 />
               </Grid>
             </Grid>

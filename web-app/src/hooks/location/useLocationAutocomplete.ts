@@ -20,6 +20,7 @@ const useLocationAutocomplete = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let isSubscribed = true;
     const performSearch = async () => {
       setLoading(true);
       const newSuggestions = await services.location.getLocationSuggestions(
@@ -27,12 +28,19 @@ const useLocationAutocomplete = ({
         around,
         restrictToType
       );
+      if (!isSubscribed) {
+        return;
+      }
       if (newSuggestions) {
         setSuggestions(newSuggestions);
       }
       setLoading(false);
     };
     performSearch();
+
+    return () => {
+      isSubscribed = false;
+    };
   }, [
     debouncedQuery,
     setSuggestions,

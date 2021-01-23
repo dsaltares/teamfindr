@@ -1,6 +1,7 @@
 import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {
   Redirect,
   useHistory,
@@ -10,6 +11,7 @@ import {
 import Page from '../../components/Page';
 import Profile from './Profile';
 import NotificationSettings from './NotificationSettings';
+import LocationSettings from './LocationSettings';
 import Tabs, { TabType } from '../../components/Tabs';
 
 const lastSegment = (pathname: string) => {
@@ -36,7 +38,13 @@ const Settings = () => {
       Icon: NotificationsIcon,
       Component: NotificationSettings,
       linkTo: `${match.url}/notifications`,
-      disabled: true,
+    },
+    {
+      value: 'location',
+      label: 'Location',
+      Icon: LocationOnIcon,
+      Component: LocationSettings,
+      linkTo: `${match.url}/location`,
     },
   ];
   const currentTab = tabs.find(

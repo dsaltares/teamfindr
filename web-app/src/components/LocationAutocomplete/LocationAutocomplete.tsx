@@ -89,7 +89,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       onChange={(event, newValue) => {
         onChange(newValue);
       }}
-      onInputChange={(event, newInputValue) => {
+      onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
@@ -103,6 +103,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
           error={error}
           helperText={helperText}
           onBlur={onBlur}
+          margin="dense"
         />
       )}
       renderOption={(option) => (

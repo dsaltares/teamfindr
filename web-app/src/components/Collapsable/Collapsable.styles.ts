@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
+  paper: {
+    padding: theme.spacing(0),
   },
-  sliderContainer: {
-    paddingRight: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
+  content: {
+    padding: theme.spacing(1),
+  },
+  iconContainer: {
+    display: 'flex',
   },
 }));
 

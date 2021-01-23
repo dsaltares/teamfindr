@@ -32,7 +32,7 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
 }) => {
   const classes = useStyles();
   return (
-    <FormControl variant="outlined" fullWidth>
+    <FormControl variant="outlined" fullWidth margin="dense">
       <InputLabel>Currency</InputLabel>
       <Select
         value={value}
@@ -42,6 +42,7 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
         disabled={disabled}
         error={error}
         onBlur={onBlur}
+        margin="dense"
       >
         {Currencies.map((currency) => (
           <MenuItem key={currency} value={currency}>

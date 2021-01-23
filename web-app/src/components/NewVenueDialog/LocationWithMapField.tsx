@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Collapse from '@material-ui/core/Collapse';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { Coordinates, Location, LocationType } from '../../types';
 import LocationAutocomplete from '../LocationAutocomplete';
 import Map from '../Map';
 import { useCurrentLocation } from '../../hooks';
-import { RadiusSlider } from '../Slider';
+import NumberInput from '../NumberInput';
 
 interface LocationFieldProps {
   location: Location | null;
@@ -24,7 +18,7 @@ interface LocationFieldProps {
   disableChangePositionViaMap?: boolean;
   restrictToType?: LocationType;
   circleRadius?: number;
-  onRadiusChange?: (e: React.ChangeEvent<{}>, value: number) => void;
+  onRadiusChange?: (value: number) => void;
   markers?: React.ReactNode;
 }
 
@@ -42,11 +36,6 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
   onRadiusChange,
   markers,
 }) => {
-  const theme = useTheme();
-  const canCollapseMap = useMediaQuery(theme.breakpoints.down('sm'));
-  const [mapVisible, setMapVisible] = useState(false);
-  const handleToggleMap = () => setMapVisible((visible) => !visible);
-
   const { location: current } = useCurrentLocation();
   useEffect(() => {
     if (!location && current) {
@@ -54,16 +43,14 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
     }
   }, [current, onChange, location]);
 
+  const showRadius = circleRadius && onRadiusChange;
+  const locationXs = showRadius ? 8 : 12;
+
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Grid
-          container
-          direction="row"
-          alignContent="center"
-          justify="space-between"
-        >
-          <Grid item xs={9} md={12}>
+        <Grid container direction="row" spacing={1}>
+          <Grid item xs={locationXs}>
             <LocationAutocomplete
               name={name}
               value={location}
@@ -77,38 +64,27 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
               restrictToType={restrictToType}
             />
           </Grid>
-          {canCollapseMap && (
-            <Grid item xs={2}>
-              <IconButton color="primary" onClick={handleToggleMap}>
-                {mapVisible ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </IconButton>
+          {showRadius && (
+            <Grid item xs={4}>
+              <NumberInput
+                value={circleRadius ? circleRadius : 0}
+                onChange={onRadiusChange}
+                min={1}
+                max={30}
+                label="Radius"
+                unitLabel="Km"
+              />
             </Grid>
           )}
         </Grid>
       </Grid>
       <Grid item>
-        <Collapse in={!canCollapseMap || mapVisible}>
-          <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Map
-                location={location}
-                onChange={onChange}
-                circleRadius={circleRadius}
-                markers={markers}
-              />
-            </Grid>
-            {circleRadius && onRadiusChange && (
-              <Grid item>
-                <RadiusSlider
-                  id="venue-field-radius"
-                  value={circleRadius}
-                  disabled={!location}
-                  onChange={onRadiusChange}
-                />
-              </Grid>
-            )}
-          </Grid>
-        </Collapse>
+        <Map
+          location={location}
+          onChange={onChange}
+          circleRadius={circleRadius ? circleRadius * 1000 : undefined}
+          markers={markers}
+        />
       </Grid>
     </Grid>
   );
