@@ -4,7 +4,7 @@ import { Coordinates, Location, LocationType } from '../../types';
 import LocationAutocomplete from '../LocationAutocomplete';
 import Map from '../Map';
 import { useCurrentLocation } from '../../hooks';
-import NumberInput from '../NumberInput';
+import Counter from '../Counter';
 
 interface LocationFieldProps {
   location: Location | null;
@@ -18,7 +18,7 @@ interface LocationFieldProps {
   disableChangePositionViaMap?: boolean;
   restrictToType?: LocationType;
   circleRadius?: number;
-  onRadiusChange?: (value: number) => void;
+  onRadiusChange?: (value?: number) => void;
   markers?: React.ReactNode;
 }
 
@@ -43,13 +43,13 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
     }
   }, [current, onChange, location]);
 
-  const showRadius = circleRadius && onRadiusChange;
-  const locationXs = showRadius ? 8 : 12;
+  const showRadius = !!onRadiusChange;
+  const locationXs = showRadius ? 7 : 12;
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Grid container direction="row" spacing={1}>
+        <Grid container direction="row" spacing={0}>
           <Grid item xs={locationXs}>
             <LocationAutocomplete
               name={name}
@@ -65,14 +65,14 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
             />
           </Grid>
           {showRadius && (
-            <Grid item xs={4}>
-              <NumberInput
-                value={circleRadius ? circleRadius : 0}
+            <Grid item xs={5}>
+              <Counter
+                value={circleRadius}
                 onChange={onRadiusChange}
                 min={1}
                 max={30}
-                label="Radius"
-                unitLabel="Km"
+                step={1}
+                label="km"
               />
             </Grid>
           )}
@@ -82,7 +82,9 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
         <Map
           location={location}
           onChange={onChange}
-          circleRadius={circleRadius ? circleRadius * 1000 : undefined}
+          circleRadius={
+            circleRadius && circleRadius > 0 ? circleRadius * 1000 : undefined
+          }
           markers={markers}
         />
       </Grid>

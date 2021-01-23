@@ -48,7 +48,7 @@ const useEvents = ({
       }),
     {
       staleTime: STALE_TIME_MS,
-      enabled: !!location || !!venue || !!isParticipant,
+      enabled: (!!location && !!radius) || !!venue || !!isParticipant,
       onSuccess: (events) => {
         events.forEach((event) => {
           queryClient.setQueryData(`events/${event.id}`, event);

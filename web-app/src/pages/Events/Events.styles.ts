@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     display: 'flex',
   },
+  eventSkeleton: {
+    minHeight: 200,
+  },
 }));
 
 export default useStyles;

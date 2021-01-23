@@ -17,7 +17,7 @@ import {
   useEnablePushSnackbar,
 } from '../../hooks';
 import CurrencySelect from '../CurrencySelect';
-import NumberInput from '../NumberInput';
+import Counter from '../Counter';
 import Currencies from '../../utils/currencies';
 
 interface NewEventFormValues {
@@ -110,8 +110,11 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
         if (!values.sport) {
           errors.sport = 'Required';
         }
-        if (values.capacity < 2 || values.capacity > 30) {
+        if (!values.capacity || values.capacity < 2 || values.capacity > 30) {
           errors.capacity = 'Should be between 2 and 30';
+        }
+        if (!values.duration || values.duration < 15 || values.duration > 180) {
+          errors.duration = 'Should be between 15 and 180';
         }
         if (values.amount < 0) {
           errors.amount = 'Should be positive or 0';
@@ -151,8 +154,8 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 />
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={7}>
+                <Grid container direction="row" spacing={1} alignItems="center">
+                  <Grid item xs={6}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
@@ -161,26 +164,25 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       error={touched.sport && !!errors.sport}
                     />
                   </Grid>
-                  <Grid item xs={5}>
-                    <NumberInput
+                  <Grid item xs={6}>
+                    <Counter
                       value={values.capacity}
-                      onChange={(value: any) =>
-                        setFieldValue('capacity', value)
-                      }
-                      name="capacity"
+                      onChange={(value) => setFieldValue('capacity', value)}
                       min={2}
                       max={30}
-                      label="Number of players"
-                      unitLabel="players"
+                      step={1}
+                      name="capacity"
+                      label="Players"
+                      error={touched.capacity && !!errors.capacity}
+                      onBlur={handleBlur}
                     />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={7}>
+                <Grid container direction="row" spacing={1} alignItems="center">
+                  <Grid item xs={6}>
                     <DateTimePicker
-                      required
                       name="startsAt"
                       value={values.startsAt}
                       onChange={(startsAt) =>
@@ -188,28 +190,28 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       }
                       onBlur={handleBlur}
                       disablePast
+                      label="Start"
                       error={touched.startsAt && !!errors.startsAt}
                     />
                   </Grid>
-                  <Grid item xs={5}>
-                    <NumberInput
+                  <Grid item xs={6}>
+                    <Counter
                       value={values.duration}
-                      onChange={(value: any) =>
-                        setFieldValue('duration', value)
-                      }
-                      name="duration"
+                      onChange={(value) => setFieldValue('duration', value)}
                       min={15}
                       max={180}
-                      label="Duration"
-                      unitLabel="minutes"
+                      step={15}
+                      label="Minutes"
+                      name="duration"
+                      onBlur={handleBlur}
                       error={touched.duration && !!errors.duration}
                     />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container direction="row" spacing={2}>
-                  <Grid item xs={7} md={8}>
+                <Grid container direction="row" spacing={1}>
+                  <Grid item xs={6}>
                     <TextField
                       name="amount"
                       inputProps={{
@@ -226,7 +228,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       margin="dense"
                     />
                   </Grid>
-                  <Grid item xs={5} md={4}>
+                  <Grid item xs={6}>
                     <CurrencySelect
                       name="currency"
                       value={values.currency}
@@ -239,7 +241,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={6} md={6}>
+                  <Grid item xs={6}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -252,7 +254,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       label="Join"
                     />
                   </Grid>
-                  <Grid item xs={6} md={6}>
+                  <Grid item xs={6}>
                     <FormControlLabel
                       control={
                         <Checkbox

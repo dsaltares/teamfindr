@@ -55,7 +55,14 @@ const Events = () => {
 
   let eventContent = null;
   if (!events) {
-    eventContent = <Skeleton width="100%" height={200} variant="rect" />;
+    eventContent = (
+      <Skeleton
+        className={classes.eventSkeleton}
+        width="100%"
+        height="100%"
+        variant="rect"
+      />
+    );
   } else {
     eventContent = (
       <Paper className={classes.eventsPaper}>

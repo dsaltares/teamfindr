@@ -13,6 +13,7 @@ interface DateTimePickerProps {
   error?: boolean;
   helperText?: string | false;
   disablePast?: boolean;
+  label?: string;
 }
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
@@ -25,6 +26,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   error,
   helperText,
   disablePast,
+  label,
 }) => {
   return (
     <KeyboardDateTimePicker
@@ -36,7 +38,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       helperText={helperText}
       required={required}
       inputVariant="outlined"
-      label="Date & time"
+      label={label}
       clearable
       value={value}
       onChange={onChange}

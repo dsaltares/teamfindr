@@ -11,7 +11,6 @@ import {
 import Page from '../../components/Page';
 import Profile from './Profile';
 import NotificationSettings from './NotificationSettings';
-import LocationSettings from './LocationSettings';
 import Tabs, { TabType } from '../../components/Tabs';
 
 const lastSegment = (pathname: string) => {
@@ -38,13 +37,7 @@ const Settings = () => {
       Icon: NotificationsIcon,
       Component: NotificationSettings,
       linkTo: `${match.url}/notifications`,
-    },
-    {
-      value: 'location',
-      label: 'Location',
-      Icon: LocationOnIcon,
-      Component: LocationSettings,
-      linkTo: `${match.url}/location`,
+      disabled: true,
     },
   ];
   const currentTab = tabs.find(

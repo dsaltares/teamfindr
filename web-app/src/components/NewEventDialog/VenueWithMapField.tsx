@@ -5,7 +5,7 @@ import VenueAutocomplete from './VenueAutocomplete';
 import VenueMarkers from './VenueMarkers';
 import Map from '../Map';
 import { useCurrentLocation, useVenues } from '../../hooks';
-import NumberInput from '../NumberInput';
+import Counter from '../Counter';
 
 interface VenueWithMapFieldProps {
   value: Venue | null;
@@ -34,15 +34,15 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
     }
   }, [current, setLocation, location]);
 
-  const [radius, setRadius] = useState<number>(5);
+  const [radius, setRadius] = useState<number | undefined>(5);
 
   const { venues, isLoading: loadingVenues } = useVenues(location, radius);
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Grid container direction="row" spacing={1}>
-          <Grid item xs={8}>
+        <Grid container direction="row" spacing={0}>
+          <Grid item xs={7}>
             <VenueAutocomplete
               value={value}
               options={venues || []}
@@ -56,14 +56,14 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
               onBlur={onBlur}
             />
           </Grid>
-          <Grid item xs={4}>
-            <NumberInput
+          <Grid item xs={5}>
+            <Counter
               value={radius}
               onChange={setRadius}
               min={1}
               max={30}
-              label="Radius"
-              unitLabel="Km"
+              step={1}
+              label="km"
               disabled={isLoading}
             />
           </Grid>

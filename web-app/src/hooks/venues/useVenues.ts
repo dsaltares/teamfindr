@@ -18,7 +18,7 @@ const useVenues = (location: Location | null, radius?: number) => {
       }),
     {
       staleTime: STALE_TIME_MS,
-      enabled: !!location,
+      enabled: !!location && !!debouncedRadius,
       onSuccess: (venues) => {
         venues.forEach((venue) => {
           queryClient.setQueryData(`venues/${venue.id}`, venue);
