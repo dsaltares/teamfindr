@@ -7,6 +7,7 @@ import Page from '../../components/Page';
 import VenueBasicInfoPanel from '../../components/VenueBasicInfoPanel';
 import FutureEventsPanel from './FutureEventsPanel';
 import { useVenue, useEvents, useShareVenue } from '../../hooks';
+import NoResults from '../../components/NoResults';
 
 interface VenueRouteParams {
   venueId: string;
@@ -18,6 +19,18 @@ const Venue = () => {
   const { venue } = useVenue(venueId);
   const { events } = useEvents({ venue: venueId, after: date });
   const shareVenue = useShareVenue(venue);
+
+  let eventContent = null;
+  if (!events) {
+    eventContent = <Skeleton width="100%" height="100%" variant="rect" />;
+  } else {
+    eventContent =
+      events.length > 0 ? (
+        <FutureEventsPanel events={events} />
+      ) : (
+        <NoResults primaryText="No upcoming events." width="300" height="250" />
+      );
+  }
 
   return (
     <Page
@@ -36,11 +49,7 @@ const Venue = () => {
           <VenueBasicInfoPanel venue={venue} />
         </Grid>
         <Grid item xs={12} md={6}>
-          {events ? (
-            <FutureEventsPanel events={events} />
-          ) : (
-            <Skeleton width="100%" height="100%" variant="rect" />
-          )}
+          {eventContent}
         </Grid>
       </Grid>
     </Page>
