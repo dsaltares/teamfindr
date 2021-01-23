@@ -6,12 +6,12 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import EventIcon from '@material-ui/icons/Event';
 import HistoryIcon from '@material-ui/icons/History';
 import SearchIcon from '@material-ui/icons/Search';
+import { Link } from 'react-router-dom';
 import useStyles from './UserEventsPanel.styles';
 import { useEvents } from '../../hooks';
 import EventList from '../../components/EventList';
 import Tabs, { TabType } from '../../components/Tabs';
-import { Link } from 'react-router-dom';
-
+import NoResults from '../../components/NoResults';
 interface EventsForUserProps {
   mode: 'after' | 'before';
 }
@@ -29,22 +29,31 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
       className={classes.eventContainer}
       direction="column"
       justify="space-between"
+      alignItems="center"
     >
       <Grid item>
-        <EventList events={events} />
+        {events.length > 0 ? (
+          <EventList events={events} />
+        ) : (
+          <NoResults
+            primaryText={
+              mode === 'after' ? 'No upcoming events.' : 'No past events'
+            }
+            width="150"
+            height="100"
+          />
+        )}
       </Grid>
       <Grid item>
-        <div className={classes.buttonContainer}>
-          <Button
-            color="primary"
-            variant="outlined"
-            component={Link}
-            to="/events"
-            startIcon={<SearchIcon />}
-          >
-            Look for an event
-          </Button>
-        </div>
+        <Button
+          color="primary"
+          variant="outlined"
+          component={Link}
+          to="/events"
+          startIcon={<SearchIcon />}
+        >
+          Look for an event
+        </Button>
       </Grid>
     </Grid>
   ) : (

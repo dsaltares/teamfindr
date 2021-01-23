@@ -39,7 +39,7 @@ const Collapsable: React.FC<CollapsableProps> = ({
     </div>
   );
   const wrappedContent = showCollapsable ? (
-    <Collapse in={expanded || true}>{content}</Collapse>
+    <Collapse in={expanded}>{content}</Collapse>
   ) : (
     content
   );

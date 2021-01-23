@@ -17,6 +17,7 @@ import NewEventDialog from '../../components/NewEventDialog';
 import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
 import Collapsable from '../../components/Collapsable';
+import NoResults from '../../components/NoResults';
 
 const Events = () => {
   const classes = useStyles();
@@ -46,6 +47,27 @@ const Events = () => {
     setFiltersExpanded(!filtersExpanded);
   }, [filtersExpanded, setFiltersExpanded]);
 
+  let eventContent = null;
+  if (!events) {
+    eventContent = <Skeleton width="100%" height={200} variant="rect" />;
+  } else {
+    eventContent = (
+      <Paper className={classes.eventsPaper}>
+        {events.length > 0 ? (
+          <EventList events={events} />
+        ) : (
+          <NoResults
+            primaryText="No events found."
+            secondaryText="Try adjusting the filters!"
+            width="300"
+            height="250"
+          />
+        )}
+        <EventList events={events} />
+      </Paper>
+    );
+  }
+
   return (
     <>
       <Page
@@ -64,7 +86,7 @@ const Events = () => {
             <Collapsable
               title="Filters"
               icon={<TuneIcon />}
-              expanded={filtersExpanded || true}
+              expanded={filtersExpanded}
               onToggle={onToggleFilters}
               smallOnly
             >
@@ -113,13 +135,7 @@ const Events = () => {
             </Collapsable>
           </Grid>
           <Grid item xs={12} md={6}>
-            {!events ? (
-              <Skeleton width="100%" height="100%" variant="rect" />
-            ) : (
-              <Paper className={classes.eventsPaper}>
-                {events && <EventList events={events} />}
-              </Paper>
-            )}
+            {eventContent}
           </Grid>
         </Grid>
       </Page>
