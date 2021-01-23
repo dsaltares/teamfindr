@@ -1,7 +1,6 @@
 import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {
   Redirect,
   useHistory,

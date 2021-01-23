@@ -7,7 +7,7 @@ import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
-import { useCurrentLocation, useVenues } from '../../hooks';
+import { useCurrentLocation, useUser, useVenues } from '../../hooks';
 import VenueList from './VenueList';
 import VenueMarkers from './VenueMarkers';
 import useStyles from './Venues.styles';
@@ -17,6 +17,7 @@ const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number | undefined>(5);
   const { venues } = useVenues(location, radius);
+  const { user } = useUser();
   const currentLocation = useCurrentLocation();
   const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
   const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
@@ -50,18 +51,20 @@ const Venues = () => {
     );
   }
 
-  return (
-    <Page
-      title="Venues"
-      titleActions={[
+  const isAdmin = user && user.roles.includes('admin');
+  const titleActions = isAdmin
+    ? [
         {
           key: 'newVenue',
           label: 'New venue',
           icon: <AddIcon />,
           onClick: handleNewVenueDialogOpen,
         },
-      ]}
-    >
+      ]
+    : [];
+
+  return (
+    <Page title="Venues" titleActions={titleActions}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Paper className={classes.filtersPaper}>
