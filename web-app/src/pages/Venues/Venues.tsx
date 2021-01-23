@@ -11,6 +11,7 @@ import { useCurrentLocation, useVenues } from '../../hooks';
 import VenueList from './VenueList';
 import VenueMarkers from './VenueMarkers';
 import useStyles from './Venues.styles';
+import NoResults from '../../components/NoResults';
 
 const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
@@ -28,6 +29,26 @@ const Venues = () => {
   }, [currentLocation, location]);
 
   const classes = useStyles();
+
+  let venueContent = null;
+  if (!venues) {
+    venueContent = <Skeleton width="100%" height={200} variant="rect" />;
+  } else {
+    venueContent = (
+      <Paper className={classes.venuesPaper}>
+        {venues.length > 0 ? (
+          <VenueList venues={venues} />
+        ) : (
+          <NoResults
+            primaryText="No venues found."
+            secondaryText="Try adjusting the filters!"
+            width="300"
+            height="250"
+          />
+        )}
+      </Paper>
+    );
+  }
 
   return (
     <Page
@@ -60,13 +81,7 @@ const Venues = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          {!venues ? (
-            <Skeleton width="100%" height="100%" variant="rect" />
-          ) : (
-            <Paper className={classes.venuesPaper}>
-              {venues && <VenueList venues={venues} />}
-            </Paper>
-          )}
+          {venueContent}
         </Grid>
         <NewVenueDialog
           open={newVenueDialogOpen}

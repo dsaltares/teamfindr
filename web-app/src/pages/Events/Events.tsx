@@ -22,12 +22,18 @@ import NoResults from '../../components/NoResults';
 const Events = () => {
   const classes = useStyles();
   const [location, setLocation] = useState<Location | null>(null);
-  const [radius, setRadius] = useState<number | undefined>(5);
+  const [radius, setRadius] = useState<number | undefined>(10);
   const [sports, setSports] = useState<Sport[]>([]);
   const [date, setDate] = useState<Date | null>(new Date());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
-  const { events } = useEvents({ location, radius, sports, date, excludeFull });
+  const { events } = useEvents({
+    location,
+    radius,
+    sports,
+    after: date,
+    excludeFull,
+  });
 
   const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
   const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);
@@ -63,7 +69,6 @@ const Events = () => {
             height="250"
           />
         )}
-        <EventList events={events} />
       </Paper>
     );
   }
@@ -114,6 +119,7 @@ const Events = () => {
                   <DatePicker
                     value={date}
                     onChange={setDate}
+                    label="From"
                     disabled={currentLocation.isLoading}
                     disablePast
                   />

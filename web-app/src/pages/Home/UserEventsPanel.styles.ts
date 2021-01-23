@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 200,
     paddingBottom: theme.spacing(2),
   },
+  eventList: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;

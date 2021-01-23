@@ -31,7 +31,7 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
       justify="space-between"
       alignItems="center"
     >
-      <Grid item>
+      <Grid item xs={12} className={classes.eventList}>
         {events.length > 0 ? (
           <EventList events={events} />
         ) : (

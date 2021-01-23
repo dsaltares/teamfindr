@@ -6,6 +6,7 @@ interface DatePickerProps {
   onChange: (date: Date | null) => void;
   disabled?: boolean;
   disablePast?: boolean;
+  label?: string;
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -13,13 +14,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onChange,
   disabled,
   disablePast,
+  label,
 }) => {
   return (
     <KeyboardDatePicker
       autoOk
       fullWidth
       inputVariant="outlined"
-      label="Date"
+      label={label}
       clearable
       disablePast={disablePast}
       value={value}
