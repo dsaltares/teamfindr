@@ -164,7 +164,9 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                   <Grid item xs={5}>
                     <NumberInput
                       value={values.capacity}
-                      onChange={handleChange}
+                      onChange={(value: any) =>
+                        setFieldValue('capacity', value)
+                      }
                       name="capacity"
                       min={2}
                       max={30}
@@ -192,7 +194,9 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                   <Grid item xs={5}>
                     <NumberInput
                       value={values.duration}
-                      onChange={handleChange}
+                      onChange={(value: any) =>
+                        setFieldValue('duration', value)
+                      }
                       name="duration"
                       min={15}
                       max={180}
