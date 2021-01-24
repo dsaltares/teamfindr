@@ -36,6 +36,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const isParticipant =
     participants && user && !!participants.find((p) => p.user.id === user.id);
   const isPast = Boolean(event && event.startsAt < new Date().toISOString());
+  const isCanceled = !!event?.canceledAt;
   const Icon = event ? SportsIcons[event.sport] : null;
   const icon = Icon ? <Icon /> : null;
   const capacityMsg = event
@@ -92,7 +93,8 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
                     loadingParticipants ||
                     addParticipant.isLoading ||
                     isFull ||
-                    isPast
+                    isPast ||
+                    isCanceled
                   }
                   onClick={() => addParticipant.mutate(eventId)}
                 >
@@ -114,6 +116,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             onLeave={() => removeParticipant.mutate(eventId)}
             leaving={removeParticipant.isLoading}
             isPast={isPast}
+            isCanceled={isCanceled}
           />
         </Grid>
       </Grid>

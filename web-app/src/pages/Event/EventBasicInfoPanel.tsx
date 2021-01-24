@@ -11,6 +11,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EventIcon from '@material-ui/icons/Event';
 import InfoIcon from '@material-ui/icons/Info';
 import LockIcon from '@material-ui/icons/Lock';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { Event } from '../../types';
 import Map from '../../components/Map';
 import useStyles from './EventBasicInfoPanel.styles';
@@ -93,6 +94,15 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
   const venue = event?.venue;
 
   const items = [
+    ...(!!event?.canceledAt
+      ? [
+          {
+            key: 'cancelled',
+            Icon: CancelIcon,
+            text: 'This event has been canceled.',
+          },
+        ]
+      : []),
     {
       key: 'sport',
       Icon: event ? SportIcons[event.sport] : SportIcons['Football'],

@@ -15,12 +15,23 @@ const onParticipantsChanged = (queryClient: QueryClient) => ({
   queryClient.setQueryData(`participants/${event.id}`, participants);
 };
 
+interface EventChangedEvent {
+  event: Event;
+}
+
+const onEventUpdated = (queryClient: QueryClient) => ({
+  event,
+}: EventChangedEvent) => {
+  queryClient.setQueryData(`events/${event.id}`, event);
+};
+
 const useSubscribeToSocketEvents = () => {
   const queryClient = useQueryClient();
   const subscribe = useCallback(
     (socket: Socket) => {
       socket.on('Participants:Left', onParticipantsChanged(queryClient));
       socket.on('Participants:Joined', onParticipantsChanged(queryClient));
+      socket.on('Event:Updated', onEventUpdated(queryClient));
     },
     [queryClient]
   );

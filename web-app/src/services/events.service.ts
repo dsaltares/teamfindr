@@ -142,6 +142,25 @@ const eventsService = {
     });
     return { participants, event };
   },
+  cancelEvent: async (id: string): Promise<Event> => {
+    const {
+      data: { event },
+    } = await axios.patch(
+      `${API_URL}/events/${id}`,
+      {
+        event: { canceledAt: new Date() },
+      },
+      {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      }
+    );
+    return event;
+  },
 };
 
 export default eventsService;

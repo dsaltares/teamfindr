@@ -2,6 +2,7 @@ import React from 'react';
 import DialogActionsBase from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import useStyles from './DialogActions.styles';
 
 interface Action {
   key: string;
@@ -10,6 +11,7 @@ interface Action {
   loading?: boolean;
   onClick?: () => void;
   type?: 'submit';
+  danger?: boolean;
 }
 
 interface DialogActionProps {
@@ -20,25 +22,29 @@ interface DialogActionProps {
 const DialogActions: React.FC<DialogActionProps> = ({
   actions,
   loading = false,
-}) => (
-  <DialogActionsBase>
-    {actions.map((action) => (
-      <Button
-        key={action.key}
-        type={action.type}
-        onClick={action.onClick}
-        color="primary"
-        variant="outlined"
-        disabled={action.disabled || loading}
-      >
-        {action.loading ? (
-          <CircularProgress size={24} color="primary" />
-        ) : (
-          action.label
-        )}
-      </Button>
-    ))}
-  </DialogActionsBase>
-);
+}) => {
+  const classes = useStyles();
+  return (
+    <DialogActionsBase>
+      {actions.map((action) => (
+        <Button
+          key={action.key}
+          type={action.type}
+          onClick={action.onClick}
+          color="primary"
+          variant="outlined"
+          disabled={action.disabled || loading}
+          className={action.danger ? classes.dangerButton : undefined}
+        >
+          {action.loading ? (
+            <CircularProgress size={24} color="primary" />
+          ) : (
+            action.label
+          )}
+        </Button>
+      ))}
+    </DialogActionsBase>
+  );
+};
 
 export default React.memo(DialogActions);

@@ -63,9 +63,25 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
                         />
                       </Grid>
                       <Grid item>
-                        <Typography variant="caption" color="textSecondary">
-                          {`Hosted by ${event.createdBy.firstName} ${event.createdBy.lastName}`}
-                        </Typography>
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <Typography variant="caption" color="textSecondary">
+                              {`Hosted by ${event.createdBy.firstName} ${event.createdBy.lastName}`}
+                            </Typography>
+                          </Grid>
+                          {!!event.canceledAt && (
+                            <Grid item>
+                              <Typography variant="caption" color="error">
+                                {`(Canceled)`}
+                              </Typography>
+                            </Grid>
+                          )}
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>

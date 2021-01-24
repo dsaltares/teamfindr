@@ -16,6 +16,7 @@ interface ParticipantProps {
   onLeave: () => void;
   leaving: boolean;
   isPast: boolean;
+  isCanceled: boolean;
 }
 
 const ParticipantListItem: React.FC<ParticipantProps> = ({
@@ -23,6 +24,7 @@ const ParticipantListItem: React.FC<ParticipantProps> = ({
   onLeave,
   leaving,
   isPast,
+  isCanceled,
 }) => {
   const { user } = participant;
   const classes = useStyles();
@@ -46,7 +48,7 @@ const ParticipantListItem: React.FC<ParticipantProps> = ({
             startIcon={<RemoveCircleIcon />}
             color="primary"
             variant="outlined"
-            disabled={leaving}
+            disabled={leaving || isCanceled}
             onClick={(e) => {
               e.preventDefault();
               onLeave();
