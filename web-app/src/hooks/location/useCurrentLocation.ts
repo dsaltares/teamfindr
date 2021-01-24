@@ -9,7 +9,12 @@ const useCurrentIpLocation = () => {
   const { isLoading, error, data } = useQuery(
     'ipLocation',
     () => services.location.getLocationFromIp(),
-    { staleTime: STALE_TIME_MS, refetchInterval: STALE_TIME_MS }
+    {
+      staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
+      refetchInterval: STALE_TIME_MS,
+      refetchOnMount: false,
+    }
   );
   return {
     isLoading,
@@ -28,6 +33,7 @@ const useCurrentGeoLocation = () => {
       staleTime: STALE_TIME_MS,
       refetchInterval: STALE_TIME_MS,
       enabled: permission === 'granted',
+      refetchOnMount: false,
     }
   );
   return {

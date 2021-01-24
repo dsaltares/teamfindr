@@ -48,7 +48,9 @@ const useEvents = ({
       }),
     {
       staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
       enabled: (!!location && !!radius) || !!venue || !!isParticipant,
+      refetchOnMount: false,
       onSuccess: (events) => {
         events.forEach((event) => {
           queryClient.setQueryData(`events/${event.id}`, event);

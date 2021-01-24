@@ -10,6 +10,8 @@ const useEvent = (id: string) => {
     () => services.events.getEvent(id),
     {
       staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
+      refetchOnMount: false,
     }
   );
   return {

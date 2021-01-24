@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useDebounce } from 'use-lodash-debounce';
 import { useServices } from '../../providers/ServicesProvider';
-import { Coordinates, Location } from '../../types';
+import { Coordinates } from '../../types';
+
+const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
 
 const debounceTimeMs = 200;
 const debounceOpts = {
@@ -15,25 +17,22 @@ const useLocationFromCoordinates = (coordinates: Coordinates | null) => {
     debounceTimeMs,
     debounceOpts
   );
-  const [location, setLocation] = useState<Location | null>(null);
   const services = useServices();
+  const { data } = useQuery(
+    ['location', debouncedCoordinates || []],
+    () =>
+      services.location.getLocationFromCoordinates(
+        debouncedCoordinates as Coordinates
+      ),
+    {
+      staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
+      enabled: !!debouncedCoordinates,
+      refetchOnMount: false,
+    }
+  );
 
-  useEffect(() => {
-    const lookupCoordinates = async () => {
-      if (!debouncedCoordinates) {
-        return;
-      }
-      try {
-        const newLocation = await services.location.getLocationFromCoordinates(
-          debouncedCoordinates
-        );
-        setLocation(newLocation);
-      } catch (e) {}
-    };
-    lookupCoordinates();
-  }, [debouncedCoordinates, services, setLocation]);
-
-  return location;
+  return data || null;
 };
 
 export default useLocationFromCoordinates;

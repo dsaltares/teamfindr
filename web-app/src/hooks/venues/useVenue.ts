@@ -10,6 +10,8 @@ const useVenue = (id: string) => {
     () => services.venues.getVenue(id),
     {
       staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
+      refetchOnMount: false,
     }
   );
   return {

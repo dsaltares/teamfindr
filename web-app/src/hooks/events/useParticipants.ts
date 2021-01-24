@@ -10,6 +10,8 @@ const useParticipants = (id: string) => {
     () => services.events.getParticipants(id),
     {
       staleTime: STALE_TIME_MS,
+      cacheTime: STALE_TIME_MS,
+      refetchOnMount: true,
     }
   );
   return {

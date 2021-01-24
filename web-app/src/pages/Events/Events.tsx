@@ -18,13 +18,14 @@ import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
 import Collapsable from '../../components/Collapsable';
 import NoResults from '../../components/NoResults';
+import todayAtMidnight from '../../utils/todayAtMidnight';
 
 const Events = () => {
   const classes = useStyles();
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number | undefined>(10);
   const [sports, setSports] = useState<Sport[]>([]);
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState<Date | null>(todayAtMidnight());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
   const { events } = useEvents({

@@ -11,6 +11,7 @@ const useUser = () => {
     {
       staleTime: STALE_TIME_MS,
       cacheTime: STALE_TIME_MS,
+      refetchOnMount: false,
     }
   );
   return {

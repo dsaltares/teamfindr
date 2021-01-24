@@ -12,12 +12,13 @@ import { useEvents } from '../../hooks';
 import EventList from '../../components/EventList';
 import Tabs, { TabType } from '../../components/Tabs';
 import NoResults from '../../components/NoResults';
+import todayAtMidnight from '../../utils/todayAtMidnight';
 interface EventsForUserProps {
   mode: 'after' | 'before';
 }
 const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
   const classes = useStyles();
-  const [currentDate] = useState(new Date());
+  const [currentDate] = useState(todayAtMidnight());
   const { events } = useEvents({
     isParticipant: true,
     [mode]: currentDate,
