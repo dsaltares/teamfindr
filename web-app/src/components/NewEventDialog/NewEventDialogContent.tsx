@@ -240,6 +240,21 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 </Grid>
               </Grid>
               <Grid item>
+                <TextField
+                  name="description"
+                  label="Description"
+                  placeholder="Add indications or rules about the event."
+                  fullWidth
+                  multiline
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.description && !!errors.description}
+                  helperText={touched.description && errors.description}
+                  margin="dense"
+                />
+              </Grid>
+              <Grid item>
                 <Grid container direction="row" spacing={2} alignItems="center">
                   <Grid item xs={6}>
                     <FormControlLabel
@@ -268,21 +283,6 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                     />
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid item>
-                <TextField
-                  name="description"
-                  label="Description"
-                  placeholder="Add indications or rules about the event."
-                  fullWidth
-                  multiline
-                  variant="outlined"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.description && !!errors.description}
-                  helperText={touched.description && errors.description}
-                  margin="dense"
-                />
               </Grid>
             </Grid>
           </DialogContent>
