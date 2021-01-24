@@ -65,7 +65,7 @@ const UserInfoPanel = () => {
             onClick={request}
             disabled={requesting}
           >
-            Improve accuracy
+            Improve location accuracy
           </Button>
         )}
       </Grid>
