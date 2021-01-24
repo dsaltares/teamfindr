@@ -85,6 +85,7 @@ export type Event = {
   id: string;
   createdAt: string;
   startsAt: string;
+  canceledAt?: string;
   venue: Venue;
   sport: Sport;
   duration: number;

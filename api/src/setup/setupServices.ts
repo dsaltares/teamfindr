@@ -7,6 +7,7 @@ import CreateVenue from '../services/createVenue';
 import SearchVenues from '../services/searchVenues';
 import GetVenueById from '../services/getVenueById';
 import CreateEvent from '../services/createEvent';
+import UpdateEvent from '../services/updateEvent';
 import SearchEvents from '../services/searchEvents';
 import GetEventById from '../services/getEventById';
 import GetParticipants from '../services/getParticipants';
@@ -35,6 +36,7 @@ const setupServices = (deps: ServiceDependencies) => {
     searchVenues,
     getVenueById: GetVenueById(deps),
     createEvent: CreateEvent(deps),
+    updateEvent: UpdateEvent(deps),
     searchEvents: SearchEvents({
       ...deps,
       searchVenues,

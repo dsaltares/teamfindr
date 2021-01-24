@@ -60,6 +60,7 @@ const searchEvents = ({
     };
   } else {
     basicMatchQuery.linkOnly = { $ne: true };
+    basicMatchQuery.canceledAt = { $exists: false };
   }
 
   if (sports) {

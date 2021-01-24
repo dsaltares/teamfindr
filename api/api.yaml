@@ -333,6 +333,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: updates an event
+      operationId: postEvent
+      parameters:
+        - in: path
+          name: eventId
+          schema:
+            type: string
+          required: true
+          description: id of the event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchEventRequest'
+      responses:
+        '200':
+          description: updated event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchEventResponse'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: venue not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /participants/{eventId}:
     get:
@@ -568,6 +602,24 @@ components:
       properties:
         event:
           $ref: '#/components/schemas/Event'
+    PatchEventRequest:
+      type: object
+      required:
+        - event
+      properties:
+        event:
+          type: object
+          properties:
+            canceledAt:
+              type: string
+              format: date-time
+    PatchEventResponse:
+      type: object
+      required:
+        - event
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
     GetEventsResponse:
       type: object
       required:
@@ -734,6 +786,9 @@ components:
           type: string
           format: date-time
         startsAt:
+          type: string
+          format: date-time
+        canceledAt:
           type: string
           format: date-time
         venue:

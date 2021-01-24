@@ -4,7 +4,7 @@ import { AppEvent, EventHandler, Subscriber } from '../../utils/eventEmitter';
 const live = (subscribe: Subscriber) => ({
   getSocketsForUserIds,
 }: Services) => {
-  const events = ['Participants:Left', 'Participants:Joined'];
+  const events = ['Participants:Left', 'Participants:Joined', 'Event:Updated'];
   const handleEvent: EventHandler = (event: AppEvent) => {
     const sockets = getSocketsForUserIds(event.users);
     sockets.forEach((socket) => socket.emit(event.name, event.payload));

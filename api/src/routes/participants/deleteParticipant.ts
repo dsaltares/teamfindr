@@ -22,6 +22,13 @@ const PostParticipantController: ControllerCreator = ({
     };
   }
 
+  if (!!event.canceledAt) {
+    return {
+      status: 409,
+      body: { message: 'Event is canceled' },
+    };
+  }
+
   const participant = await getParticipant({ eventId, userId: user.id });
   if (!participant) {
     return {

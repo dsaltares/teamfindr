@@ -1,6 +1,7 @@
 import PostEventController from './postEvent';
 import GetEventsController from './getEvents';
 import GetEventController from './getEvent';
+import PatchEventController from './patchEvent';
 import { RouteDefinitions } from '../routeDef';
 
 const eventRoutes: RouteDefinitions = {
@@ -22,6 +23,12 @@ const eventRoutes: RouteDefinitions = {
       method: 'get',
       path: ':eventId',
       controller: GetEventController,
+      requiresAuthentication: true,
+    },
+    {
+      method: 'patch',
+      path: ':eventId',
+      controller: PatchEventController,
       requiresAuthentication: true,
     },
   ],
