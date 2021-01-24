@@ -26,6 +26,39 @@
       crossorigin=""
     />
 
+    <!-- Cookie notice -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.wpcc.io/lib/1.0.2/cookieconsent.min.css"
+    />
+    <script
+      src="https://cdn.wpcc.io/lib/1.0.2/cookieconsent.min.js"
+      defer
+    ></script>
+    <script>
+      window.addEventListener('load', function () {
+        window.wpcc.init({
+          corners: 'normal',
+          colors: {
+            popup: {
+              background: '#e2f7d4',
+              text: '#000000',
+              border: '#7fc25e',
+            },
+            button: { background: '#7fc25e', text: '#ffffff' },
+          },
+          padding: 'small',
+          margin: 'small',
+          content: {
+            href: 'https://www.websitepolicies.com/policies/view/pfmhVPJG',
+            message:
+              'TeamFindr uses cookies to ensure you get the best experience.',
+          },
+        });
+      });
+    </script>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
