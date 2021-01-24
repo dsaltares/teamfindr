@@ -4,13 +4,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
+import Link from '@material-ui/core/Link';
 import AvatarUploader from './AvatarUploader';
-import useStyles from './Profile.styles';
 import { useUser, useLogout } from '../../../hooks';
 import { User } from '../../../types';
+import Policies from '../../../utils/policies';
 
 const Profile = () => {
-  const classes = useStyles();
   const user = useUser().user as User;
   const logout = useLogout();
 
@@ -34,11 +34,10 @@ const Profile = () => {
       spacing={4}
       justify="center"
       alignContent="center"
+      alignItems="center"
     >
       <Grid item>
-        <div className={classes.centeredContainer}>
-          <AvatarUploader />
-        </div>
+        <AvatarUploader />
       </Grid>
       <Grid item>
         <Grid
@@ -63,11 +62,43 @@ const Profile = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <div className={classes.centeredContainer}>
-          <Button color="primary" variant="text" onClick={logout}>
-            Log out
-          </Button>
-        </div>
+        <Grid container direction="column" alignItems="center" spacing={1}>
+          <Grid item>
+            <Link
+              href={Policies.Privacy}
+              target="_blank"
+              rel="nofollow noreferrer"
+              underline="none"
+            >
+              Privacy policy
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link
+              href={Policies.Terms}
+              target="_blank"
+              rel="nofollow noreferrer"
+              underline="none"
+            >
+              Terms and conditions
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link
+              href={Policies.Cookies}
+              target="_blank"
+              rel="nofollow noreferrer"
+              underline="none"
+            >
+              Cookie policy
+            </Link>
+          </Grid>
+          <Grid item>
+            <Button color="primary" variant="text" onClick={logout}>
+              Log out
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

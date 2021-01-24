@@ -4,6 +4,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Link from '@material-ui/core/Link';
+import Divider from '@material-ui/core/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HttpsIcon from '@material-ui/icons/Https';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -12,8 +14,7 @@ import Avatar from '../Avatar';
 import useStyles from './AvatarMenu.styles';
 import { useUser, useLogout } from '../../hooks';
 import { User } from '../../types';
-import Link from '@material-ui/core/Link';
-import Divider from '@material-ui/core/Divider';
+import Policies from '../../utils/policies';
 
 const AvatarMenu = () => {
   const user = useUser().user as User;
@@ -44,19 +45,19 @@ const AvatarMenu = () => {
       key: 'privacy',
       label: 'Privacy policy',
       Icon: HttpsIcon,
-      href: 'https://www.websitepolicies.com/policies/view/x9I25IuH',
+      href: Policies.Privacy,
     },
     {
       key: 'terms',
       label: 'Terms and conditions',
       Icon: GavelIcon,
-      href: 'https://www.websitepolicies.com/policies/view/KfnvFr4Y',
+      href: Policies.Terms,
     },
     {
       key: 'cookie',
       label: 'Cookie policy',
       Icon: MenuBookIcon,
-      href: 'https://www.websitepolicies.com/policies/view/pfmhVPJG',
+      href: Policies.Cookies,
     },
     { key: 'divider', divider: true },
     {
