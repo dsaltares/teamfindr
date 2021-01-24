@@ -142,7 +142,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
       }) => (
         <DialogForm onSubmit={handleSubmit}>
           <DialogContent>
-            <Grid container direction="column" spacing={2}>
+            <Grid container direction="column" spacing={1}>
               <Grid item>
                 <VenueWithMapField
                   name="venue"
