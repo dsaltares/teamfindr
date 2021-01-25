@@ -22,12 +22,13 @@ const sendPushNotificationToUser = ({
   userId,
   message,
 }: SendPushNotificationToUserParam) => {
+  logger.info('sending push notification', { userId, message: message.title });
   const pushDevices = await getPushDevicesForUser(userId);
   pushDevices.forEach(async (pushDevice) => {
     try {
       await sendPushNotification(pushDevice.subscription, message);
     } catch (error) {
-      logger.info('Failed to send push notification', {
+      logger.error('Failed to send push notification', {
         userId,
         endpoint: pushDevice.subscription.endpoint,
       });

@@ -60,11 +60,6 @@ interface AddRoutesParams {
 const addRoutes = ({ app, basePath, routes, services }: AddRoutesParams) => {
   routes.forEach((route) => {
     const fullPath = `${basePath}/${route.path}`;
-
-    services.logger.info('setting up route', {
-      method: route.method,
-      path: fullPath,
-    });
     app[route.method](fullPath, getController({ route, services }));
   });
 };
@@ -83,6 +78,8 @@ interface SetupRouteArgs {
 }
 
 const setupRoutes = ({ app, services }: SetupRouteArgs) => {
+  services.logger.info('setting up routes');
+
   allRoutes.forEach(({ basePath, routes }) => {
     addRoutes({
       app,

@@ -33,7 +33,7 @@ const PatchEventController: ControllerCreator = ({
   }
 
   const [, participants] = await Promise.all([
-    updateEvent({ eventId, updates }),
+    updateEvent({ eventId, updates, userId }),
     getParticipants(eventId),
   ]);
 

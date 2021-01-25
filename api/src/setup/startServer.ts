@@ -16,7 +16,7 @@ const startServer = async () => {
   const dependencies = await setupServiceDependencies({ config, logger });
   await createIndexes(dependencies);
   const services = setupServices(dependencies);
-  const app = setupApp(config);
+  const app = setupApp(config, logger);
   const server = createServer(app);
 
   setupSocket(dependencies, server);

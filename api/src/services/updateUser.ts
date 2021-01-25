@@ -9,10 +9,11 @@ interface UpdateUserParams {
   };
 }
 
-const updateUser = ({ userCollection }: ServiceDependencies) => async ({
+const updateUser = ({ logger, userCollection }: ServiceDependencies) => async ({
   userId,
   user,
 }: UpdateUserParams) => {
+  logger.info('updating user', { userId });
   const { value: updatedUser } = await userCollection.findOneAndUpdate(
     { _id: userId },
     {

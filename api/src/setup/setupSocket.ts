@@ -5,6 +5,8 @@ import sharedSession from 'express-socket.io-session';
 import { ServiceDependencies } from './setupServiceDependencies';
 
 const setupSocket = (deps: ServiceDependencies, server: Server) => {
+  deps.logger.info('setting up socket server');
+
   const io = new SocketServer(server, {
     pingTimeout: 25000,
     pingInterval: 30000,

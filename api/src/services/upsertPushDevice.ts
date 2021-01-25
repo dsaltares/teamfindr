@@ -16,7 +16,10 @@ const upsertPushDevice = ({
   subscription,
   userId,
 }: UpsertPushDeviceParams) => {
-  logger.info('registering push device for user', { subscription, userId });
+  logger.info('registering push device for user', {
+    endpoint: subscription.endpoint,
+    userId,
+  });
 
   const mongoPushDevice = {
     _id: uuid(),

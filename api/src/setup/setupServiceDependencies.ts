@@ -14,6 +14,7 @@ const setupServiceDependencies = async ({
   config,
   logger,
 }: SetupServiceDependenciesArgs) => {
+  logger.info('setting up service dependencies');
   const client = new MongoClient(config.databaseURI, {
     useUnifiedTopology: true,
   });
@@ -32,7 +33,7 @@ const setupServiceDependencies = async ({
     pushDeviceCollection: db.collection('PushDevice'),
     pushEvent: pushEvent(emitter),
     subscribe: subscribe(emitter),
-    socketStore: socketStore(),
+    socketStore: socketStore(logger),
     sendPushNotification: sendPushNotification(config),
   };
 };

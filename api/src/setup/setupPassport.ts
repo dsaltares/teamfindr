@@ -10,7 +10,10 @@ import VerifyGoogle from '../passport/verifyGoogle';
 import { Services } from './setupServices';
 
 const setupPassport = (services: Services) => {
-  const { config } = services;
+  const { config, logger } = services;
+
+  logger.info('setting up passport');
+
   passport.serializeUser(SerializeUser());
   passport.deserializeUser(DeserializeUser(services));
 

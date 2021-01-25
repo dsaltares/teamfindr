@@ -1,17 +1,24 @@
+import { loggers } from 'winston';
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import formatEvent from '../utils/formatEvent';
 
 interface UpdateEventParams {
+  userId: string;
   eventId: string;
   updates: {
     canceledAt?: string;
   };
 }
 
-const updateEvent = ({ eventCollection }: ServiceDependencies) => async ({
+const updateEvent = ({
+  logger,
+  eventCollection,
+}: ServiceDependencies) => async ({
+  userId,
   eventId,
   updates,
 }: UpdateEventParams) => {
+  logger.info('updating event', { userId, eventId });
   const setFields: any = {};
   if (updates.canceledAt) {
     setFields.canceledAt = new Date(updates.canceledAt);

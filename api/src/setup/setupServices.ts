@@ -21,6 +21,8 @@ import DeletePushDeviceByEndpoint from '../services/deletePushDeviceByEndpoint';
 import SendPushNotificationToUser from '../services/sendPushNotificationToUser';
 
 const setupServices = (deps: ServiceDependencies) => {
+  deps.logger.info('setting up services');
+
   const searchVenues = SearchVenues(deps);
 
   return {

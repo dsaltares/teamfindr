@@ -6,9 +6,13 @@ import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { middleware as OpenApiMiddleware } from 'express-openapi-validator';
+import { Logger } from 'winston';
 import { Config } from '../types';
+import requestLogger from '../middlewares/requestLogger';
 
-const setupApp = (config: Config) => {
+const setupApp = (config: Config, logger: Logger) => {
+  logger.info('setting up app');
+
   const app = express();
   app.use(
     cors({
@@ -49,6 +53,7 @@ const setupApp = (config: Config) => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(helmet());
+  app.use(requestLogger(logger));
   app.enable('trust proxy');
 
   return app;
