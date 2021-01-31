@@ -1,29 +1,33 @@
 {
   "files": {
     "main.css": "/static/css/main.598f9b4f.chunk.css",
-    "main.js": "/static/js/main.b523f41c.chunk.js",
-    "main.js.map": "/static/js/main.b523f41c.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.25ec2d5f.js",
-    "runtime-main.js.map": "/static/js/runtime-main.25ec2d5f.js.map",
+    "main.js": "/static/js/main.842d7184.chunk.js",
+    "main.js.map": "/static/js/main.842d7184.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8e37bf39.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8e37bf39.js.map",
     "static/css/2.1ca50200.chunk.css": "/static/css/2.1ca50200.chunk.css",
-    "static/js/2.0d29a199.chunk.js": "/static/js/2.0d29a199.chunk.js",
-    "static/js/2.0d29a199.chunk.js.map": "/static/js/2.0d29a199.chunk.js.map",
-    "static/js/3.368982bb.chunk.js": "/static/js/3.368982bb.chunk.js",
-    "static/js/3.368982bb.chunk.js.map": "/static/js/3.368982bb.chunk.js.map",
+    "static/js/2.e56082ea.chunk.js": "/static/js/2.e56082ea.chunk.js",
+    "static/js/2.e56082ea.chunk.js.map": "/static/js/2.e56082ea.chunk.js.map",
+    "static/js/3.b33a09b0.chunk.js": "/static/js/3.b33a09b0.chunk.js",
+    "static/js/3.b33a09b0.chunk.js.map": "/static/js/3.b33a09b0.chunk.js.map",
     "index.html": "/index.html",
     "service-worker.js": "/service-worker.js",
     "service-worker.js.map": "/service-worker.js.map",
     "static/css/2.1ca50200.chunk.css.map": "/static/css/2.1ca50200.chunk.css.map",
     "static/css/main.598f9b4f.chunk.css.map": "/static/css/main.598f9b4f.chunk.css.map",
-    "static/js/2.0d29a199.chunk.js.LICENSE.txt": "/static/js/2.0d29a199.chunk.js.LICENSE.txt",
+    "static/js/2.e56082ea.chunk.js.LICENSE.txt": "/static/js/2.e56082ea.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/roboto-latin-900italic.cb5ad999.woff2",
-    "static/media/undraw_goal.b655c8bb.svg": "/static/media/undraw_goal.b655c8bb.svg"
+    "static/media/undraw_basketball.fccfb1b1.svg": "/static/media/undraw_basketball.fccfb1b1.svg",
+    "static/media/undraw_goal.b655c8bb.svg": "/static/media/undraw_goal.b655c8bb.svg",
+    "static/media/undraw_not_found.a1b41825.svg": "/static/media/undraw_not_found.a1b41825.svg",
+    "static/media/undraw_soccer.f9d06e91.svg": "/static/media/undraw_soccer.f9d06e91.svg",
+    "static/media/undraw_tennis.7bd09e44.svg": "/static/media/undraw_tennis.7bd09e44.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.25ec2d5f.js",
+    "static/js/runtime-main.8e37bf39.js",
     "static/css/2.1ca50200.chunk.css",
-    "static/js/2.0d29a199.chunk.js",
+    "static/js/2.e56082ea.chunk.js",
     "static/css/main.598f9b4f.chunk.css",
-    "static/js/main.b523f41c.chunk.js"
+    "static/js/main.842d7184.chunk.js"
   ]
 }
