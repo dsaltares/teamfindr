@@ -4,6 +4,10 @@ import PostPushController from './postPush';
 import FailedController from './failed';
 import LogoutController from './logout';
 import { RouteDefinitions } from '../routeDef';
+import { Request } from '../../types';
+
+const getRedirect = (req: Request) =>
+  req.query.redirect ? (req.query.redirect as string) : undefined;
 
 const authRoutes: RouteDefinitions = {
   basePath: '/auth',
@@ -35,7 +39,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'twitter',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect as string;
+        req.session.redirect = getRedirect(req);
         return passport.authenticate('twitter')(req, res);
       },
     },
@@ -53,7 +57,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'facebook',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect as string;
+        req.session.redirect = getRedirect(req);
         return passport.authenticate('facebook', { scope: ['email'] })(
           req,
           res
@@ -74,7 +78,7 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'google',
       handler: (req, res) => {
-        req.session.redirect = req.query.redirect as string;
+        req.session.redirect = getRedirect(req);
         return passport.authenticate('google', { scope: ['email', 'profile'] })(
           req,
           res
@@ -85,6 +89,8 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'google/redirect',
       handler: (req, res) => {
+        console.log('req.session.redirect', req.session.redirect);
+        console.log('config.clientUrl', config.clientUrl);
         passport.authenticate('google', {
           successRedirect: req.session.redirect || config.clientUrl,
           failureRedirect: '/auth/failed',
