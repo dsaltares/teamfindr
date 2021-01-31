@@ -27,10 +27,10 @@ const userService = {
     }
   },
   openIdpAuthPage: (provider: AuthProvider, redirect: string) => {
-    window.open(
-      `${API_URL}/auth/${provider}?redirect=${encodeURIComponent(redirect)}`,
-      '_self'
-    );
+    const redirectStr = redirect
+      ? `redirect=${encodeURIComponent(redirect)}`
+      : '';
+    window.open(`${API_URL}/auth/${provider}?${redirectStr}`, '_self');
   },
   logout: () => {
     window.open(`${API_URL}/auth/logout`, '_self');
