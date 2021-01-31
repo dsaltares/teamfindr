@@ -3,11 +3,21 @@ import { Subscriber } from '../../utils/eventEmitter';
 import onParticipantsJoined from './onParticipantsJoined';
 import onParticipantsLeft from './onParticipantsLeft';
 import onEventCanceled from './onEventCanceled';
+import withInstrumentation from '../withInstrumentation';
 
 const notifications = (subscribe: Subscriber) => (services: Services) => {
-  subscribe('Participants:Left', onParticipantsLeft(services));
-  subscribe('Participants:Joined', onParticipantsJoined(services));
-  subscribe('Event:Canceled', onEventCanceled(services));
+  subscribe(
+    'Participants:Left',
+    withInstrumentation('push', onParticipantsLeft(services))
+  );
+  subscribe(
+    'Participants:Joined',
+    withInstrumentation('push', onParticipantsJoined(services))
+  );
+  subscribe(
+    'Event:Canceled',
+    withInstrumentation('push', onEventCanceled(services))
+  );
 };
 
 export default notifications;

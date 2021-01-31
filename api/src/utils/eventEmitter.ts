@@ -8,7 +8,7 @@ export type AppEvent = {
   payload: any;
 };
 
-export type EventHandler = (event: AppEvent) => void | Promise<void>;
+export type EventHandler = (event: AppEvent) => Promise<void>;
 export type Subscriber = (name: string, handler: EventHandler) => void;
 
 export const pushEvent = (emitter: EventEmitter) => (event: AppEvent) => {

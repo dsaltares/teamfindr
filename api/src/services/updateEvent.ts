@@ -1,4 +1,3 @@
-import { loggers } from 'winston';
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import formatEvent from '../utils/formatEvent';
 
