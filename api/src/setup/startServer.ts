@@ -1,3 +1,4 @@
+import 'newrelic';
 import { createServer } from 'http';
 import getConfig from './getConfig';
 import setupLogger from './setupLogger';

@@ -97,5 +97,12 @@ jobs:
           docker pull dsaltares/teamfindr-api
           docker stop teamfindr-api
           docker rm teamfindr-api
-          docker run --env TEAM_FINDR_CONFIG=${{ secrets.TEAM_FINDR_CONFIG }} --name teamfindr-api -d -p 5000:5000 --restart unless-stopped dsaltares/teamfindr-api
+          docker run --env TEAM_FINDR_CONFIG=${{ secrets.TEAM_FINDR_CONFIG }} \
+            --env NEW_RELIC_LICENSE_KEY=${{ secrets.NEW_RELIC_LICENSE_KEY }} \
+            --env NEW_RELIC_APP_NAME="teamfindr" \
+            --env NEW_RELIC_NO_CONFIG_FILE=true \
+            --name teamfindr-api \
+            -d -p 5000:5000 \
+            --restart unless-stopped \
+            dsaltares/teamfindr-api
           docker image prune -a -f
