@@ -5,8 +5,7 @@ const withInstrumentation = (
   prefix: string,
   handler: EventHandler
 ): EventHandler => (event) =>
-  newrelic.startBackgroundTransaction(
-    `${prefix}/${event.name}`,
+  newrelic.startBackgroundTransaction(`${prefix}/${event.name}`, () =>
     handler(event)
   );
 
