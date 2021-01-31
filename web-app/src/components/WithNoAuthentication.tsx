@@ -9,7 +9,7 @@ const WithNoAuthentication = <P extends object>(
   const { user } = useUser();
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   return <Component {...props} />;

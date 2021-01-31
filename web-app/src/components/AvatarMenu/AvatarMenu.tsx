@@ -103,6 +103,7 @@ const AvatarMenu = () => {
               target="_blank"
               rel="nofollow noreferrer"
               underline="none"
+              color="inherit"
             >
               <ListItemIcon className={classes.itemIcon}>
                 <item.Icon />
