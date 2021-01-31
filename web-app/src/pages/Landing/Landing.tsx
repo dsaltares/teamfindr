@@ -29,7 +29,7 @@ const Features = [
   },
 ];
 
-function Landing() {
+const Landing: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -79,6 +79,6 @@ function Landing() {
       </Switch>
     </Grid>
   );
-}
+};
 
 export default React.memo(Landing);

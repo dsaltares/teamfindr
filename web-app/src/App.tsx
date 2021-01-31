@@ -12,6 +12,7 @@ import Venues from './pages/Venues';
 import Venue from './pages/Venue';
 import Settings from './pages/Settings';
 import Landing from './pages/Landing';
+import NotFound from './pages/NotFound';
 
 const App: React.FC = () => {
   useSubscribePush();
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/settings" component={withAuthentication(Settings)} />
         <Route path="/login" exact component={withNoAuthentication(Landing)} />
         <Route path="/" exact component={withNoAuthentication(Landing)} />
+        <Route exact component={NotFound} />
       </Switch>
     </HashRouter>
   );
