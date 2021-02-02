@@ -39,7 +39,14 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Typography variant="body1">
-                      {`${event.sport} - ${formatDate(event.startsAt)}`}
+                      {`${event.sport} - `}
+                      <span
+                        className={
+                          event.canceledAt ? classes.canceled : undefined
+                        }
+                      >
+                        {formatDate(event.startsAt)}
+                      </span>
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -63,25 +70,9 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
                         />
                       </Grid>
                       <Grid item>
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          spacing={1}
-                        >
-                          <Grid item>
-                            <Typography variant="caption" color="textSecondary">
-                              {`Hosted by ${event.createdBy.firstName} ${event.createdBy.lastName}`}
-                            </Typography>
-                          </Grid>
-                          {!!event.canceledAt && (
-                            <Grid item>
-                              <Typography variant="caption" color="error">
-                                {`(Canceled)`}
-                              </Typography>
-                            </Grid>
-                          )}
-                        </Grid>
+                        <Typography variant="caption" color="textSecondary">
+                          {`Hosted by ${event.createdBy.firstName} ${event.createdBy.lastName}`}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Grid>
