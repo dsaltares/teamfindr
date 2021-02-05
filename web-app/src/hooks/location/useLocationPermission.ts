@@ -10,6 +10,10 @@ const useLocationPermission = () => {
       if (requesting) {
         return;
       }
+
+      if (!navigator.permissions) {
+        return;
+      }
       const status = await navigator.permissions.query({ name: 'geolocation' });
       setPermission(status);
     };
