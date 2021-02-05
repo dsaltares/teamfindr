@@ -6,6 +6,10 @@ import useUser from '../user/useUser';
 
 const enablePushNotifications = (): Promise<NotificationPermission> => {
   return new Promise<NotificationPermission>(function (resolve, reject) {
+    if (!Notification) {
+      return 'denied';
+    }
+
     const permissionResult = Notification.requestPermission(resolve);
 
     if (permissionResult) {
@@ -15,7 +19,7 @@ const enablePushNotifications = (): Promise<NotificationPermission> => {
 };
 
 const shouldAskForNotificationPermission = () =>
-  Notification.permission === 'default';
+  Notification && Notification.permission === 'default';
 
 const useEnablePushSnackbar = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();

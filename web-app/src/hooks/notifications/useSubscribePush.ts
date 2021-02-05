@@ -8,7 +8,7 @@ const useSubscribePush = () => {
 
   useEffect(() => {
     const shouldSubscribe =
-      pushPublicKey && Notification.permission === 'granted';
+      pushPublicKey && Notification && Notification.permission === 'granted';
     if (shouldSubscribe) {
       services.worker.subscribeToPush(pushPublicKey as string);
     }
