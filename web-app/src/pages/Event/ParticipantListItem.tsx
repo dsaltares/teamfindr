@@ -33,14 +33,17 @@ const ParticipantListItem: React.FC<ParticipantProps> = ({
 
   return (
     <ListItem component="li">
-      <ListItemAvatar>
+      <ListItemAvatar className={classes.listItemAvatar}>
         <Avatar
           firstName={user.firstName}
           lastName={user.lastName}
           avatar={user.avatar}
         />
       </ListItemAvatar>
-      <ListItemText primary={`${user.firstName} ${user.lastName}`} />
+      <ListItemText
+        className={classes.listItemText}
+        primary={`${user.firstName} ${user.lastName}`}
+      />
       {isCurrentUser && !isPast && (
         <ListItemSecondaryAction>
           <Button
