@@ -3,8 +3,12 @@ import splitFullName from '../utils/splitFullName';
 import { AnyProfile } from './types';
 
 const profileToUserParams = (profile: AnyProfile) => {
-  const email = profile.emails[0].value;
-  const avatar = profile.photos[0].value;
+  const email = profile.emails[0]?.value;
+  if (!email || !profile.displayName) {
+    return null;
+  }
+
+  const avatar = profile.photos[0]?.value;
   const twitterId = profile.id;
   const twitterHandle = profile.username;
 

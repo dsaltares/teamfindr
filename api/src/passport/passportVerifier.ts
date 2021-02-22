@@ -2,6 +2,7 @@ import { Services } from '../setup/setupServices';
 import { AnyProfile, DoneFn, ProfileToUserParamsFn } from './types';
 
 const passportVerifier = (profileToUserParams: ProfileToUserParamsFn) => ({
+  logger,
   getUserByEmail,
   createUser,
 }: Services) => async (
@@ -11,6 +12,11 @@ const passportVerifier = (profileToUserParams: ProfileToUserParamsFn) => ({
   done: DoneFn
 ) => {
   const params = profileToUserParams(profile);
+  if (!params) {
+    logger.error('invalid profile', { profile });
+    done(new Error('cannot create user, invalid profile'));
+    return;
+  }
   const existingUser = await getUserByEmail(params.email);
   if (existingUser) {
     done(null, existingUser);

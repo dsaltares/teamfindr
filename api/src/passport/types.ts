@@ -27,4 +27,4 @@ export interface UserParams {
   };
 }
 
-export type ProfileToUserParamsFn = (profile: AnyProfile) => UserParams;
+export type ProfileToUserParamsFn = (profile: AnyProfile) => UserParams | null;
