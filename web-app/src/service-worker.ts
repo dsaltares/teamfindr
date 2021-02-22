@@ -152,7 +152,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('push', (event) => {
-  const { title, body, url, tag } = JSON.parse(event.data?.text() as string);
+  const { title, body, url } = JSON.parse(event.data?.text() as string);
   event.waitUntil(
     self.clients.matchAll().then((matchedClients) => {
       const clientOnSameUrl = matchedClients.find(
@@ -165,7 +165,6 @@ self.addEventListener('push', (event) => {
       return self.registration.showNotification(title, {
         body,
         data: { url },
-        tag,
         icon: '/notification_icon.png',
         badge: '/logo512.png',
       });
