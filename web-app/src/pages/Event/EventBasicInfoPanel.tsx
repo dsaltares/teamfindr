@@ -20,6 +20,7 @@ import formatDate from '../../utils/formatDate';
 import { CurrencyFlags } from '../../utils/currencies';
 import SportIcons from '../../utils/sportIcons';
 import AddToCalendarMenu from './AddToCalendarMenu';
+import Avatar from '../../components/Avatar';
 
 interface InfoRowProps {
   icon: React.ReactNode;
@@ -93,24 +94,25 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
   const classes = useStyles();
   const venue = event?.venue;
 
+  const IconForSport = event ? SportIcons[event.sport] : SportIcons['Football'];
   const items = [
     ...(!!event?.canceledAt
       ? [
           {
             key: 'cancelled',
-            Icon: CancelIcon,
+            Icon: <CancelIcon />,
             text: 'This event has been canceled.',
           },
         ]
       : []),
     {
       key: 'sport',
-      Icon: event ? SportIcons[event.sport] : SportIcons['Football'],
+      icon: <IconForSport />,
       text: event?.sport,
     },
     {
       key: 'location',
-      Icon: LocationOnIcon,
+      icon: <LocationOnIcon />,
       text:
         venue &&
         `${venue.name} - ${
@@ -120,13 +122,27 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
     },
     {
       key: 'date',
-      Icon: EventIcon,
+      icon: <EventIcon />,
       text: event ? formatDate(event?.startsAt) : '',
       rightDecoration: <AddToCalendarMenu event={event} />,
     },
     {
+      key: 'hosted',
+      icon: (
+        <Avatar
+          size="xSmall"
+          firstName={event?.createdBy.firstName}
+          lastName={event?.createdBy.lastName}
+          avatar={event?.createdBy.avatar}
+        />
+      ),
+      text: event
+        ? `Hosted by ${event?.createdBy.firstName} ${event?.createdBy.lastName}`
+        : '',
+    },
+    {
       key: 'price',
-      Icon: CreditCardIcon,
+      icon: <CreditCardIcon />,
       text: event
         ? `${event.price.amount} ${event.price.currency} ${
             CurrencyFlags[event.price.currency]
@@ -135,13 +151,13 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
     },
     {
       key: 'linkOnly',
-      Icon: LockIcon,
+      icon: <LockIcon />,
       text: 'Private event - only users with the link can see it.',
       hidden: !event || !event.linkOnly,
     },
     {
       key: 'description',
-      Icon: InfoIcon,
+      icon: <InfoIcon />,
       text: event?.description,
     },
   ];
@@ -154,7 +170,7 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
             <React.Fragment key={item.key}>
               {index > 0 && <Divider />}
               <InfoRow
-                icon={<item.Icon />}
+                icon={item.icon}
                 text={item.text}
                 link={item.link}
                 rightDecoration={item.rightDecoration}
