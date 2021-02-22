@@ -8,6 +8,7 @@ import {
   useMap,
   useMapEvents,
 } from 'react-leaflet';
+import { isMobile } from 'react-device-detect';
 import { Pin as PinIcon } from './icons';
 import { Location } from '../../types';
 import { toLeaflet } from '../../utils/leaflet';
@@ -83,7 +84,12 @@ const Map: React.FC<MapProps> = ({
 
   return (
     <div style={{ width: '100%' }}>
-      <MapContainer zoom={12} scrollWheelZoom={true}>
+      <MapContainer
+        zoom={12}
+        scrollWheelZoom={true}
+        dragging={!isMobile}
+        tap={!isMobile}
+      >
         <MapController location={location} onChange={onChange} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
