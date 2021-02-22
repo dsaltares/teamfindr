@@ -89,8 +89,6 @@ const authRoutes: RouteDefinitions = {
       method: 'get',
       path: 'google/redirect',
       handler: (req, res) => {
-        console.log('req.session.redirect', req.session.redirect);
-        console.log('config.clientUrl', config.clientUrl);
         passport.authenticate('google', {
           successRedirect: req.session.redirect || config.clientUrl,
           failureRedirect: '/auth/failed',
