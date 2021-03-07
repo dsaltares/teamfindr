@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Authenticating from './pages/Authenticating';
 import withAuthentication from './components/WithAuthentication';
 import withNoAuthentication from './components/WithNoAuthentication';
@@ -25,6 +25,9 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <Switch>
+        <Route path="/_=_" exact>
+          <Redirect to="/" />
+        </Route>
         <Route path="/home" component={withAuthentication(Home)} />
         <Route path="/events" exact component={withAuthentication(Events)} />
         <Route path="/events/:eventId" component={withAuthentication(Event)} />
