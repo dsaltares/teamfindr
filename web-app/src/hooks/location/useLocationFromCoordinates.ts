@@ -3,8 +3,6 @@ import { useDebounce } from 'use-lodash-debounce';
 import { useServices } from '../../providers/ServicesProvider';
 import { Coordinates } from '../../types';
 
-const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
-
 const debounceTimeMs = 200;
 const debounceOpts = {
   leading: true,
@@ -25,10 +23,7 @@ const useLocationFromCoordinates = (coordinates: Coordinates | null) => {
         debouncedCoordinates as Coordinates
       ),
     {
-      staleTime: STALE_TIME_MS,
-      cacheTime: STALE_TIME_MS,
       enabled: !!debouncedCoordinates,
-      refetchOnMount: false,
     }
   );
 

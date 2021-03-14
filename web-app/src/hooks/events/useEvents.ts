@@ -3,8 +3,6 @@ import { useServices } from '../../providers/ServicesProvider';
 import { GetEventsParams } from '../../services/events.service';
 import useDebounce from '../utils/useDebounce';
 
-const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
-
 const useEvents = ({
   location,
   radius,
@@ -47,10 +45,7 @@ const useEvents = ({
         isParticipant,
       }),
     {
-      staleTime: STALE_TIME_MS,
-      cacheTime: STALE_TIME_MS,
       enabled: (!!location && !!radius) || !!venue || !!isParticipant,
-      refetchOnMount: false,
       onSuccess: (events) => {
         events.forEach((event) => {
           queryClient.setQueryData(`events/${event.id}`, event);

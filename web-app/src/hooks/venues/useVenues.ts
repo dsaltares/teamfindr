@@ -3,8 +3,6 @@ import { useServices } from '../../providers/ServicesProvider';
 import { Location } from '../../types';
 import useDebounce from '../utils/useDebounce';
 
-const STALE_TIME_MS = 12 * 60 * 60 * 1000; // 12h
-
 const useVenues = (location: Location | null, radius?: number) => {
   const queryClient = useQueryClient();
   const services = useServices();
@@ -17,10 +15,7 @@ const useVenues = (location: Location | null, radius?: number) => {
         radius: debouncedRadius ? debouncedRadius * 1000 : undefined,
       }),
     {
-      staleTime: STALE_TIME_MS,
-      cacheTime: STALE_TIME_MS,
       enabled: !!location && !!debouncedRadius,
-      refetchOnMount: false,
       onSuccess: (venues) => {
         venues.forEach((venue) => {
           queryClient.setQueryData(`venues/${venue.id}`, venue);
