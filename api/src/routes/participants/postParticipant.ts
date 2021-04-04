@@ -10,13 +10,14 @@ const selectTeam = (
     return team;
   }
 
-  const countPerTeam: any = participants.reduce((acc: any, participant) => {
-    const pTeam = participant.team || 0;
-    return {
-      ...acc,
-      [pTeam]: acc.hasOwnProperty(pTeam) ? acc[pTeam] + 1 : 1,
-    };
-  }, {});
+  const countPerTeam: any = participants.reduce(
+    (acc: any, participant) => {
+      const team = participant.team || 0;
+      acc[team] = acc[team] + 1;
+      return acc;
+    },
+    event.teams.map(() => 0)
+  );
 
   const countPerTeamArray = Array.from(Array(event.teams.length)).map(
     (_, index) => countPerTeam[index]
@@ -24,6 +25,7 @@ const selectTeam = (
   const teamWithFewestPlayers = countPerTeamArray.indexOf(
     Math.min(...countPerTeamArray)
   );
+
   return teamWithFewestPlayers || 0;
 };
 
