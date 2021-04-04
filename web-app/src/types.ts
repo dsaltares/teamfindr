@@ -71,10 +71,12 @@ export type Event = {
   createdBy: User;
   price: Price;
   linkOnly?: boolean;
+  teams: string[];
 };
 
 export type Participant = {
   id: string;
   event: string;
   user: User;
+  team?: number;
 };

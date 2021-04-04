@@ -22,7 +22,7 @@ const postEvent: ControllerCreator = ({
     };
   }
 
-  await createParticipant({ eventId: createdEvent.id, user });
+  await createParticipant({ eventId: createdEvent.id, user, team: 0 });
   const updatedEvent = await getEventById(createdEvent.id);
   return {
     status: 201,

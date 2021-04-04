@@ -31,6 +31,7 @@ interface NewEventFormValues {
   description: string;
   autoJoin: boolean;
   linkOnly: boolean;
+  teams: number;
 }
 
 const getInitialValues = (currency: string): NewEventFormValues => ({
@@ -44,6 +45,7 @@ const getInitialValues = (currency: string): NewEventFormValues => ({
   description: '',
   autoJoin: true,
   linkOnly: false,
+  teams: 2,
 });
 
 interface NewEventDialogContentProps {
@@ -100,6 +102,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
           },
           autoJoin: values.autoJoin,
           linkOnly: values.linkOnly,
+          teams: values.teams,
         });
       }}
       validate={(values) => {
@@ -155,13 +158,30 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={1} alignItems="center">
-                  <Grid item xs={6}>
+                  <Grid item xs={12}>
                     <SportsAutocomplete
                       name="sport"
                       value={values.sport}
                       onChange={(value: any) => setFieldValue('sport', value)}
                       onBlur={handleBlur}
                       error={touched.sport && !!errors.sport}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="row" alignItems="center">
+                  <Grid item xs={6}>
+                    <Counter
+                      value={values.teams}
+                      onChange={(value) => setFieldValue('teams', value)}
+                      min={2}
+                      max={4}
+                      step={1}
+                      name="teams"
+                      label="Teams"
+                      error={touched.teams && !!errors.teams}
+                      onBlur={handleBlur}
                     />
                   </Grid>
                   <Grid item xs={6}>

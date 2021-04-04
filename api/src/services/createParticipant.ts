@@ -6,6 +6,7 @@ import formatMongoRecord from '../utils/formatMongoRecord';
 interface CreateParticipantParams {
   eventId: string;
   user: User;
+  team: number;
 }
 
 const createParticipant = ({
@@ -15,14 +16,16 @@ const createParticipant = ({
 }: ServiceDependencies) => async ({
   eventId,
   user,
+  team = 0,
 }: CreateParticipantParams) => {
-  logger.info('creating participant', { eventId, userId: user.id });
+  logger.info('creating participant', { eventId, userId: user.id, team });
 
   const mongoFields = {
     _id: uuid(),
     createdAt: new Date(),
     event: eventId,
     user: user.id,
+    team,
   };
   await participantCollection.insertOne(mongoFields);
   await eventCollection.updateOne(

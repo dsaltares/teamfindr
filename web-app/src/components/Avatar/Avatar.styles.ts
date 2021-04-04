@@ -2,12 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   xSmall: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
   },
   small: {
-    width: 28,
-    height: 28,
+    width: 24,
+    height: 24,
   },
   medium: {
     width: theme.spacing(5),

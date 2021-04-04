@@ -19,7 +19,7 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
   const classes = useStyles();
   const Icon = SportIcons[event.sport];
   return (
-    <ListItem button component="li">
+    <ListItem className={classes.listItem} button component="li">
       <Link className={classes.link} to={`/events/${event.id}`}>
         <Grid
           container

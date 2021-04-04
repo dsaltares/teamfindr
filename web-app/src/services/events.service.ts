@@ -13,6 +13,7 @@ export interface CreateEventParams {
   price: Price;
   autoJoin: boolean;
   linkOnly: boolean;
+  teams: number;
 }
 
 export interface GetEventsParams {
@@ -30,6 +31,11 @@ export interface GetEventsParams {
 export interface ModifyParticipantResponse {
   event: Event;
   participants: Participant[];
+}
+
+export interface AddParticipantParams {
+  event: string;
+  team?: number;
 }
 
 const eventsService = {
@@ -116,17 +122,24 @@ const eventsService = {
     });
     return participants;
   },
-  addParticipant: async (id: string): Promise<ModifyParticipantResponse> => {
+  addParticipant: async ({
+    event: eventId,
+    team,
+  }: AddParticipantParams): Promise<ModifyParticipantResponse> => {
     const {
       data: { participants, event },
-    } = await axios.post(`${API_URL}/participants/${id}`, undefined, {
-      withCredentials: true,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-      },
-    });
+    } = await axios.post(
+      `${API_URL}/participants/${eventId}`,
+      { team },
+      {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      }
+    );
     return { participants, event };
   },
   deleteParticipant: async (id: string): Promise<ModifyParticipantResponse> => {

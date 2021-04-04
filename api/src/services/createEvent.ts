@@ -1,6 +1,7 @@
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import { v4 as uuid } from 'uuid';
 import formatMongoRecord from '../utils/formatMongoRecord';
+import generateTeamNames from '../utils/generateTeamNames';
 import { Price, User, Venue, Event } from '../types';
 
 interface EventParams {
@@ -10,6 +11,7 @@ interface EventParams {
   capacity: number;
   description: number;
   price: Price;
+  teams: number;
 }
 interface CreateEventParams {
   user: User;
@@ -34,6 +36,7 @@ const createEvent = ({
     startsAt: new Date(event.startsAt),
     createdBy: user.id,
     numParticipants: 0,
+    teams: generateTeamNames(event.teams),
   };
 
   await eventCollection.insertOne(mongoFields);

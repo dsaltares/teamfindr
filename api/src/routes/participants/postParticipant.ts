@@ -1,4 +1,31 @@
+import { Participant, Event } from '../../types';
 import { ControllerCreator } from '../controller';
+
+const selectTeam = (
+  team: number | undefined,
+  event: Event,
+  participants: Participant[]
+): number => {
+  if (team !== undefined) {
+    return team;
+  }
+
+  const countPerTeam: any = participants.reduce((acc: any, participant) => {
+    const pTeam = participant.team || 0;
+    return {
+      ...acc,
+      [pTeam]: acc.hasOwnProperty(pTeam) ? acc[pTeam] + 1 : 1,
+    };
+  }, {});
+
+  const countPerTeamArray = Array.from(Array(event.teams.length)).map(
+    (_, index) => countPerTeam[index]
+  );
+  const teamWithFewestPlayers = countPerTeamArray.indexOf(
+    Math.min(...countPerTeamArray)
+  );
+  return teamWithFewestPlayers || 0;
+};
 
 const PostParticipantController: ControllerCreator = ({
   getEventById,
@@ -6,7 +33,7 @@ const PostParticipantController: ControllerCreator = ({
   createParticipant,
   getParticipants,
   pushEvent,
-}) => async ({ params: { eventId }, user }) => {
+}) => async ({ params: { eventId }, body: { team }, user }) => {
   const event = await getEventById(eventId);
   if (!event) {
     return {
@@ -44,7 +71,13 @@ const PostParticipantController: ControllerCreator = ({
     };
   }
 
-  const createdParticipant = await createParticipant({ eventId, user });
+  const participants = await getParticipants(eventId);
+
+  const createdParticipant = await createParticipant({
+    eventId,
+    user,
+    team: selectTeam(team, event, participants),
+  });
   const [updatedEvent, updatedParticipants] = await Promise.all([
     getEventById(eventId),
     getParticipants(eventId),

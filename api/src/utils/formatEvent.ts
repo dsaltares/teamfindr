@@ -7,6 +7,7 @@ const formatEvent = (mongoEvent: any): Event =>
     createdBy: formatMongoRecord(mongoEvent.createdBy),
     venue: formatMongoRecord(mongoEvent.venue),
     participants: [],
+    teams: mongoEvent.teams || ['Participants'],
   } as Event);
 
 export default formatEvent;

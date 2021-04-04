@@ -409,6 +409,11 @@ paths:
             type: string
           required: true
           description: id of the event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostParticipantRequest'
       responses:
         '201':
           description: participant added
@@ -575,6 +580,7 @@ components:
             - capacity
             - description
             - price
+            - teams
           properties:
             startsAt:
               type: string
@@ -593,6 +599,8 @@ components:
               $ref: '#/components/schemas/Price'
             linkOnly:
               type: boolean
+            teams:
+              type: number
         autoJoin:
           type: boolean
     PostEventResponse:
@@ -641,6 +649,11 @@ components:
       properties:
         participants:
           $ref: '#/components/schemas/Participants'
+    PostParticipantRequest:
+      type: object
+      properties:
+        team:
+          type: number
     ModifyParticipantsResponse:
       type: object
       required:
@@ -809,6 +822,10 @@ components:
           $ref: '#/components/schemas/Price'
         linkOnly:
           type: boolean
+        teams:
+          type: array
+          items:
+            type: string
     Events:
       type: array
       items:
@@ -820,6 +837,7 @@ components:
         - createdAt
         - user
         - event
+        - team
       properties:
         id:
           type: string
@@ -830,6 +848,8 @@ components:
           $ref: '#/components/schemas/User'
         event:
           type: string
+        team:
+          type: number
     Participants:
       type: array
       items:

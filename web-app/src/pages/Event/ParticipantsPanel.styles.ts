@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: {
     padding: theme.spacing(2),
   },
+  fullWidth: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;
