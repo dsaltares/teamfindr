@@ -2,12 +2,10 @@ import { useQuery } from 'react-query';
 import { useServices } from '../../providers/ServicesProvider';
 import useLocationPermission from './useLocationPermission';
 
-
 const useCurrentIpLocation = () => {
   const services = useServices();
-  const { isLoading, error, data } = useQuery(
-    'ipLocation',
-    () => services.location.getLocationFromIp(),
+  const { isLoading, error, data } = useQuery('ipLocation', () =>
+    services.location.getLocationFromIp()
   );
   return {
     isLoading,
