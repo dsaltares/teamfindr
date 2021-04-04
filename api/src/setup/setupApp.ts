@@ -25,7 +25,7 @@ const setupApp = (config: Config, logger: Logger) => {
     cookieSession({
       name: 'session',
       keys: [config.cookieKey],
-      maxAge: 360 * 24 * 60 * 60 * 1000, // 1 year
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
       overwrite: true,
     })
   );
