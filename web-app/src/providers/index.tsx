@@ -10,11 +10,12 @@ import SocketProvider from './SocketProvider';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 30 * 1000,
+      staleTime: 5 * 60 * 1000,
       cacheTime: 12 * 60 * 60 * 1000,
       refetchOnWindowFocus: true,
       refetchOnReconnect: 'always',
-      refetchOnMount: false,
+      refetchOnMount: true,
+      keepPreviousData: true,
     },
   },
 });
