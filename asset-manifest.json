@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.598f9b4f.chunk.css",
-    "main.js": "/static/js/main.99fa07f4.chunk.js",
-    "main.js.map": "/static/js/main.99fa07f4.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5eabb5bb.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5eabb5bb.js.map",
+    "main.js": "/static/js/main.7fd9912d.chunk.js",
+    "main.js.map": "/static/js/main.7fd9912d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b87c2227.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b87c2227.js.map",
     "static/css/2.ffc6cdd7.chunk.css": "/static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.5a5f903d.chunk.js": "/static/js/2.5a5f903d.chunk.js",
-    "static/js/2.5a5f903d.chunk.js.map": "/static/js/2.5a5f903d.chunk.js.map",
-    "static/js/3.cd784578.chunk.js": "/static/js/3.cd784578.chunk.js",
-    "static/js/3.cd784578.chunk.js.map": "/static/js/3.cd784578.chunk.js.map",
+    "static/js/2.dcc274ee.chunk.js": "/static/js/2.dcc274ee.chunk.js",
+    "static/js/2.dcc274ee.chunk.js.map": "/static/js/2.dcc274ee.chunk.js.map",
+    "static/js/3.c4bc3567.chunk.js": "/static/js/3.c4bc3567.chunk.js",
+    "static/js/3.c4bc3567.chunk.js.map": "/static/js/3.c4bc3567.chunk.js.map",
     "index.html": "/index.html",
     "service-worker.js": "/service-worker.js",
     "service-worker.js.map": "/service-worker.js.map",
     "static/css/2.ffc6cdd7.chunk.css.map": "/static/css/2.ffc6cdd7.chunk.css.map",
     "static/css/main.598f9b4f.chunk.css.map": "/static/css/main.598f9b4f.chunk.css.map",
-    "static/js/2.5a5f903d.chunk.js.LICENSE.txt": "/static/js/2.5a5f903d.chunk.js.LICENSE.txt",
+    "static/js/2.dcc274ee.chunk.js.LICENSE.txt": "/static/js/2.dcc274ee.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/poppins-latin-ext-400-normal.53f1614b.woff2",
     "static/media/undraw_basketball.fccfb1b1.svg": "/static/media/undraw_basketball.fccfb1b1.svg",
     "static/media/undraw_goal.b655c8bb.svg": "/static/media/undraw_goal.b655c8bb.svg",
@@ -24,10 +24,10 @@
     "static/media/undraw_tennis.7bd09e44.svg": "/static/media/undraw_tennis.7bd09e44.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5eabb5bb.js",
+    "static/js/runtime-main.b87c2227.js",
     "static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.5a5f903d.chunk.js",
+    "static/js/2.dcc274ee.chunk.js",
     "static/css/main.598f9b4f.chunk.css",
-    "static/js/main.99fa07f4.chunk.js"
+    "static/js/main.7fd9912d.chunk.js"
   ]
 }
