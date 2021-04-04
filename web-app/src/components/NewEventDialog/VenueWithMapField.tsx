@@ -41,7 +41,7 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Grid container direction="row" spacing={0}>
+        <Grid container direction="row" spacing={1}>
           <Grid item xs={7}>
             <VenueAutocomplete
               value={value}

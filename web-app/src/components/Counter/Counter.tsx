@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import useStyles from './Counter.styles';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 interface CounterProps {
   value?: number;
@@ -51,17 +52,7 @@ const Counter: React.FC<CounterProps> = ({
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.button}>
-        <IconButton
-          size="small"
-          color="primary"
-          onClick={onDecrement}
-          disabled={disabled}
-        >
-          <RemoveIcon />
-        </IconButton>
-      </div>
+    <div>
       <TextField
         fullWidth
         name={name}
@@ -69,6 +60,36 @@ const Counter: React.FC<CounterProps> = ({
           style: { textAlign: 'center' },
           min,
           max,
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <div className={classes.button}>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={onDecrement}
+                  disabled={disabled}
+                >
+                  <RemoveIcon />
+                </IconButton>
+              </div>
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <div className={classes.button}>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={onIncrement}
+                  disabled={disabled}
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
+            </InputAdornment>
+          ),
         }}
         value={value !== undefined ? value : ''}
         onChange={handleChange}
@@ -80,16 +101,6 @@ const Counter: React.FC<CounterProps> = ({
         error={error}
         onBlur={onBlur}
       />
-      <div className={classes.button}>
-        <IconButton
-          size="small"
-          color="primary"
-          onClick={onIncrement}
-          disabled={disabled}
-        >
-          <AddIcon />
-        </IconButton>
-      </div>
     </div>
   );
 };

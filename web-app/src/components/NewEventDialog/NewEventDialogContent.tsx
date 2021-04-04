@@ -170,7 +170,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container direction="row" alignItems="center">
+                <Grid container direction="row" alignItems="center" spacing={1}>
                   <Grid item xs={6}>
                     <Counter
                       value={values.teams}

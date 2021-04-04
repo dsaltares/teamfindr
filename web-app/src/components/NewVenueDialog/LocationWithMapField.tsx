@@ -49,7 +49,7 @@ const LocationWithMapField: React.FC<LocationFieldProps> = ({
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Grid container direction="row" spacing={0}>
+        <Grid container direction="row" spacing={1}>
           <Grid item xs={locationXs}>
             <LocationAutocomplete
               name={name}
