@@ -1,4 +1,4 @@
-import 'typeface-roboto';
+import '@fontsource/poppins';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import ThemeProvider from '../src/providers/ThemeProvider';
