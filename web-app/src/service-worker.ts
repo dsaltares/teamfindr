@@ -166,7 +166,7 @@ self.addEventListener('push', (event) => {
         body,
         data: { url },
         icon: '/logo512.png',
-        badge: '/notification_icon.png',
+        badge: '/notification.png',
       });
     })
   );
