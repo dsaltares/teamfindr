@@ -6,6 +6,7 @@ import {
   LocationType,
   GeoType,
 } from '../types';
+import withTimeout from '../utils/withTimeout';
 
 const PHOTON_API = 'https://photon.komoot.io';
 const GEOLOCATION_API =
@@ -121,7 +122,7 @@ const getCoordinatesFromGeolocation = (): Promise<Coordinates> =>
   });
 
 const getLocationFromGeolocation = async (): Promise<Location> => {
-  const coordinates = await getCoordinatesFromGeolocation();
+  const coordinates = await withTimeout(getCoordinatesFromGeolocation(), 2000);
   return getLocationFromCoordinates(coordinates);
 };
 
