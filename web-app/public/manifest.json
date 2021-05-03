@@ -21,6 +21,6 @@
   "display": "standalone",
   "scope": "https://teamfindr.saltares.com/",
   "start_url": "/",
-  "theme_color": "#8bc34a",
+  "theme_color": "#24822B",
   "background_color": "#ffffff"
 }
