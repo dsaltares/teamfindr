@@ -15,6 +15,24 @@ const theme = createMuiTheme({
     button: {
       textTransform: 'none',
     },
+    h1: {
+      fontSize: 55,
+    },
+    h2: {
+      fontSize: 30,
+    },
+    h3: {
+      fontSize: 20,
+    },
+    body1: {
+      fontSize: 16,
+    },
+    body2: {
+      fontSize: 14,
+    },
+    caption: {
+      fontSize: 12,
+    },
   },
 });
 
