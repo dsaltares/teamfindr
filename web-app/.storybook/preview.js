@@ -1,6 +1,7 @@
 import '@fontsource/poppins';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { HashRouter } from 'react-router-dom';
 import ThemeProvider from '../src/providers/ThemeProvider';
 
 export const parameters = {
@@ -10,7 +11,9 @@ export const decorators = [
   (Story) => (
     <ThemeProvider>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Story />
+        <HashRouter>
+          <Story />
+        </HashRouter>
       </MuiPickersUtilsProvider>
     </ThemeProvider>
   ),
