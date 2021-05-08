@@ -47,6 +47,5 @@ export default createSvgIcon(
       </svg>
     </>
   ),
-  'Squash',
   '0 0 32 32'
 );

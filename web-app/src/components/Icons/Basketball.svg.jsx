@@ -31,6 +31,5 @@ export default createSvgIcon(
       </svg>
     </>
   ),
-  'Basketball',
   '0 0 30 30'
 );

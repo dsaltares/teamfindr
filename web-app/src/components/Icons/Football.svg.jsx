@@ -87,6 +87,5 @@ export default createSvgIcon(
       </svg>
     </>
   ),
-  'Football',
   '0 0 30 30'
 );

@@ -10,12 +10,16 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
   },
   medium: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
+    width: 32,
+    height: 32,
   },
   large: {
-    width: theme.spacing(16),
-    height: theme.spacing(16),
+    width: 42,
+    height: 42,
+  },
+  xLarge: {
+    width: 128,
+    height: 128,
   },
 }));
 

@@ -43,6 +43,5 @@ export default createSvgIcon(
       </svg>
     </>
   ),
-  'Tennis',
   '0 0 30 30'
 );

@@ -63,6 +63,5 @@ export default createSvgIcon(
       </svg>
     </>
   ),
-  'Rubgy',
   '0 0 30 30'
 );

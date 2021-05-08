@@ -63,7 +63,6 @@ const InfoRow: React.FC<InfoRowProps> = ({
               <Skeleton variant="text" />
             )}
           </Grid>
-          {/* <Grid item>{right || null}</Grid> */}
           <Grid item>{rightDecoration || null}</Grid>
         </Grid>
       </Grid>
