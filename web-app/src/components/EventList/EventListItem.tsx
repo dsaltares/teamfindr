@@ -43,32 +43,22 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
             </div>
           </div>
           <div className={classes.sportCard}>
-            <Box display="flex" flexDirection="row">
+            <Box display="flex">
               <Box marginRight={1}>
                 <img
                   className={classes.venueImage}
-                  src="https://www.clujlife.com/wp-content/uploads/2016/12/baza-sportiva-gheorghieni-cluj.jpg"
+                  src="https://scontent.fclj2-1.fna.fbcdn.net/v/t1.6435-9/106371406_3091783634236528_3551108379228035343_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=e3f864&_nc_ohc=zuBxzdF-jzkAX_IWMsH&_nc_ht=scontent.fclj2-1.fna&oh=6c8a403c02b5c2366512e653d3a0dd07&oe=60BC1AD0"
                   alt="venue"
                 />
               </Box>
               <Box display="flex" flexDirection="column">
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  marginBottom={2}
-                >
+                <Box display="flex" alignItems="center" marginBottom={2}>
                   <div className={classes.infoIconWrapper}>
                     <LocationOnIcon />
                   </div>
                   <Typography variant="body2">{event.venue.name}</Typography>
                 </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  marginBottom={2}
-                >
+                <Box display="flex" alignItems="center" marginBottom={2}>
                   <div className={classes.infoIconWrapper}>
                     <EventIcon />
                   </div>
@@ -76,19 +66,18 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
                     {formatDate(event.startsAt)}
                   </Typography>
                 </Box>
-                <Box display="flex" flexDirection="row" alignItems="center">
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
-                    marginRight={5}
-                  >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" alignItems="center" marginRight={2}>
                     <div className={classes.infoIconWrapper}>
                       <AttachMoneyIcon />
                     </div>
                     <Typography variant="body2">{`${event.price.amount} ${event.price.currency}`}</Typography>
                   </Box>
-                  <Box display="flex" flexDirection="row" alignItems="center">
+                  <Box display="flex" alignItems="center">
                     <div className={classes.infoIconWrapper}>
                       <GroupIcon />
                     </div>
@@ -100,12 +89,8 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
             <Box paddingTop={2} paddingBottom={2}>
               <Divider />
             </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-            >
-              <Box display="flex" flexDirection="row">
+            <Box display="flex" justifyContent="space-between">
+              <Box display="flex">
                 <Box marginRight={1}>
                   <UserAvatar
                     firstName={event.createdBy.firstName}
