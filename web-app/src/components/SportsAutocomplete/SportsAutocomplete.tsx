@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SportIcons from '../../utils/sportIcons';
 import { Sport } from '../../types';
+import useStyles from './SportsAutocomplete.styles';
 
 const Sports: Sport[] = [
   'Football',
@@ -53,6 +54,8 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
   helperText,
   onBlur,
 }) => {
+  const classes = useStyles();
+
   return (
     <Autocomplete
       value={value}
@@ -61,9 +64,13 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
       filterSelectedOptions
       disabled={disabled}
       options={Sports}
+      classes={{
+        paper: classes.paper,
+      }}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
           <Chip
+            color="primary"
             variant="outlined"
             icon={getIcon(option)}
             label={option}
@@ -82,13 +89,13 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
           error={error}
           helperText={helperText}
           onBlur={onBlur}
-          label={multiple ? 'Sports' : 'Sport'}
+          label={multiple ? 'Select sports' : 'Select sport'}
           margin="dense"
         />
       )}
       renderOption={(option) => {
         return (
-          <Grid container alignContent="center" spacing={1}>
+          <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <Typography color="textSecondary">
                 {getIcon(option) || null}

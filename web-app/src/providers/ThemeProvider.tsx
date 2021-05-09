@@ -9,6 +9,9 @@ const theme = createMuiTheme({
     primary: {
       main: '#24822B',
     },
+    action: {
+      hover: 'rgba(36, 130, 43, 0.1)',
+    },
   },
   typography: {
     fontFamily: 'Poppins',
