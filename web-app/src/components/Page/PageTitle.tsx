@@ -1,8 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import useStyles from './PageTitle.styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,21 +22,21 @@ interface PageTitleProps {
 
 const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const showIconsOnly = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Grid container alignItems="center" justify="space-between">
       <Grid item>
         {title ? (
-          <Typography variant="h6">{title}</Typography>
+          <Typography variant="h6">
+            <Box fontWeight="fontWeightBold">{title}</Box>
+          </Typography>
         ) : (
           <Skeleton width={200} variant="text" />
         )}
       </Grid>
       <Grid item>
         {actions.map((action) =>
-          showIconsOnly || !action.label ? (
+          !action.label ? (
             <IconButton
               key={action.key}
               className={action.danger ? classes.dangerButton : undefined}
@@ -53,7 +52,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
               startIcon={action.icon}
               className={action.danger ? classes.dangerButton : undefined}
               color="primary"
-              variant="outlined"
+              variant="text"
               onClick={action.onClick}
               disabled={action.disabled}
             >
