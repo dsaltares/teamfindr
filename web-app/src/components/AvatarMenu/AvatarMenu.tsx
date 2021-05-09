@@ -72,7 +72,7 @@ const AvatarMenu = () => {
   return (
     <>
       <Button className={classes.fullHeight} onClick={handleClick}>
-        <Avatar avatar={user.avatar} />
+        <Avatar avatar={user.avatar} size="large" />
       </Button>
       <Menu
         id="avatar-menu"
