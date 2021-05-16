@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     borderRadius: '6px 6px 0px 0px',
   },
+  sportTabCancelled: {
+    backgroundColor: theme.palette.grey[500],
+  },
   sportWrapper: {
     marginRight: theme.spacing(2),
     textTransform: 'uppercase',
@@ -54,10 +57,6 @@ const useStyles = makeStyles((theme) => ({
   infoIconWrapper: {
     marginRight: theme.spacing(1),
     color: theme.palette.primary.main,
-  },
-  canceled: {
-    textDecoration: 'line-through',
-    color: theme.palette.error.main,
   },
 }));
 

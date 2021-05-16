@@ -15,6 +15,10 @@ const theme = createMuiTheme({
     background: {
       default: '#E5E5E5',
     },
+    error: {
+      main: '#EF2B2B',
+      light: 'rgba(239, 43, 43, 0.1)',
+    },
   },
   typography: {
     fontFamily: 'Poppins',
