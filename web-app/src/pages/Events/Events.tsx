@@ -7,6 +7,7 @@ import SportsAutocomplete from '../../components/SportsAutocomplete';
 import DatePicker from '../../components/DatePicker';
 import Skeleton from '@material-ui/lab/Skeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import TuneIcon from '@material-ui/icons/Tune';
 import useStyles from './Events.styles';
@@ -113,6 +114,23 @@ const Events = () => {
                   />
                 </Grid>
                 <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={excludeFull}
+                        onChange={handleNotFullChange}
+                        color="primary"
+                        disabled={currentLocation.isLoading}
+                      />
+                    }
+                    label={
+                      <Typography variant="body2">
+                        Exclude full events
+                      </Typography>
+                    }
+                  />
+                </Grid>
+                <Grid item>
                   <SportsAutocomplete
                     multiple
                     value={sports}
@@ -131,19 +149,6 @@ const Events = () => {
                 </Grid>
                 <Grid item>
                   <DateShortcuts value={date} onChange={setDate} />
-                </Grid>
-                <Grid item>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={excludeFull}
-                        onChange={handleNotFullChange}
-                        color="primary"
-                        disabled={currentLocation.isLoading}
-                      />
-                    }
-                    label="Exclude full"
-                  />
                 </Grid>
               </Grid>
             </Collapsable>
