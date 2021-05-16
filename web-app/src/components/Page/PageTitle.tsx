@@ -41,7 +41,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
       <Grid item>
         {title ? (
           <Typography variant="h6">
-            <Box fontWeight="fontWeightBold">{title}</Box>
+            <div className={classes.bold}>{title}</div>
           </Typography>
         ) : (
           <Skeleton width={200} variant="text" />

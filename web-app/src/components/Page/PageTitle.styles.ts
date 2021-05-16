@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.error.light,
     },
   },
+  bold: {
+    fontWeight: 600,
+  },
 }));
 
 export default useStyles;
