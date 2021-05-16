@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Venue } from '../../types';
+import useStyles from './VenueAutocomplete.styles';
 
 interface VenueAutocompleteProps {
   value: Venue | null;
@@ -44,6 +45,8 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
   helperText,
   onBlur,
 }) => {
+  const classes = useStyles();
+
   return (
     <Autocomplete
       value={value}
@@ -70,18 +73,24 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
       renderOption={(option) => (
         <Grid container alignItems="center" spacing={1}>
           <Grid item>
-            <Typography color="textSecondary">
+            <Typography color="primary">
               <LocationOnIcon />
             </Typography>
           </Grid>
           <Grid item xs>
-            <Typography color="textPrimary">{option.name}</Typography>
-            <Typography color="textSecondary">
+            <Typography variant="body1" color="textPrimary">
+              {option.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
               {option.location.description || ''}
             </Typography>
           </Grid>
         </Grid>
       )}
+      classes={{
+        paper: classes.paper,
+        popupIndicator: classes.popupIndicator,
+      }}
     />
   );
 };

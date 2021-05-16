@@ -117,13 +117,15 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       renderOption={(option) => (
         <Grid container alignItems="center" spacing={1}>
           <Grid item>
-            <Typography color="textSecondary">
+            <Typography color="primary">
               <LocationOnIcon />
             </Typography>
           </Grid>
           <Grid item xs>
-            <Typography color="textPrimary">{option.name}</Typography>
-            <Typography color="textSecondary">
+            <Typography variant="body1" color="textPrimary">
+              {option.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
               {option.description || ''}
             </Typography>
           </Grid>
