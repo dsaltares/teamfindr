@@ -147,6 +147,15 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
           <DialogContent>
             <Grid container direction="column" spacing={1}>
               <Grid item>
+                <SportsAutocomplete
+                  name="sport"
+                  value={values.sport}
+                  onChange={(value: any) => setFieldValue('sport', value)}
+                  onBlur={handleBlur}
+                  error={touched.sport && !!errors.sport}
+                />
+              </Grid>
+              <Grid item>
                 <VenueWithMapField
                   name="venue"
                   value={values.venue}
@@ -158,13 +167,30 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
               </Grid>
               <Grid item>
                 <Grid container direction="row" spacing={1} alignItems="center">
-                  <Grid item xs={12}>
-                    <SportsAutocomplete
-                      name="sport"
-                      value={values.sport}
-                      onChange={(value: any) => setFieldValue('sport', value)}
+                  <Grid item xs={7}>
+                    <DateTimePicker
+                      name="startsAt"
+                      value={values.startsAt}
+                      onChange={(startsAt) =>
+                        setFieldValue('startsAt', startsAt)
+                      }
                       onBlur={handleBlur}
-                      error={touched.sport && !!errors.sport}
+                      disablePast
+                      label="Start"
+                      error={touched.startsAt && !!errors.startsAt}
+                    />
+                  </Grid>
+                  <Grid item xs={5}>
+                    <Counter
+                      value={values.duration}
+                      onChange={(value) => setFieldValue('duration', value)}
+                      min={15}
+                      max={180}
+                      step={15}
+                      label="Minutes"
+                      name="duration"
+                      onBlur={handleBlur}
+                      error={touched.duration && !!errors.duration}
                     />
                   </Grid>
                 </Grid>
@@ -195,36 +221,6 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       label="Players"
                       error={touched.capacity && !!errors.capacity}
                       onBlur={handleBlur}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container direction="row" spacing={1} alignItems="center">
-                  <Grid item xs={6}>
-                    <DateTimePicker
-                      name="startsAt"
-                      value={values.startsAt}
-                      onChange={(startsAt) =>
-                        setFieldValue('startsAt', startsAt)
-                      }
-                      onBlur={handleBlur}
-                      disablePast
-                      label="Start"
-                      error={touched.startsAt && !!errors.startsAt}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Counter
-                      value={values.duration}
-                      onChange={(value) => setFieldValue('duration', value)}
-                      min={15}
-                      max={180}
-                      step={15}
-                      label="Minutes"
-                      name="duration"
-                      onBlur={handleBlur}
-                      error={touched.duration && !!errors.duration}
                     />
                   </Grid>
                 </Grid>

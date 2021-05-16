@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './CurrencySelect.styles';
 import Currencies, { CurrencyFlags } from '../../utils/currencies';
 
@@ -35,6 +36,9 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
     <FormControl variant="outlined" fullWidth margin="dense">
       <InputLabel>Currency</InputLabel>
       <Select
+        classes={{
+          icon: classes.icon,
+        }}
         value={value}
         name={name}
         onChange={(e) => onChange(e, e.target.value as string)}
@@ -43,6 +47,13 @@ const CurrencySelect: React.FC<CurrencySelectProps> = ({
         error={error}
         onBlur={onBlur}
         margin="dense"
+        IconComponent={ExpandMoreIcon}
+        MenuProps={{
+          classes: {
+            paper: classes.selectMenu,
+          },
+          elevation: 0,
+        }}
       >
         {Currencies.map((currency) => (
           <MenuItem key={currency} value={currency}>
