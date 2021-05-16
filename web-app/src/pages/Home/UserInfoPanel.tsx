@@ -31,7 +31,7 @@ const UserInfoPanel = () => {
     <Grid container direction="column" alignItems="center" spacing={2}>
       <Grid item>
         <Avatar
-          size="large"
+          size="xLarge"
           firstName={user?.firstName}
           lastName={user?.lastName}
           avatar={user?.avatar}
