@@ -26,8 +26,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
       disablePast={disablePast}
       value={value}
       onChange={onChange}
-      format="yyyy/MM/dd"
-      placeholder="yyyy/mm/dd"
+      format="dd/MM/yyyy"
+      placeholder="dd/mm/yyyy"
       disabled={disabled}
       margin="dense"
     />
