@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import EventIcon from '@material-ui/icons/Event';
@@ -48,7 +47,7 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
       <Grid item>
         <Button
           color="primary"
-          variant="outlined"
+          variant="contained"
           component={Link}
           to="/events"
           startIcon={<SearchIcon />}
@@ -80,11 +79,7 @@ const AllTabs: TabType[] = [
 const UserEventsPanel = () => {
   const [currentTab, setCurrentTab] = useState('future');
 
-  return (
-    <Paper>
-      <Tabs value={currentTab} onChange={setCurrentTab} tabs={AllTabs} />
-    </Paper>
-  );
+  return <Tabs value={currentTab} onChange={setCurrentTab} tabs={AllTabs} />;
 };
 
 export default React.memo(UserEventsPanel);
