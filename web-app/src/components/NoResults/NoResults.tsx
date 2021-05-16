@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './NoResults.styles';
-import { ReactComponent as GoalImg } from './undraw_goal.svg';
+import { ReactComponent as NoResultsImg } from './no_results.svg';
 
 interface NoResultsProps {
   primaryText: string;
@@ -28,12 +28,10 @@ const NoResults: React.FC<NoResultsProps> = ({
       className={classes.container}
     >
       <Grid item>
-        <GoalImg aria-hidden="true" width={width} height={height} />
+        <NoResultsImg aria-hidden="true" width={width} height={height} />
       </Grid>
       <Grid item>
-        <Typography variant="body1" color="textSecondary">
-          {primaryText}
-        </Typography>
+        <Typography variant="body1">{primaryText}</Typography>
       </Grid>
       {secondaryText && (
         <Grid item>

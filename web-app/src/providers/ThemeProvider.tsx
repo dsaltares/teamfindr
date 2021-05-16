@@ -13,7 +13,7 @@ const theme = createMuiTheme({
       hover: 'rgba(36, 130, 43, 0.1)',
     },
     background: {
-      default: '#E5E5E5',
+      default: '#F7F7FC',
     },
     error: {
       main: '#EF2B2B',

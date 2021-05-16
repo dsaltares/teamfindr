@@ -66,15 +66,19 @@ const Events = () => {
       />
     );
   } else {
+    const message =
+      sports.length === 1
+        ? `No upcoming ${sports[0].toLowerCase()} events`
+        : 'No upcoming events';
     eventContent =
       events.length > 0 ? (
         <EventList events={events} />
       ) : (
         <NoResults
-          primaryText="No events found."
+          primaryText={message}
           secondaryText="Try adjusting the filters!"
-          width="300"
-          height="250"
+          width="131"
+          height="100"
         />
       );
   }
