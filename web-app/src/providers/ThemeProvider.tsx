@@ -12,6 +12,9 @@ const theme = createMuiTheme({
     action: {
       hover: 'rgba(36, 130, 43, 0.1)',
     },
+    background: {
+      default: '#E5E5E5',
+    },
   },
   typography: {
     fontFamily: 'Poppins',
@@ -35,6 +38,11 @@ const theme = createMuiTheme({
     },
     caption: {
       fontSize: 12,
+    },
+  },
+  props: {
+    MuiPaper: {
+      elevation: 0,
     },
   },
 });

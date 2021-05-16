@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
@@ -66,20 +65,17 @@ const Events = () => {
       />
     );
   } else {
-    eventContent = (
-      <Paper className={classes.eventsPaper}>
-        {events.length > 0 ? (
-          <EventList events={events} />
-        ) : (
-          <NoResults
-            primaryText="No events found."
-            secondaryText="Try adjusting the filters!"
-            width="300"
-            height="250"
-          />
-        )}
-      </Paper>
-    );
+    eventContent =
+      events.length > 0 ? (
+        <EventList events={events} />
+      ) : (
+        <NoResults
+          primaryText="No events found."
+          secondaryText="Try adjusting the filters!"
+          width="300"
+          height="250"
+        />
+      );
   }
 
   return (

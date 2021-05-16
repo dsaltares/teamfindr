@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
+    paddingTop: 0,
   },
 }));
 

@@ -46,7 +46,7 @@ const Collapsable: React.FC<CollapsableProps> = ({
 
   const header = showCollapsable ? (
     <CardActionArea onClick={onToggle}>
-      <div className={classes.content}>
+      <div className={classes.header}>
         <Grid item>
           <Grid
             container
