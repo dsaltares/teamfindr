@@ -19,6 +19,7 @@ import EventMarkers from './EventMarkers';
 import Collapsable from '../../components/Collapsable';
 import NoResults from '../../components/NoResults';
 import todayAtMidnight from '../../utils/todayAtMidnight';
+import DateShortcuts from '../../components/DateShortcuts';
 
 const Events = () => {
   const classes = useStyles();
@@ -131,6 +132,9 @@ const Events = () => {
                     disabled={currentLocation.isLoading}
                     disablePast
                   />
+                </Grid>
+                <Grid item>
+                  <DateShortcuts value={date} onChange={setDate} />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
