@@ -58,6 +58,45 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     color: theme.palette.primary.main,
   },
+  flex: {
+    display: 'flex',
+  },
+  imgContainer: {
+    marginRight: theme.spacing(1),
+  },
+  flexColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  eventDatumRow: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  eventDataRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  eventDatumCell: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: theme.spacing(2),
+  },
+  dividerContainer: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  cardBottomContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  bold: {
+    fontWeight: 500,
+  },
+  marginRight: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 export default useStyles;
