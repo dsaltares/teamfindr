@@ -1,7 +1,10 @@
 import React from 'react';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import useStyles from './PageTitle.styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,9 +25,19 @@ interface PageTitleProps {
 
 const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container alignItems="center" justify="space-between">
+    <Grid
+      container
+      alignItems="center"
+      justify="space-between"
+      className={clsx(
+        classes.titleContainer,
+        smallScreen && classes.mobileTitleContainer
+      )}
+    >
       <Grid item>
         {title ? (
           <Typography variant="h6">

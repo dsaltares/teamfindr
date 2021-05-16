@@ -14,19 +14,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  titleContainer: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
   content: {
+    padding: theme.spacing(2),
+    // paddingTop: theme.spacing(2),
+    // paddingBottom: theme.spacing(2),
+  },
+  pageContainer: {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     width: '100%',
     maxWidth: '900px',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    // paddingLeft: theme.spacing(2),
+    // paddingRight: theme.spacing(2),
   },
 }));
 

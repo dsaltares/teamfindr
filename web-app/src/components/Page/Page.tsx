@@ -33,11 +33,9 @@ const Page: React.FC<PageProps> = ({ title, titleActions = [], children }) => {
             }}
           >
             <div className={classes.centered}>
-              <main className={classes.content}>
-                <div className={classes.titleContainer}>
-                  <PageTitle title={title} actions={titleActions} />
-                </div>
-                {children}
+              <main className={classes.pageContainer}>
+                <PageTitle title={title} actions={titleActions} />
+                <div className={classes.content}>{children}</div>
               </main>
             </div>
           </Scrollbars>
