@@ -4,8 +4,11 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useLocationAutocomplete } from '../../hooks';
 import { Coordinates, Location, Locations, LocationType } from '../../types';
+import useStyles from './LocationAutocomplete.styles';
 
 interface LocationAutocompleteProps {
   value: Location | null;
@@ -66,6 +69,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   helperText,
   onBlur,
 }) => {
+  const classes = useStyles();
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, loading } = useLocationAutocomplete({
     query: inputValue,
@@ -91,6 +95,10 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       }}
       onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue);
+      }}
+      classes={{
+        paper: classes.paper,
+        popupIndicator: classes.popupIndicator,
       }}
       renderInput={(params) => (
         <TextField
@@ -121,6 +129,8 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
           </Grid>
         </Grid>
       )}
+      closeIcon={<ExpandLessIcon />}
+      popupIcon={<ExpandMoreIcon />}
     />
   );
 };
