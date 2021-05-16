@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './PageTitle.styles';
@@ -63,7 +62,10 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
             <Button
               key={action.key}
               startIcon={action.icon}
-              className={action.danger ? classes.dangerButton : undefined}
+              className={clsx(
+                classes.bold,
+                action.danger && classes.dangerButton
+              )}
               color="primary"
               variant="text"
               onClick={action.onClick}
