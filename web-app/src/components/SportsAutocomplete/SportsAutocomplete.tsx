@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import SportIcons from '../../utils/sportIcons';
 import { Sport } from '../../types';
 import useStyles from './SportsAutocomplete.styles';
@@ -69,6 +68,7 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
       classes={{
         paper: classes.paper,
         popupIndicator: classes.popupIndicator,
+        clearIndicator: classes.clearIndicator,
       }}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
@@ -110,7 +110,6 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
           </Grid>
         );
       }}
-      closeIcon={<ExpandLessIcon />}
       popupIcon={<ExpandMoreIcon />}
     />
   );

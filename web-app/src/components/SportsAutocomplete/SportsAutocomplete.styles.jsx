@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
   popupIndicator: {
     color: theme.palette.primary.main,
   },
+  clearIndicator: {
+    color: theme.palette.error.main,
+  },
 }));
 
 export default useStyles;
