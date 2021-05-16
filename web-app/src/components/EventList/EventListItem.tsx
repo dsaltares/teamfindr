@@ -31,7 +31,7 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
   };
 
   return (
-    <ListItem className={classes.listItem} button component="li">
+    <ListItem className={classes.listItem} component="li">
       <Link className={classes.link} to={eventLink}>
         <div className={classes.cardWrapper}>
           <div className={classes.sportTab}>
