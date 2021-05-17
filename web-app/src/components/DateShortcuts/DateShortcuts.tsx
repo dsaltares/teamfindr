@@ -23,7 +23,11 @@ const tomorrow = () => {
 const nextMonday = () => {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
-  d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7));
+  if (d.getDay() === 1) {
+    d.setDate(d.getDate() + 7);
+  } else {
+    d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7));
+  }
   return d;
 };
 
@@ -34,24 +38,15 @@ interface DateShortcutsProps {
 
 const DateShortcuts: React.FC<DateShortcutsProps> = ({ value, onChange }) => {
   const handleTodayClicked = useCallback(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    onChange(today);
+    onChange(today());
   }, [onChange]);
 
   const handleTomorrowClicked = useCallback(() => {
-    const tomorrow = new Date();
-    tomorrow.setHours(24, 0, 0, 0);
-    onChange(tomorrow);
+    onChange(tomorrow());
   }, [onChange]);
 
   const handleNextWeekClicked = useCallback(() => {
-    const nextMonday = new Date();
-    nextMonday.setHours(0, 0, 0, 0);
-    nextMonday.setDate(
-      nextMonday.getDate() + ((1 + 7 - nextMonday.getDay()) % 7)
-    );
-    onChange(nextMonday);
+    onChange(nextMonday());
   }, [onChange]);
 
   const isToday = sameDay(value, today());
