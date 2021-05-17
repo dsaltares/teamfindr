@@ -43,8 +43,8 @@ const Venues = () => {
           <NoResults
             primaryText="No venues found."
             secondaryText="Try adjusting the filters!"
-            width="300"
-            height="250"
+            width="131"
+            height="100"
           />
         )}
       </Paper>

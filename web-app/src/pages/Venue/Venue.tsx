@@ -5,7 +5,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import ShareIcon from '@material-ui/icons/Share';
 import Page from '../../components/Page';
 import VenueBasicInfoPanel from '../../components/VenueBasicInfoPanel';
-import FutureEventsPanel from './FutureEventsPanel';
+import EventList from '../../components/EventList';
 import { useVenue, useEvents, useShareVenue } from '../../hooks';
 import NoResults from '../../components/NoResults';
 
@@ -26,9 +26,9 @@ const Venue = () => {
   } else {
     eventContent =
       events.length > 0 ? (
-        <FutureEventsPanel events={events} />
+        <EventList events={events} />
       ) : (
-        <NoResults primaryText="No upcoming events." width="300" height="250" />
+        <NoResults primaryText="No upcoming events." width="131" height="100" />
       );
   }
 

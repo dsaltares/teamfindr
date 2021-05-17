@@ -39,7 +39,7 @@ const EventsForUser: React.FC<EventsForUserProps> = React.memo(({ mode }) => {
             primaryText={
               mode === 'after' ? 'No upcoming events.' : 'No past events'
             }
-            width="150"
+            width="131"
             height="100"
           />
         )}
