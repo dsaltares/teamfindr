@@ -41,7 +41,7 @@ const UserInfoPanel = () => {
       <Grid item>
         <Grid container direction="row" spacing={1}>
           <Grid item>
-            <Typography color="textSecondary">
+            <Typography color="primary">
               <LocationOnIcon />
             </Typography>
           </Grid>
