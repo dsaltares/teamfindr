@@ -25,14 +25,14 @@ const DialogActions: React.FC<DialogActionProps> = ({
 }) => {
   const classes = useStyles();
   return (
-    <DialogActionsBase>
+    <DialogActionsBase className={classes.actions}>
       {actions.map((action) => (
         <Button
           key={action.key}
           type={action.type}
           onClick={action.onClick}
           color="primary"
-          variant="outlined"
+          variant="contained"
           disabled={action.disabled || loading}
           className={action.danger ? classes.dangerButton : undefined}
         >

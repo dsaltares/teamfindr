@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import SportsAutocomplete from '../SportsAutocomplete';
 import { DateTimePicker } from '../DatePicker';
@@ -282,7 +283,7 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                           color="primary"
                         />
                       }
-                      label="Join"
+                      label={<Typography variant="body2">Join</Typography>}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -295,7 +296,11 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                           color="primary"
                         />
                       }
-                      label="Private (link-only)"
+                      label={
+                        <Typography variant="body2">
+                          Private (link-only)
+                        </Typography>
+                      }
                     />
                   </Grid>
                 </Grid>

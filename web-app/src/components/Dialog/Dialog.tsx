@@ -26,16 +26,16 @@ const Dialog: React.FC<DialogProps> = ({
   loading = false,
 }) => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const titleId = `${id}-title`;
   const classes = useStyles();
 
   return (
     <DialogBase
       classes={{
-        paper: !fullScreen ? classes.dialogPaper : undefined,
+        paper: !isSmallScreen ? classes.dialogPaper : undefined,
       }}
-      fullScreen={fullScreen}
+      fullScreen={isSmallScreen}
       disableBackdropClick={loading}
       disableEscapeKeyDown={loading}
       onClose={onClose}
@@ -43,8 +43,10 @@ const Dialog: React.FC<DialogProps> = ({
       open={open}
       scroll="paper"
     >
-      <DialogTitle id={titleId} className={classes.title} disableTypography>
-        <Typography variant="h6">{title}</Typography>
+      <DialogTitle id={titleId} className={classes.title}>
+        <Typography variant="h6" color="textPrimary">
+          <div className={classes.bold}>{title}</div>
+        </Typography>
         {onClose ? (
           <IconButton
             aria-label="close"

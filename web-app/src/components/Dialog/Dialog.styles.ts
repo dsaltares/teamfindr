@@ -5,15 +5,21 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 500,
     maxWidth: 900,
   },
+  bold: {
+    fontWeight: 500,
+  },
   title: {
     margin: 0,
     padding: theme.spacing(2),
+    backgroundColor: theme.palette.common.white,
+    boxShadow: '0px 0px 8px 8px rgba(32, 32, 32, 0.15)',
+    borderRadius: '0px 0px 10px 10px',
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: theme.palette.text.primary,
   },
 }));
 
