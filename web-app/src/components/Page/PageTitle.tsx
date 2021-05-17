@@ -51,7 +51,10 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
           !action.label ? (
             <IconButton
               key={action.key}
-              className={action.danger ? classes.dangerButton : undefined}
+              className={clsx(
+                classes.button,
+                action.danger && classes.dangerButton
+              )}
               color="primary"
               disabled={action.disabled}
               onClick={action.onClick}
