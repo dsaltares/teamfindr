@@ -19,32 +19,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     flex: 1,
   },
-  sportTab: {
-    display: 'inline-flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    borderRadius: '6px 6px 0px 0px',
-  },
-  sportTabCancelled: {
-    backgroundColor: theme.palette.grey[500],
-  },
-  sportWrapper: {
-    marginRight: theme.spacing(2),
-    textTransform: 'uppercase',
-  },
   sportCard: {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
     justifyItems: 'center',
     backgroundColor: theme.palette.common.white,
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     boxShadow: '0px 4px 21px rgba(32, 32, 32, 0.15)',
     borderRadius: '0px 6px 6px 6px',
   },
@@ -84,18 +65,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   dividerContainer: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   cardBottomContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-  bold: {
-    fontWeight: 500,
-  },
-  marginRight: {
-    marginRight: theme.spacing(1),
   },
 }));
 

@@ -1,26 +1,22 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import Divider from '@material-ui/core/Divider';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EventIcon from '@material-ui/icons/Event';
 import InfoIcon from '@material-ui/icons/Info';
-import LockIcon from '@material-ui/icons/Lock';
-import CancelIcon from '@material-ui/icons/Cancel';
 import { Event } from '../../types';
 import Map from '../../components/Map';
 import useStyles from './EventBasicInfoPanel.styles';
 import getGoogleMapsUrl from '../../utils/getGoogleMapsUrl';
 import formatDate from '../../utils/formatDate';
-import { CurrencyFlags } from '../../utils/currencies';
-import SportIcons from '../../utils/sportIcons';
 import AddToCalendarMenu from './AddToCalendarMenu';
-import Avatar from '../../components/Avatar';
+import Paper from '@material-ui/core/Paper';
+import SportTab from '../../components/SportTab';
+import HostedBy from '../../components/HostedBy';
+import EventPrivacy from '../../components/EventPrivacy';
 
 interface InfoRowProps {
   icon: React.ReactNode;
@@ -37,13 +33,7 @@ const InfoRow: React.FC<InfoRowProps> = ({
 }) => {
   const classes = useStyles();
   const content = (
-    <Grid
-      container
-      direction="row"
-      spacing={1}
-      alignItems="center"
-      className={classes.info}
-    >
+    <Grid container direction="row" spacing={1} alignItems="center">
       <Grid item className={classes.iconContainer}>
         {icon}
       </Grid>
@@ -56,7 +46,7 @@ const InfoRow: React.FC<InfoRowProps> = ({
         >
           <Grid item>
             {text ? (
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="textPrimary">
                 {text}
               </Typography>
             ) : (
@@ -91,97 +81,69 @@ interface EventBasicInfoPanelProps {
 
 const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
   const classes = useStyles();
+  const isCancelled = !!event?.canceledAt;
   const venue = event?.venue;
 
-  const IconForSport = event ? SportIcons[event.sport] : SportIcons['Football'];
-  const items = [
-    ...(!!event?.canceledAt
-      ? [
-          {
-            key: 'cancelled',
-            Icon: <CancelIcon />,
-            text: 'This event has been canceled.',
-          },
-        ]
-      : []),
-    {
-      key: 'sport',
-      icon: <IconForSport />,
-      text: event?.sport,
-    },
-    {
-      key: 'location',
-      icon: <LocationOnIcon />,
-      text:
-        venue &&
-        `${venue.name} - ${
-          venue.location.description || venue.location.name || ''
-        }`,
-      link: getGoogleMapsUrl(venue),
-    },
-    {
-      key: 'date',
-      icon: <EventIcon />,
-      text: event ? formatDate(event?.startsAt) : '',
-      rightDecoration: <AddToCalendarMenu event={event} />,
-    },
-    {
-      key: 'hosted',
-      icon: (
-        <Avatar
-          size="xSmall"
-          firstName={event?.createdBy.firstName}
-          lastName={event?.createdBy.lastName}
-          avatar={event?.createdBy.avatar}
-        />
-      ),
-      text: event
-        ? `Hosted by ${event?.createdBy.firstName} ${event?.createdBy.lastName}`
-        : '',
-    },
-    {
-      key: 'price',
-      icon: <CreditCardIcon />,
-      text: event
-        ? `${event.price.amount} ${event.price.currency} ${
-            CurrencyFlags[event.price.currency]
-          }`
-        : '',
-    },
-    {
-      key: 'linkOnly',
-      icon: <LockIcon />,
-      text: 'Private event - only users with the link can see it.',
-      hidden: !event || !event.linkOnly,
-    },
-    {
-      key: 'description',
-      icon: <InfoIcon />,
-      text: event?.description,
-    },
-  ];
-
   return (
-    <Card className={classes.card}>
-      <Grid container direction="column">
-        {items.map((item, index) =>
-          !item.hidden ? (
-            <React.Fragment key={item.key}>
-              {index > 0 && <Divider />}
-              <InfoRow
-                icon={item.icon}
-                text={item.text}
-                link={item.link}
-                rightDecoration={item.rightDecoration}
-              />
-            </React.Fragment>
-          ) : null
-        )}
+    <Paper className={classes.paper}>
+      <div className={classes.imgContainer}>
+        <div className={classes.tabContainer}>
+          <SportTab sport={event?.sport} isCancelled={isCancelled} inImage />
+        </div>
+        <img
+          className={classes.venueImage}
+          src="https://scontent.fclj2-1.fna.fbcdn.net/v/t1.6435-9/106371406_3091783634236528_3551108379228035343_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=e3f864&_nc_ohc=zuBxzdF-jzkAX_IWMsH&_nc_ht=scontent.fclj2-1.fna&oh=6c8a403c02b5c2366512e653d3a0dd07&oe=60BC1AD0"
+          alt="venue"
+        />
+      </div>
+      <Grid container direction="column" spacing={2} className={classes.grid}>
+        <Grid item>
+          <InfoRow
+            icon={<LocationOnIcon />}
+            text={
+              venue &&
+              `${venue.name} - ${
+                venue.location.description || venue.location.name || ''
+              }`
+            }
+            link={getGoogleMapsUrl(venue)}
+          />
+        </Grid>
+        <Grid item>
+          <InfoRow
+            icon={<EventIcon />}
+            text={event ? formatDate(event?.startsAt) : ''}
+            rightDecoration={<AddToCalendarMenu event={event} />}
+          />
+        </Grid>
+        <Grid item>
+          <InfoRow
+            icon={<AttachMoneyIcon />}
+            text={event ? `${event.price.amount} ${event.price.currency}` : ''}
+          />
+        </Grid>
+        <Grid item>
+          <InfoRow icon={<InfoIcon />} text={event ? event.description : ''} />
+        </Grid>
       </Grid>
-      <CardMedia>
+      <Grid
+        className={classes.grid}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <HostedBy user={event?.createdBy} />
+        </Grid>
+        <Grid item>
+          <EventPrivacy isPrivate={!!event?.linkOnly} />
+        </Grid>
+      </Grid>
+      <div>
         <Map location={venue?.location || null} />
-      </CardMedia>
-    </Card>
+      </div>
+    </Paper>
   );
 };
 

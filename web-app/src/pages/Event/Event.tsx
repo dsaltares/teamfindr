@@ -47,12 +47,15 @@ const EventPage = () => {
     },
   ];
 
+  const pageTitle = event?.canceledAt
+    ? 'Canceled event'
+    : event
+    ? `${event.sport} event`
+    : 'Event';
+
   return (
     <>
-      <Page
-        title={event?.canceledAt ? 'Canceled event' : 'Event'}
-        titleActions={actions}
-      >
+      <Page title={pageTitle} titleActions={actions}>
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} md={6}>
             <EventBasicInfoPanel event={event} />

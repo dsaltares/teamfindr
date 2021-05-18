@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -8,13 +7,12 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EventIcon from '@material-ui/icons/Event';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import GroupIcon from '@material-ui/icons/Group';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import SportTab from '../SportTab';
+import CancelledIndicator from './CancelledIndicator';
+import HostedBy from '../HostedBy';
 import { Event } from '../../types';
 import useStyles from './EventListItem.styles';
-import UserAvatar from '../Avatar';
 import formatDate from '../../utils/formatDate';
-import SportIcons from '../../utils/sportIcons';
-import CancelledIndicator from './CancelledIndicator';
 
 interface EventProps {
   event: Event;
@@ -22,7 +20,6 @@ interface EventProps {
 
 const EventListItem: React.FC<EventProps> = ({ event }) => {
   const classes = useStyles();
-  const Icon = SportIcons[event.sport] as typeof SvgIcon;
   const eventLink = `/events/${event.id}`;
   const isCancelled = !!event.canceledAt;
 
@@ -30,19 +27,7 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
     <ListItem className={classes.listItem} component="li">
       <Link className={classes.link} to={eventLink}>
         <div className={classes.cardWrapper}>
-          <div
-            className={clsx(
-              classes.sportTab,
-              isCancelled && classes.sportTabCancelled
-            )}
-          >
-            <div className={classes.sportWrapper}>
-              <Typography variant="body2">{event.sport}</Typography>
-            </div>
-            <div>
-              <Icon fontSize="small" />
-            </div>
-          </div>
+          <SportTab sport={event.sport} isCancelled={isCancelled} />
           <div className={classes.sportCard}>
             <div className={classes.flex}>
               <div className={classes.imgContainer}>
@@ -87,34 +72,7 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
               <Divider />
             </div>
             <div className={classes.cardBottomContainer}>
-              <div className={classes.flex}>
-                <div className={classes.marginRight}>
-                  <UserAvatar
-                    firstName={event.createdBy.firstName}
-                    lastName={event.createdBy.lastName}
-                    size="large"
-                    avatar={event.createdBy.avatar}
-                  />
-                </div>
-                <div className={classes.flexColumn}>
-                  <div>
-                    <Typography variant="body2" color="textPrimary">
-                      Hosted by
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography
-                      component="div"
-                      variant="body1"
-                      color="textPrimary"
-                    >
-                      <div className={classes.bold}>
-                        {`${event.createdBy.firstName} ${event.createdBy.lastName}`}
-                      </div>
-                    </Typography>
-                  </div>
-                </div>
-              </div>
+              <HostedBy user={event.createdBy} />
               {isCancelled && <CancelledIndicator />}
             </div>
           </div>
@@ -124,6 +82,4 @@ const EventListItem: React.FC<EventProps> = ({ event }) => {
   );
 };
 
-// export default React.memo(EventListItem);
-
-export default EventListItem;
+export default React.memo(EventListItem);

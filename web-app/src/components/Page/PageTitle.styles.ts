@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 8px rgba(32, 32, 32, 0.15)',
     borderRadius: '0px 0px 10px 10px',
   },
-  button: {
-    padding: 6,
-  },
   dangerButton: {
     color: theme.palette.error.main,
     borderColor: theme.palette.error.dark,

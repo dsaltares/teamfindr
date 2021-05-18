@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Event } from '../../types';
@@ -35,7 +35,7 @@ const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
         disabled={!event}
       >
         <Button
-          className={classes.denseButton}
+          className={classes.button}
           component={Link}
           href={event ? getGoogleCalendarUrl(event) : undefined}
           rel="nofollow noreferrer"
@@ -44,15 +44,15 @@ const AddToCalendarMenu: React.FC<AddToCalendarMenuProps> = ({ event }) => {
           onClick={handleClose}
           disabled={!event}
         >
-          Add to Google Calendar
+          Add to Calendar
         </Button>
         <Button
-          className={classes.denseButton}
+          className={classes.button}
           color="primary"
           size="small"
           onClick={handleToggle}
         >
-          <ArrowDropDownIcon />
+          <ExpandMoreIcon />
         </Button>
       </ButtonGroup>
       <Menu
