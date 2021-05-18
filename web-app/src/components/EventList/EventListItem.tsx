@@ -8,7 +8,7 @@ import EventIcon from '@material-ui/icons/Event';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import GroupIcon from '@material-ui/icons/Group';
 import SportTab from '../SportTab';
-import CancelledIndicator from './CancelledIndicator';
+import CancelledIndicator from '../CancelledIndicator';
 import HostedBy from '../HostedBy';
 import { Event } from '../../types';
 import useStyles from './EventListItem.styles';

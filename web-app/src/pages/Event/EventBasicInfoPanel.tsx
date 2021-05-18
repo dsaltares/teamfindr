@@ -16,6 +16,7 @@ import AddToCalendarMenu from './AddToCalendarMenu';
 import Paper from '@material-ui/core/Paper';
 import SportTab from '../../components/SportTab';
 import HostedBy from '../../components/HostedBy';
+import CancelledIndicator from '../../components/CancelledIndicator';
 import EventPrivacy from '../../components/EventPrivacy';
 
 interface InfoRowProps {
@@ -137,7 +138,11 @@ const EventBasicInfoPanel: React.FC<EventBasicInfoPanelProps> = ({ event }) => {
           <HostedBy user={event?.createdBy} />
         </Grid>
         <Grid item>
-          <EventPrivacy isPrivate={!!event?.linkOnly} />
+          {isCancelled ? (
+            <CancelledIndicator />
+          ) : (
+            <EventPrivacy isPrivate={!!event?.linkOnly} />
+          )}
         </Grid>
       </Grid>
       <div>

@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     borderRadius: props.inImage ? '6px 0px' : '6px 6px 0px 0px',
   }),
-  cancelled: {
+  cancelled: () => ({
     backgroundColor: theme.palette.grey[500],
-  },
-  text: {
+  }),
+  text: () => ({
     marginRight: theme.spacing(2),
     textTransform: 'uppercase',
-  },
+  }),
 }));
 
 export default useStyles;

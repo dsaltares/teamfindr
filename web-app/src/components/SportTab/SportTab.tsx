@@ -17,7 +17,7 @@ const SportTab: React.FC<SportTabProps> = ({ sport, isCancelled, inImage }) => {
   const Icon = sport && (SportIcons[sport] as typeof SvgIcon);
 
   return (
-    <div className={clsx(classes.tab, isCancelled && classes.cancelled)}>
+    <div className={clsx(isCancelled && classes.cancelled, classes.tab)}>
       <div className={classes.text}>
         <Typography variant="body2">{sport}</Typography>
       </div>
