@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
@@ -36,7 +37,7 @@ const Venues = () => {
     venueContent = <Skeleton width="100%" height={200} variant="rect" />;
   } else {
     venueContent = (
-      <Paper className={classes.venuesPaper}>
+      <Paper className={clsx(classes.paper, classes.venues)}>
         {venues.length > 0 ? (
           <VenueList venues={venues} />
         ) : (
@@ -67,7 +68,7 @@ const Venues = () => {
     <Page title="Venues" titleActions={titleActions}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <Paper className={classes.filtersPaper}>
+          <Paper className={clsx(classes.paper, classes.filters)}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
                 <LocationWithMapField

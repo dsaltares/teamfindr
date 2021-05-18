@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   link: {
     display: 'flex',
     alignItems: 'center',
@@ -9,6 +9,11 @@ const useStyles = makeStyles(() => ({
       textDecoration: 'none',
       color: 'inherit',
     },
+  },
+  avatar: {
+    width: 66,
+    height: 66,
+    marginRight: theme.spacing(1),
   },
 }));
 
