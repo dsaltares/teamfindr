@@ -2,10 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   danger: {
-    color: theme.palette.error.main,
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.contrastText,
     borderColor: theme.palette.error.dark,
     '&:hover': {
-      borderColor: theme.palette.error.light,
+      backgroundColor: theme.palette.error.dark,
     },
   },
 }));

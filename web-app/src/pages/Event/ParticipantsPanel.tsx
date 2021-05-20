@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { useSnackbar } from 'notistack';
-import Divider from '@material-ui/core/Divider';
+import GroupIcon from '@material-ui/icons/Group';
 
 import ParticipantTable from './ParticipantTable';
 import {
@@ -39,9 +39,6 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
     !!participants.find((p) => p.user.id === user.id);
   const isPast = Boolean(event && event.startsAt < new Date().toISOString());
   const isCanceled = !!event?.canceledAt;
-  const capacityMsg = event
-    ? ` (${event.numParticipants}/${event.capacity})`
-    : '';
 
   useEffect(() => {
     if (addParticipant.isSuccess) {
@@ -76,12 +73,30 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             direction="row"
             justify="space-between"
             alignItems="center"
-            className={classes.titleContainer}
           >
             <Grid item>
-              <Typography variant="body1" color="textSecondary">
-                Participants{capacityMsg}
-              </Typography>
+              <Grid container direction="row" alignItems="center" spacing={2}>
+                <Grid item>
+                  <GroupIcon color="primary" />
+                </Grid>
+                <Grid item>
+                  <Typography variant="h3" color="textPrimary">
+                    <div className={classes.bold}>Players</div>
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h3" color="primary" component="span">
+                    {event ? event.numParticipants : ''}
+                  </Typography>
+                  <Typography
+                    variant="h3"
+                    color={isFull ? 'primary' : 'textPrimary'}
+                    component="span"
+                  >
+                    {event ? `/${event.capacity}` : ''}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
               <ToggleParticipationButton
@@ -98,14 +113,14 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Divider />
-        <Grid className={classes.fullWidth} item>
+        <Grid item>
           <ParticipantTable
             participants={participants}
             teams={event ? event.teams : []}
             isParticipant={isParticipant}
             onJoin={(team) => addParticipant.mutate({ event: eventId, team })}
             loading={addParticipant.isLoading}
+            capacity={event ? event.capacity : 0}
           />
         </Grid>
       </Grid>

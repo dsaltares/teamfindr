@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
     width: 128,
     height: 128,
   },
+  placeholder: {
+    borderWidth: 2,
+    borderRadius: '50%',
+    borderStyle: 'dashed',
+    borderColor: '#C4C4C4',
+    boxSizing: 'border-box',
+  },
 }));
 
 export default useStyles;

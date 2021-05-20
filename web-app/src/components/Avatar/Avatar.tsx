@@ -1,4 +1,5 @@
 import React from 'react';
+import cslx from 'clsx';
 import AvatarBase from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';
 import useStyles from './Avatar.styles';
@@ -11,6 +12,7 @@ interface BaseProps {
   size?: Size;
   variant?: Variant;
   loading?: boolean;
+  placeholder?: boolean;
 }
 
 type AvatarProps = Pick<User, 'firstName' | 'lastName' | 'avatar'> & BaseProps;
@@ -22,12 +24,20 @@ const Avatar: React.FC<AvatarProps> = ({
   size = 'medium',
   variant,
   loading = false,
+  placeholder = false,
 }) => {
   const classes = useStyles();
   const fullName = `${firstName} ${lastName}`;
-  return loading ? (
-    <Skeleton className={classes[size]} variant="circle" animation="wave" />
-  ) : (
+
+  if (placeholder) {
+    return <div className={cslx(classes[size], classes.placeholder)} />;
+  }
+
+  if (loading) {
+    <Skeleton className={classes[size]} variant="circle" animation="wave" />;
+  }
+
+  return (
     <AvatarBase
       variant={variant}
       className={classes[size]}

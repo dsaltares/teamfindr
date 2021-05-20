@@ -25,7 +25,6 @@
     "js-file-download": "^0.4.12",
     "leaflet": "^1.7.1",
     "lodash.debounce": "^4.0.8",
-    "lodash.zip": "^4.2.0",
     "notistack": "^1.0.3",
     "qs": "^6.9.4",
     "react": "^17.0.1",

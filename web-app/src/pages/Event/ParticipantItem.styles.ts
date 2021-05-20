@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(0),
+    paddingBottom: theme.spacing(2),
   },
   listItemAvatar: {
     minWidth: 0,

@@ -18,7 +18,7 @@ const HostedBy: React.FC<HostedByProps> = ({ user }) => {
         <UserAvatar
           firstName={user?.firstName}
           lastName={user?.lastName}
-          size="large"
+          size="medium"
           avatar={user?.avatar}
           loading={!user}
         />
@@ -30,10 +30,10 @@ const HostedBy: React.FC<HostedByProps> = ({ user }) => {
           </Typography>
         </div>
         <div>
-          <Typography component="div" variant="body1" color="textPrimary">
+          <Typography component="div" variant="body2" color="textPrimary">
             <div className={classes.bold}>
               {user ? (
-                `${user.firstName} ${user.lastName}`
+                `${user.firstName} ${user.lastName?.substr(0, 1)}.`
               ) : (
                 <Skeleton variant="text" animation="pulse" />
               )}
