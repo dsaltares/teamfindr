@@ -539,11 +539,14 @@ components:
           required:
             - name
             - location
+            - images
           properties:
             name:
               type: string
             location:
               $ref: '#/components/schemas/Location'
+            images:
+              $ref: '#/components/schemas/Images'
     PostVenueResponse:
       type: object
       required:
@@ -730,6 +733,10 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/LocationType'
+    Images:
+      type: array
+      items:
+        type: string
     Venue:
       type: object
       required:
@@ -737,6 +744,7 @@ components:
         - createdAt
         - name
         - location
+        - images
       properties:
         id:
           type: string
@@ -747,6 +755,8 @@ components:
           type: string
         location:
           $ref: '#/components/schemas/Location'
+        images:
+          $ref: '#/components/schemas/Images'
     Venues:
       type: array
       items:

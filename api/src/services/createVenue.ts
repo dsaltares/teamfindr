@@ -7,6 +7,7 @@ interface CreateVenueParams {
   venue: {
     name: string;
     location: Location;
+    images: string[];
   };
   userId: string;
 }
@@ -15,7 +16,7 @@ const createVenue = ({
   venueCollection,
   logger,
 }: ServiceDependencies) => async ({
-  venue: { name, location },
+  venue: { name, location, images },
   userId,
 }: CreateVenueParams) => {
   logger.info('creating venue', { name, userId });
@@ -25,6 +26,7 @@ const createVenue = ({
     createdAt: new Date(),
     name,
     location,
+    images,
   };
 
   await venueCollection.insertOne(mongoFields);

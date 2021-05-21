@@ -1,6 +1,6 @@
 import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import { Venue } from '../types';
-import formatMongoRecord from '../utils/formatMongoRecord';
+import formatVenue from '../utils/formatVenue';
 
 interface SearchVenuesParams {
   lat?: number;
@@ -27,7 +27,7 @@ const searchVenues = ({ venueCollection }: ServiceDependencies) => async ({
     };
   }
   const mongoVenues = await venueCollection.find(query).toArray();
-  return mongoVenues.map(formatMongoRecord) as Venue[];
+  return mongoVenues.map(formatVenue) as Venue[];
 };
 
 export default searchVenues;
