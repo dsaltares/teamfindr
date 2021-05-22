@@ -36,6 +36,7 @@ const EventPage = () => {
             icon: <CancelIcon />,
             disabled: !event,
             onClick: openCancelDialog,
+            danger: true,
           },
         ]
       : []),

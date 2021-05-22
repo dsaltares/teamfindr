@@ -49,13 +49,6 @@ const theme = createMuiTheme({
       elevation: 0,
     },
   },
-  overrides: {
-    MuiIconButton: {
-      root: {
-        padding: 6,
-      },
-    },
-  },
 });
 
 const TeamFindrThemeProvider: React.FC = ({ children }) => (

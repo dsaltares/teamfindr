@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.error.dark,
     '&:hover': {
       borderColor: theme.palette.error.light,
+      color: theme.palette.error.dark,
     },
   },
   bold: {

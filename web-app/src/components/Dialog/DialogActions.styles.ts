@@ -6,10 +6,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px 10px 0px 0px',
   },
   dangerButton: {
-    color: theme.palette.error.main,
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.contrastText,
     borderColor: theme.palette.error.dark,
     '&:hover': {
-      borderColor: theme.palette.error.light,
+      backgroundColor: theme.palette.error.dark,
     },
   },
 }));
