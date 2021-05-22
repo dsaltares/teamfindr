@@ -7,14 +7,17 @@ import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import LocationWithMapField from './LocationWithMapField';
 import { useCreateVenue } from '../../hooks';
 import { Location } from '../../types';
+import VenueImageField from './VenueImageField';
 
 interface NewVenueFormValues {
   name: string;
   location: Location | null;
+  image: string | null;
 }
 const NewVenueInitialFormValues: NewVenueFormValues = {
   name: '',
   location: null,
+  image: null,
 };
 
 interface NewVenueDialogContentProps {
@@ -44,6 +47,7 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
         createVenue.mutate({
           name: values.name,
           location: values.location as Location,
+          images: [values.image as string],
         });
       }}
       validate={(values) => {
@@ -53,6 +57,9 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
         }
         if (!values.location) {
           errors.location = 'Required';
+        }
+        if (!values.image) {
+          errors.image = 'Required';
         }
         return errors;
       }}
@@ -94,6 +101,12 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
                   onChange={(newLocation) =>
                     setFieldValue('location', newLocation)
                   }
+                />
+              </Grid>
+              <Grid item>
+                <VenueImageField
+                  name="image"
+                  error={touched.image ? errors.image : undefined}
                 />
               </Grid>
             </Grid>

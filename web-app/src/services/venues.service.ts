@@ -6,6 +6,7 @@ import encodeQueryData from '../utils/encodeQueryData';
 export interface CreateVenueParams {
   name: string;
   location: Location;
+  images: string[];
 }
 
 export interface GetVenuesParams {
@@ -17,12 +18,13 @@ const venuesService = {
   createVenue: async ({
     name,
     location,
+    images,
   }: CreateVenueParams): Promise<Venue> => {
     const {
       data: { venue },
     } = await axios.post(
       `${API_URL}/venues`,
-      { venue: { name, location } },
+      { venue: { name, location, images } },
       {
         withCredentials: true,
         headers: {

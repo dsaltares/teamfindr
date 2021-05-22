@@ -20,11 +20,19 @@ const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
     <Paper className={classes.paper}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <img
-            className={classes.venueImage}
-            src="https://scontent.fclj2-1.fna.fbcdn.net/v/t1.6435-9/106371406_3091783634236528_3551108379228035343_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=e3f864&_nc_ohc=zuBxzdF-jzkAX_IWMsH&_nc_ht=scontent.fclj2-1.fna&oh=6c8a403c02b5c2366512e653d3a0dd07&oe=60BC1AD0"
-            alt="venue"
-          />
+          {venue ? (
+            <img
+              className={classes.venueImage}
+              src={venue?.images[0]}
+              alt="venue"
+            />
+          ) : (
+            <Skeleton
+              className={classes.venueImage}
+              variant="rect"
+              animation="pulse"
+            />
+          )}
         </Grid>
         <Grid item>
           <Link

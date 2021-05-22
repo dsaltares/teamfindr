@@ -3,7 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
     minWidth: 500,
-    maxWidth: 900,
+  },
+  small: {
+    maxWidth: 500,
+  },
+  medium: {
+    maxWidth: 600,
+  },
+  large: {
+    maxWidth: 700,
   },
   bold: {
     fontWeight: 500,
@@ -18,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
-    top: theme.spacing(1),
+    top: theme.spacing(2),
     color: theme.palette.text.primary,
   },
 }));

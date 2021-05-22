@@ -1,4 +1,5 @@
 import React from 'react';
+import cslx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import DialogBase from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -15,6 +16,7 @@ interface DialogProps {
   title: string;
   loading?: boolean;
   children: React.ReactNode;
+  maxWidth?: 'small' | 'medium' | 'large';
 }
 
 const Dialog: React.FC<DialogProps> = ({
@@ -24,6 +26,7 @@ const Dialog: React.FC<DialogProps> = ({
   title,
   children,
   loading = false,
+  maxWidth = 'medium',
 }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -33,7 +36,7 @@ const Dialog: React.FC<DialogProps> = ({
   return (
     <DialogBase
       classes={{
-        paper: !isSmallScreen ? classes.dialogPaper : undefined,
+        paper: cslx(classes[maxWidth], !isSmallScreen && classes.dialogPaper),
       }}
       fullScreen={isSmallScreen}
       disableBackdropClick={loading}

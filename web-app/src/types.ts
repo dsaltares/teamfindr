@@ -38,6 +38,7 @@ export type Venue = {
   id: string;
   name: string;
   location: Location;
+  images: string[];
 };
 
 export type Sport =

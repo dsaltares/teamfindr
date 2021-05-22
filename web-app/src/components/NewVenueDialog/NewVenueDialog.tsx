@@ -8,7 +8,13 @@ interface NewVenueDialogProps {
 }
 
 const NewVenueDialog: React.FC<NewVenueDialogProps> = ({ open, onClose }) => (
-  <Dialog id="new-venue-dialog" title="New venue" open={open} onClose={onClose}>
+  <Dialog
+    id="new-venue-dialog"
+    title="New venue"
+    open={open}
+    onClose={onClose}
+    maxWidth="small"
+  >
     <NewVenueDialogContent onClose={onClose} />
   </Dialog>
 );
