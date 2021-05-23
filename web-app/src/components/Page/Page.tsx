@@ -10,11 +10,19 @@ import useStyles from './Page.styles';
 
 interface PageProps {
   title?: string;
+  smallScreenTitle?: string;
   titleActions?: PageTitleAction[];
   children: React.ReactElement;
+  showLogo?: boolean;
 }
 
-const Page: React.FC<PageProps> = ({ title, titleActions = [], children }) => {
+const Page: React.FC<PageProps> = ({
+  title,
+  smallScreenTitle,
+  titleActions = [],
+  children,
+  showLogo,
+}) => {
   const classes = useStyles();
   const dimensions = useWindowSize();
 
@@ -34,7 +42,12 @@ const Page: React.FC<PageProps> = ({ title, titleActions = [], children }) => {
           >
             <div className={classes.centered}>
               <main className={classes.pageContainer}>
-                <PageTitle title={title} actions={titleActions} />
+                <PageTitle
+                  title={title}
+                  smallScreenTitle={smallScreenTitle}
+                  actions={titleActions}
+                  showLogo={showLogo}
+                />
                 <div className={classes.content}>{children}</div>
               </main>
             </div>

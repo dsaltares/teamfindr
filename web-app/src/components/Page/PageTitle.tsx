@@ -8,6 +8,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './PageTitle.styles';
+import { ReactComponent as LogoImg } from '../Icons/logo.svg';
 
 export interface PageTitleAction {
   key: string;
@@ -19,10 +20,17 @@ export interface PageTitleAction {
 }
 interface PageTitleProps {
   title?: string;
+  smallScreenTitle?: string;
   actions: PageTitleAction[];
+  showLogo?: boolean;
 }
 
-const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
+const PageTitle: React.FC<PageTitleProps> = ({
+  title,
+  smallScreenTitle,
+  actions,
+  showLogo,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -38,13 +46,24 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, actions }) => {
       )}
     >
       <Grid item>
-        {title ? (
-          <Typography variant="h6">
-            <div className={classes.bold}>{title}</div>
-          </Typography>
-        ) : (
-          <Skeleton width={200} variant="text" />
-        )}
+        <Grid container direction="row" alignItems="center" spacing={2}>
+          {smallScreen && showLogo && (
+            <Grid item className={classes.flex}>
+              <LogoImg aria-hidden="true" width={32} height={32} />
+            </Grid>
+          )}
+          <Grid item>
+            {title ? (
+              <Typography variant="h6">
+                <div className={classes.bold}>
+                  {smallScreen && smallScreenTitle ? smallScreenTitle : title}
+                </div>
+              </Typography>
+            ) : (
+              <Skeleton width={200} variant="text" />
+            )}
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item>
         {actions.map((action) =>

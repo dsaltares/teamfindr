@@ -5,7 +5,7 @@ import UserInfoPanel from './UserInfoPanel';
 import UserEventsPanel from './UserEventsPanel';
 
 const Home = () => (
-  <Page title="Home">
+  <Page title="Home" smallScreenTitle="TeamFindr" showLogo>
     <Grid container direction="row" spacing={2}>
       <Grid item xs={12} md={6}>
         <UserInfoPanel />

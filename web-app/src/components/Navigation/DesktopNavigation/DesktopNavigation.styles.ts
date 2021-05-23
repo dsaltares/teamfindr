@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
   fullHeight: {
     height: '100%',
   },
+  logo: {
+    display: 'flex',
+    paddingRight: theme.spacing(2),
+  },
   titleContainer: {
     paddingRight: theme.spacing(6),
   },

@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import AvatarMenu from '../../AvatarMenu/AvatarMenu';
 import useStyles from './DesktopNavigation.styles';
 import NavigationItems from '../navigationItems';
+import { ReactComponent as LogoImg } from '../../Icons/logo_simple.svg';
 
 const DesktopNavigation = () => {
   const classes = useStyles();
@@ -34,6 +35,9 @@ const DesktopNavigation = () => {
                 className={classes.fullHeight}
                 alignItems="center"
               >
+                <Grid item className={classes.logo}>
+                  <LogoImg aria-hidden="true" width={40} height={40} />
+                </Grid>
                 <Grid item className={classes.titleContainer}>
                   <Typography variant="h5">TeamFindr</Typography>
                 </Grid>

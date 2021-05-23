@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   bold: {
     fontWeight: 600,
   },
+  flex: {
+    display: 'flex',
+  },
 }));
 
 export default useStyles;
