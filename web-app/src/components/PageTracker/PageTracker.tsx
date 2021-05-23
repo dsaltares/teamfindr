@@ -7,7 +7,7 @@ const PageTracker: React.FC = () => {
   const analytics = useAnalytics();
 
   useEffect(() => {
-    analytics.page();
+    analytics.page({ url: window.location.href });
   }, [location, analytics]);
 
   return null;
