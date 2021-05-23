@@ -6,7 +6,7 @@ const analytics = Analytics({
   app: 'teamfindr',
   plugins: [
     googleAnalytics({
-      trackingId: 'G-VRL7BYYE06',
+      trackingId: 'UA-4440744-4',
     }),
   ],
 });
