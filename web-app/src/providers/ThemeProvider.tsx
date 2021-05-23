@@ -9,6 +9,9 @@ const theme = createMuiTheme({
     primary: {
       main: '#24822B',
     },
+    secondary: {
+      main: '#EF2B2B',
+    },
     action: {
       hover: 'rgba(36, 130, 43, 0.1)',
     },
