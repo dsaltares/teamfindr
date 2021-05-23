@@ -37,10 +37,12 @@ const Tabs: React.FC<TabsProps> = ({ value, onChange, tabs }) => {
   return (
     <>
       <MuiTabs
+        classes={{
+          root: classes.tabs,
+          indicator: classes.indicator,
+        }}
         value={value}
         onChange={(_e, newValue) => onChange(newValue)}
-        indicatorColor="primary"
-        textColor="primary"
         variant="fullWidth"
       >
         {tabs.map((tab) => {
@@ -53,6 +55,10 @@ const Tabs: React.FC<TabsProps> = ({ value, onChange, tabs }) => {
           return (
             <MuiTab
               key={tab.value}
+              classes={{
+                root: classes.tab,
+                selected: classes.selectedTab,
+              }}
               value={tab.value}
               {...linkProps}
               label={
