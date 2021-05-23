@@ -16,9 +16,9 @@ import NotFound from './pages/NotFound';
 
 const App: React.FC = () => {
   useSubscribePush();
-  const { isLoading } = useUser();
+  const { user, isLoading } = useUser();
 
-  if (isLoading) {
+  if (!user && isLoading) {
     return <Authenticating />;
   }
 

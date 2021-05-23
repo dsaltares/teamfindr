@@ -6,6 +6,12 @@ const useUser = () => {
   const { isLoading, error, data } = useQuery(
     'user',
     () => services.user.verify(),
+    {
+      staleTime: 12 * 60 * 60 * 1000,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
   );
   return {
     isLoading,
