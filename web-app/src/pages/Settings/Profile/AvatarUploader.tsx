@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '../../../components/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import useStyles from './AvatarUploader.styles';
 import { useUser, useChangeAvatar } from '../../../hooks';
 import { User } from '../../../types';
@@ -30,14 +32,27 @@ const AvatarUploader = () => {
         placement="right"
       >
         <IconButton onClick={handleAvatarClicked} disabled={changingAvatar}>
-          <Avatar
-            firstName={user.firstName}
-            lastName={user.lastName}
-            avatar={user.avatar}
-            size="large"
-            variant="circular"
-            loading={changingAvatar}
-          />
+          <Badge
+            overlap="circle"
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            badgeContent={
+              <div className={classes.iconContainer}>
+                <CameraAltIcon className={classes.icon} />
+              </div>
+            }
+          >
+            <Avatar
+              firstName={user.firstName}
+              lastName={user.lastName}
+              avatar={user.avatar}
+              size="xLarge"
+              variant="circular"
+              loading={changingAvatar}
+            />
+          </Badge>
         </IconButton>
       </Tooltip>
       <input
