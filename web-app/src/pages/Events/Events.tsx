@@ -9,14 +9,13 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import TuneIcon from '@material-ui/icons/Tune';
 import useStyles from './Events.styles';
 import { Location, Sport } from '../../types';
 import { useCurrentLocation, useEvents } from '../../hooks';
 import NewEventDialog from '../../components/NewEventDialog';
 import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
-import Collapsable from '../../components/Collapsable';
+import EventFiltersCollapsable from '../../components/EventFiltersCollapsable';
 import NoResults from '../../components/NoResults';
 import todayAtMidnight from '../../utils/todayAtMidnight';
 import DateShortcuts from '../../components/DateShortcuts';
@@ -98,12 +97,13 @@ const Events = () => {
       >
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Collapsable
-              title="Filters"
-              icon={<TuneIcon />}
+            <EventFiltersCollapsable
               expanded={filtersExpanded}
               onToggle={onToggleFilters}
-              smallOnly
+              sports={sports}
+              results={events?.length}
+              radius={radius}
+              location={location}
             >
               <Grid container direction="column" spacing={1}>
                 <Grid item>
@@ -155,7 +155,7 @@ const Events = () => {
                   <DateShortcuts value={date} onChange={setDate} />
                 </Grid>
               </Grid>
-            </Collapsable>
+            </EventFiltersCollapsable>
           </Grid>
           <Grid item xs={12} md={6}>
             {eventContent}

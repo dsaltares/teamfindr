@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   iconContainer: {
     display: 'flex',
   },
+  bold: {
+    fontWeight: 600,
+  },
 }));
 
 export default useStyles;
