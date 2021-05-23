@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useServices } from '../../providers/ServicesProvider';
+import { useAnalytics } from '../../providers/AnalyticsProvider';
 
 const useUser = () => {
   const services = useServices();
+  const analytics = useAnalytics();
   const { isLoading, error, data } = useQuery(
     'user',
     () => services.user.verify(),
@@ -13,6 +16,19 @@ const useUser = () => {
       refetchOnWindowFocus: false,
     }
   );
+
+  useEffect(() => {
+    if (!data?.user) {
+      return;
+    }
+    const { user } = data;
+    analytics.identify(user.id, {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    });
+  }, [data, analytics]);
+
   return {
     isLoading,
     error,

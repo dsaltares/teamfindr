@@ -13,6 +13,7 @@ import Venue from './pages/Venue';
 import Settings from './pages/Settings';
 import Landing from './pages/Landing';
 import NotFound from './pages/NotFound';
+import PageTracker from './components/PageTracker';
 
 const App: React.FC = () => {
   useSubscribePush();
@@ -24,6 +25,7 @@ const App: React.FC = () => {
 
   return (
     <HashRouter>
+      <PageTracker />
       <Switch>
         <Route path="/_=_" exact>
           <Redirect to="/" />

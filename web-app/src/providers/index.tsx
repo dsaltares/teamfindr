@@ -6,23 +6,26 @@ import ThemeProvider from './ThemeProvider';
 import ServicesProvider from './ServicesProvider';
 import SocketProvider from './SocketProvider';
 import QueryProvider from './QueryProvider';
+import AnalyticsProvider from './AnalyticsProvider';
 
 interface ProviderProps {
   children: React.ReactElement | React.ReactElement[];
 }
 
 const Providers: React.FC<ProviderProps> = ({ children }) => (
-  <QueryProvider>
-    <ThemeProvider>
-      <ServicesProvider>
-        <SnackbarProvider>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <SocketProvider>{children}</SocketProvider>
-          </MuiPickersUtilsProvider>
-        </SnackbarProvider>
-      </ServicesProvider>
-    </ThemeProvider>
-  </QueryProvider>
+  <AnalyticsProvider>
+    <QueryProvider>
+      <ThemeProvider>
+        <ServicesProvider>
+          <SnackbarProvider>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <SocketProvider>{children}</SocketProvider>
+            </MuiPickersUtilsProvider>
+          </SnackbarProvider>
+        </ServicesProvider>
+      </ThemeProvider>
+    </QueryProvider>
+  </AnalyticsProvider>
 );
 
 export default React.memo(Providers);
