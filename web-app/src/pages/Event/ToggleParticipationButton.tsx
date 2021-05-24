@@ -44,7 +44,7 @@ const ToggleParticipationButton: React.FC<ToggleParticipationButtonProps> = ({
       className={className}
       color={isParticipant ? 'inherit' : 'primary'}
       variant="contained"
-      disabled={disabled || loading || isFull}
+      disabled={disabled || loading || (isFull && !isParticipant)}
       onClick={action}
     >
       {loading ? <CircularProgress size={24} /> : label}
