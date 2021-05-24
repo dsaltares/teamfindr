@@ -53,7 +53,7 @@ const EventFiltersCollapsable: React.FC<EventFiltersCollapsableProps> = ({
   const numberLabel = results === 0 ? 'No' : results;
   const resultsMsg =
     results !== undefined ? (
-      <Typography variant="body1" color="textPrimary">
+      <Typography variant="body1" color="textPrimary" component="div">
         {`${numberLabel} ${sportLabel}`}
       </Typography>
     ) : (
@@ -62,7 +62,7 @@ const EventFiltersCollapsable: React.FC<EventFiltersCollapsableProps> = ({
 
   const locationMsg =
     radius && location ? (
-      <Typography variant="body2" color="primary">
+      <Typography variant="body2" color="primary" component="div">
         <div
           className={classes.bold}
         >{`${radius}km from ${location.name}`}</div>
@@ -117,7 +117,7 @@ const EventFiltersCollapsable: React.FC<EventFiltersCollapsableProps> = ({
   ) : null;
 
   return (
-    <Paper className={classes.paper}>
+    <Paper>
       <Grid container direction="column" spacing={0}>
         {header}
         {wrappedContent}

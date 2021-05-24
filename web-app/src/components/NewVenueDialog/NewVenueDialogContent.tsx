@@ -80,15 +80,12 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
                 <TextField
                   required
                   label="Name"
-                  variant="outlined"
                   name="name"
                   value={values.name}
-                  fullWidth
                   onChange={handleChange}
                   error={touched.name && !!errors.name}
                   helperText={touched.name && errors.name}
                   onBlur={handleBlur}
-                  margin="dense"
                 />
               </Grid>
               <Grid item>

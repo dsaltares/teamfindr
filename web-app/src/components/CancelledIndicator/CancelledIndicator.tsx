@@ -6,7 +6,7 @@ const CancelledIndicator: React.FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Typography variant="body2">
+      <Typography variant="body2" component="div">
         <div className={classes.text}>Cancelled event</div>
       </Typography>
     </div>

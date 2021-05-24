@@ -3,6 +3,8 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import type {} from '@material-ui/lab/themeAugmentation';
 
 const theme = createMuiTheme({
   palette: {
@@ -50,6 +52,45 @@ const theme = createMuiTheme({
   props: {
     MuiPaper: {
       elevation: 0,
+    },
+    MuiLink: {
+      target: '_blank',
+      rel: 'nofollow noreferrer',
+      underline: 'none',
+    },
+    MuiTextField: {
+      variant: 'outlined',
+      fullWidth: true,
+      margin: 'dense',
+    },
+    MuiCircularProgress: {
+      color: 'primary',
+    },
+    MuiAutocomplete: {
+      fullWidth: true,
+      popupIcon: <ExpandMoreIcon />,
+    },
+  },
+  overrides: {
+    MuiPaper: {
+      elevation0: {
+        boxShadow: '0px 4px 21px rgba(32, 32, 32, 0.15)',
+        borderRadius: 5,
+        backgroundColor: '#FFFFFF',
+      },
+    },
+    MuiAutocomplete: {
+      paper: {
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: '#24822B',
+      },
+      popupIndicator: {
+        color: '#24822B',
+      },
+      clearIndicator: {
+        color: '#EF2B2B',
+      },
     },
   },
 });

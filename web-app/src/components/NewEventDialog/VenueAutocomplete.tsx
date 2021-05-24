@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Venue } from '../../types';
-import useStyles from './VenueAutocomplete.styles';
 
 interface VenueAutocompleteProps {
   value: Venue | null;
@@ -44,55 +43,44 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
   error,
   helperText,
   onBlur,
-}) => {
-  const classes = useStyles();
-
-  return (
-    <Autocomplete
-      value={value}
-      onChange={(_event, newValue) => onChange(newValue)}
-      disabled={disabled}
-      options={optionsForValue(value, options)}
-      loading={loading}
-      getOptionLabel={(option) => option.name}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="outlined"
-          fullWidth
-          disabled={disabled}
-          required={required}
-          name={name}
-          error={error}
-          helperText={helperText}
-          onBlur={onBlur}
-          label="Venue"
-          margin="dense"
-        />
-      )}
-      renderOption={(option) => (
-        <Grid container alignItems="center" spacing={1}>
-          <Grid item>
-            <Typography color="primary">
-              <LocationOnIcon />
-            </Typography>
-          </Grid>
-          <Grid item xs>
-            <Typography variant="body1" color="textPrimary">
-              {option.name}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              {option.location.description || ''}
-            </Typography>
-          </Grid>
+}) => (
+  <Autocomplete
+    value={value}
+    onChange={(_event, newValue) => onChange(newValue)}
+    disabled={disabled}
+    options={optionsForValue(value, options)}
+    loading={loading}
+    getOptionLabel={(option) => option.name}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        disabled={disabled}
+        required={required}
+        name={name}
+        error={error}
+        helperText={helperText}
+        onBlur={onBlur}
+        label="Venue"
+      />
+    )}
+    renderOption={(option) => (
+      <Grid container alignItems="center" spacing={1}>
+        <Grid item>
+          <Typography color="primary">
+            <LocationOnIcon />
+          </Typography>
         </Grid>
-      )}
-      classes={{
-        paper: classes.paper,
-        popupIndicator: classes.popupIndicator,
-      }}
-    />
-  );
-};
+        <Grid item xs>
+          <Typography variant="body1" color="textPrimary">
+            {option.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {option.location.description || ''}
+          </Typography>
+        </Grid>
+      </Grid>
+    )}
+  />
+);
 
 export default React.memo(VenueAutocomplete);

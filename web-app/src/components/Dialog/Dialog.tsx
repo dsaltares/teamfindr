@@ -47,7 +47,7 @@ const Dialog: React.FC<DialogProps> = ({
       scroll="paper"
     >
       <DialogTitle id={titleId} className={classes.title}>
-        <Typography variant="h6" color="textPrimary">
+        <Typography variant="h6" color="textPrimary" component="div">
           <div className={classes.bold}>{title}</div>
         </Typography>
         {onClose ? (

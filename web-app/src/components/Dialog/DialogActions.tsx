@@ -36,11 +36,7 @@ const DialogActions: React.FC<DialogActionProps> = ({
           disabled={action.disabled || loading}
           className={action.danger ? classes.dangerButton : undefined}
         >
-          {action.loading ? (
-            <CircularProgress size={24} color="primary" />
-          ) : (
-            action.label
-          )}
+          {action.loading ? <CircularProgress size={24} /> : action.label}
         </Button>
       ))}
     </DialogActionsBase>

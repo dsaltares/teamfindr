@@ -4,10 +4,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SportIcons from '../../utils/sportIcons';
 import { Sport } from '../../types';
-import useStyles from './SportsAutocomplete.styles';
 
 const Sports: Sport[] = [
   'Football',
@@ -54,65 +52,52 @@ const SportsAutocomplete: React.FC<SportsAutocompleteProps> = ({
   error,
   helperText,
   onBlur,
-}) => {
-  const classes = useStyles();
-
-  return (
-    <Autocomplete
-      value={value}
-      onChange={(event, newValue) => onChange(newValue)}
-      multiple={multiple}
-      filterSelectedOptions
-      disabled={disabled}
-      options={Sports}
-      classes={{
-        paper: classes.paper,
-        popupIndicator: classes.popupIndicator,
-        clearIndicator: classes.clearIndicator,
-      }}
-      renderTags={(value, getTagProps) =>
-        value.map((option, index) => (
-          <Chip
-            color="primary"
-            variant="outlined"
-            icon={getIcon(option)}
-            label={option}
-            {...getTagProps({ index })}
-          />
-        ))
-      }
-      renderInput={(params) => (
-        <TextField
-          {...params}
+}) => (
+  <Autocomplete
+    value={value}
+    onChange={(event, newValue) => onChange(newValue)}
+    multiple={multiple}
+    filterSelectedOptions
+    disabled={disabled}
+    options={Sports}
+    renderTags={(value, getTagProps) =>
+      value.map((option, index) => (
+        <Chip
+          color="primary"
           variant="outlined"
-          fullWidth
-          disabled={disabled}
-          required={required}
-          name={name}
-          error={error}
-          helperText={helperText}
-          onBlur={onBlur}
-          label={multiple ? 'Select sports' : 'Select sport'}
-          margin="dense"
+          icon={getIcon(option)}
+          label={option}
+          {...getTagProps({ index })}
         />
-      )}
-      renderOption={(option) => {
-        return (
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item>
-              <Typography color="textSecondary">
-                {getIcon(option) || null}
-              </Typography>
-            </Grid>
-            <Grid item xs>
-              <Typography color="textSecondary">{option}</Typography>
-            </Grid>
+      ))
+    }
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        disabled={disabled}
+        required={required}
+        name={name}
+        error={error}
+        helperText={helperText}
+        onBlur={onBlur}
+        label={multiple ? 'Select sports' : 'Select sport'}
+      />
+    )}
+    renderOption={(option) => {
+      return (
+        <Grid container alignItems="center" spacing={2}>
+          <Grid item>
+            <Typography color="textSecondary">
+              {getIcon(option) || null}
+            </Typography>
           </Grid>
-        );
-      }}
-      popupIcon={<ExpandMoreIcon />}
-    />
-  );
-};
+          <Grid item xs>
+            <Typography color="textSecondary">{option}</Typography>
+          </Grid>
+        </Grid>
+      );
+    }}
+  />
+);
 
 export default React.memo(SportsAutocomplete);

@@ -24,7 +24,7 @@ const EventPrivacy: React.FC<EventPrivacyProps> = ({ isPrivate }) => {
       <div className={classes.marginRight}>{icon}</div>
       <div className={classes.flexColumn}>
         <div>
-          <Typography variant="body2" color="textPrimary">
+          <Typography variant="body2" color="textPrimary" component="div">
             <div className={classes.bold}>{mainText}</div>
           </Typography>
         </div>

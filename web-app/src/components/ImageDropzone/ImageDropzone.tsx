@@ -64,7 +64,7 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
     <>
       <div className="row">
         {loading ? (
-          <CircularProgress size={48} color="primary" />
+          <CircularProgress size={48} />
         ) : (
           <CloudUploadIcon
             className={classes.icon}

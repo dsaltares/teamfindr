@@ -100,10 +100,6 @@ const AvatarMenu = () => {
               onClick={handleClose}
               component={Link}
               href={item.href}
-              target="_blank"
-              rel="nofollow noreferrer"
-              underline="none"
-              color="inherit"
             >
               <ListItemIcon className={classes.itemIcon}>
                 <item.Icon />

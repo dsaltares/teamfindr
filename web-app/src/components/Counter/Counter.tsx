@@ -54,7 +54,6 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <div>
       <TextField
-        fullWidth
         name={name}
         inputProps={{
           style: { textAlign: 'center' },
@@ -95,8 +94,6 @@ const Counter: React.FC<CounterProps> = ({
         onChange={handleChange}
         label={label}
         type="number"
-        variant="outlined"
-        margin="dense"
         disabled={disabled}
         error={error}
         onBlur={onBlur}

@@ -68,32 +68,17 @@ const Profile = () => {
         <Grid item>
           <Grid container direction="column" alignItems="center" spacing={1}>
             <Grid item>
-              <Link
-                href={Policies.Privacy}
-                target="_blank"
-                rel="nofollow noreferrer"
-                underline="none"
-              >
+              <Link href={Policies.Privacy} color="primary">
                 Privacy policy
               </Link>
             </Grid>
             <Grid item>
-              <Link
-                href={Policies.Terms}
-                target="_blank"
-                rel="nofollow noreferrer"
-                underline="none"
-              >
+              <Link href={Policies.Terms} color="primary">
                 Terms and conditions
               </Link>
             </Grid>
             <Grid item>
-              <Link
-                href={Policies.Cookies}
-                target="_blank"
-                rel="nofollow noreferrer"
-                underline="none"
-              >
+              <Link href={Policies.Cookies} color="primary">
                 Cookie policy
               </Link>
             </Grid>

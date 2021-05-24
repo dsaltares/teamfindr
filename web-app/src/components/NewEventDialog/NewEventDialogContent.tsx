@@ -237,12 +237,9 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                       value={values.amount}
                       label="Price"
                       type="number"
-                      fullWidth
-                      variant="outlined"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.amount && !!errors.amount}
-                      margin="dense"
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -261,14 +258,11 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
                   name="description"
                   label="Description"
                   placeholder="Add indications or rules about the event."
-                  fullWidth
                   multiline
-                  variant="outlined"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.description && !!errors.description}
                   helperText={touched.description && errors.description}
-                  margin="dense"
                 />
               </Grid>
               <Grid item>

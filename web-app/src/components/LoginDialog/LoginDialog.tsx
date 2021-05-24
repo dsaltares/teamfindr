@@ -104,10 +104,6 @@ const LoginDialog: React.FC = () => {
                     className={classes.policyButton}
                     component={Link}
                     href={policy.href}
-                    target="_blank"
-                    rel="nofollow noreferrer"
-                    underline="none"
-                    color="inherit"
                     startIcon={policy.icon}
                   >
                     {policy.label}

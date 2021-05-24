@@ -37,7 +37,7 @@ const Venues = () => {
     venueContent = <Skeleton width="100%" height={200} variant="rect" />;
   } else {
     venueContent = (
-      <Paper className={clsx(classes.paper, classes.venues)}>
+      <Paper className={classes.venues}>
         {venues.length > 0 ? (
           <VenueList venues={venues} />
         ) : (

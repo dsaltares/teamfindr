@@ -6,9 +6,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   paper: {
-    backgroundColor: theme.palette.common.white,
-    boxShadow: '0px 4px 21px rgba(32, 32, 32, 0.15)',
-    borderRadius: 5,
     padding: theme.spacing(2),
   },
 }));

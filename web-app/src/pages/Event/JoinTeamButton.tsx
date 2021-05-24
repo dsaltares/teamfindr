@@ -25,7 +25,7 @@ const JoinTeamButton: React.FC<JoinTeamButtonProps> = ({
       color="primary"
       disabled={isFull || loading}
     >
-      {loading ? <CircularProgress size={24} color="primary" /> : label}
+      {loading ? <CircularProgress size={24} /> : label}
     </Button>
   );
 };
