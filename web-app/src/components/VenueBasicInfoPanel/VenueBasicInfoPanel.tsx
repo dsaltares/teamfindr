@@ -35,13 +35,7 @@ const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
           )}
         </Grid>
         <Grid item>
-          <Link
-            href={getGoogleMapsUrl(venue)}
-            rel="nofollow noopener"
-            target="_blank"
-            color="inherit"
-            underline="none"
-          >
+          <Link href={getGoogleMapsUrl(venue)} color="inherit">
             <Grid container direction="row" spacing={1} alignItems="center">
               <Grid item>
                 <LocationOnIcon color="primary" />
@@ -59,7 +53,7 @@ const VenueBasicInfoPanel: React.FC<VenueBasicInfoPanelProps> = ({ venue }) => {
                   </Grid>
                   <Grid item>
                     {venue ? (
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography variant="caption" color="textSecondary">
                         {venue.location.description}
                       </Typography>
                     ) : (

@@ -61,14 +61,7 @@ const InfoRow: React.FC<InfoRowProps> = ({
   );
 
   return link ? (
-    <Link
-      component="a"
-      href={link}
-      rel="nofollow noopener"
-      target="_blank"
-      color="inherit"
-      underline="none"
-    >
+    <Link component="a" href={link} color="inherit">
       {content}
     </Link>
   ) : (
