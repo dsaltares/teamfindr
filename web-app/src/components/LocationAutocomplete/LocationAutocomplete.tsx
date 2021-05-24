@@ -54,6 +54,12 @@ const getOptionLabel = (option: Location, restrictToType?: LocationType) =>
 const geTextFieldLabel = (restrictToType?: LocationType) =>
   `Enter a ${restrictToType || 'location'}`;
 
+const getOptionSelected = (option: Location, selected: Location) => {
+  const coord1 = option.geo.coordinates;
+  const coord2 = selected.geo.coordinates;
+  return coord1[0] === coord2[0] && coord1[1] === coord2[1];
+};
+
 const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   value,
   around,
@@ -77,6 +83,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
     <Autocomplete
       disabled={disabled}
       getOptionLabel={(option) => getOptionLabel(option, restrictToType)}
+      getOptionSelected={getOptionSelected}
       options={suggestionsForValue(value, suggestions)}
       autoComplete
       includeInputInList
