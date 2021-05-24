@@ -21,7 +21,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({
   return (
     <Grid container direction="column">
       <Grid item>
-        <Typography variant="body1" color="textPrimary">
+        <Typography variant="body1" color="textPrimary" component="div">
           <div className={classes.bold}>{name}</div>
         </Typography>
       </Grid>

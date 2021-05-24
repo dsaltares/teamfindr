@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     padding: theme.spacing(2),
-    // paddingTop: theme.spacing(2),
-    // paddingBottom: theme.spacing(2),
   },
   pageContainer: {
     display: 'flex',
@@ -26,8 +24,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     maxWidth: '900px',
-    // paddingLeft: theme.spacing(2),
-    // paddingRight: theme.spacing(2),
   },
 }));
 
