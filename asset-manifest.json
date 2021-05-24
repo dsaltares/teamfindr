@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.598f9b4f.chunk.css",
-    "main.js": "/static/js/main.0935b450.chunk.js",
-    "main.js.map": "/static/js/main.0935b450.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.6bd3ebf9.js",
-    "runtime-main.js.map": "/static/js/runtime-main.6bd3ebf9.js.map",
+    "main.js": "/static/js/main.08cb5a87.chunk.js",
+    "main.js.map": "/static/js/main.08cb5a87.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8e37bf39.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8e37bf39.js.map",
     "static/css/2.ffc6cdd7.chunk.css": "/static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.320df9d8.chunk.js": "/static/js/2.320df9d8.chunk.js",
-    "static/js/2.320df9d8.chunk.js.map": "/static/js/2.320df9d8.chunk.js.map",
-    "static/js/3.55937c4a.chunk.js": "/static/js/3.55937c4a.chunk.js",
-    "static/js/3.55937c4a.chunk.js.map": "/static/js/3.55937c4a.chunk.js.map",
+    "static/js/2.8bd162a9.chunk.js": "/static/js/2.8bd162a9.chunk.js",
+    "static/js/2.8bd162a9.chunk.js.map": "/static/js/2.8bd162a9.chunk.js.map",
+    "static/js/3.b33a09b0.chunk.js": "/static/js/3.b33a09b0.chunk.js",
+    "static/js/3.b33a09b0.chunk.js.map": "/static/js/3.b33a09b0.chunk.js.map",
     "index.html": "/index.html",
     "service-worker.js": "/service-worker.js",
     "service-worker.js.map": "/service-worker.js.map",
     "static/css/2.ffc6cdd7.chunk.css.map": "/static/css/2.ffc6cdd7.chunk.css.map",
     "static/css/main.598f9b4f.chunk.css.map": "/static/css/main.598f9b4f.chunk.css.map",
-    "static/js/2.320df9d8.chunk.js.LICENSE.txt": "/static/js/2.320df9d8.chunk.js.LICENSE.txt",
+    "static/js/2.8bd162a9.chunk.js.LICENSE.txt": "/static/js/2.8bd162a9.chunk.js.LICENSE.txt",
     "static/media/logo.9730d2c8.svg": "/static/media/logo.9730d2c8.svg",
     "static/media/logo_simple.ca08351d.svg": "/static/media/logo_simple.ca08351d.svg",
     "static/media/no_results.299e0041.svg": "/static/media/no_results.299e0041.svg",
@@ -26,10 +26,10 @@
     "static/media/undraw_tennis.7bd09e44.svg": "/static/media/undraw_tennis.7bd09e44.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6bd3ebf9.js",
+    "static/js/runtime-main.8e37bf39.js",
     "static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.320df9d8.chunk.js",
+    "static/js/2.8bd162a9.chunk.js",
     "static/css/main.598f9b4f.chunk.css",
-    "static/js/main.0935b450.chunk.js"
+    "static/js/main.08cb5a87.chunk.js"
   ]
 }
