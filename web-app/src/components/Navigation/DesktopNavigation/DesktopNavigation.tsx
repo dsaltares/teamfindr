@@ -36,7 +36,9 @@ const DesktopNavigation = () => {
                 alignItems="center"
               >
                 <Grid item className={classes.logo}>
-                  <LogoImg aria-hidden="true" width={40} height={40} />
+                  <Link to="/">
+                    <LogoImg aria-hidden="true" width={40} height={40} />
+                  </Link>
                 </Grid>
                 <Grid item className={classes.titleContainer}>
                   <Typography variant="h5">TeamFindr</Typography>
