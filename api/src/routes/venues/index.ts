@@ -11,7 +11,6 @@ const venueRoutes: RouteDefinitions = {
       path: '',
       controller: PostVenueController,
       requiresAuthentication: true,
-      requiresAdmin: true,
     },
     {
       method: 'get',

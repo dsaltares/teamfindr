@@ -10,7 +10,6 @@ export type Route = {
   controller?: ControllerCreator;
   handler?: Handler;
   requiresAuthentication?: boolean;
-  requiresAdmin?: boolean;
   renewSession?: boolean;
 };
 
