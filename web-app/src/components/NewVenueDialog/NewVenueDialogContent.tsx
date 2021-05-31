@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 import { DialogContent, DialogForm, DialogActions } from '../Dialog';
 import LocationWithMapField from './LocationWithMapField';
-import { useCreateVenue } from '../../hooks';
-import { Location } from '../../types';
 import VenueImageField from './VenueImageField';
+import VenueMarkers from '../VenueMarkers';
+import { useCreateVenue, useVenues } from '../../hooks';
+import { Location, Venue } from '../../types';
+
+const DEFAULT_RADIUS = 5;
 
 interface NewVenueFormValues {
   name: string;
@@ -22,20 +25,31 @@ const NewVenueInitialFormValues: NewVenueFormValues = {
 
 interface NewVenueDialogContentProps {
   onClose: () => void;
+  onCreate?: (venue: Venue) => void;
 }
 
 const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
   onClose,
+  onCreate,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const onSuccess = useCallback(() => {
-    onClose();
-    enqueueSnackbar('Venue created', { variant: 'success' });
-  }, [onClose, enqueueSnackbar]);
+  const onSuccess = useCallback(
+    (data) => {
+      onClose();
+      enqueueSnackbar('Venue created', { variant: 'success' });
+      if (onCreate) {
+        onCreate(data);
+      }
+    },
+    [onClose, enqueueSnackbar, onCreate]
+  );
   const onError = useCallback(() => {
     enqueueSnackbar('Failed to create venue', { variant: 'error' });
   }, [enqueueSnackbar]);
   const createVenue = useCreateVenue({ onSuccess, onError });
+
+  const [location, setLocation] = useState<Location | null>(null);
+  const { venues } = useVenues(location, DEFAULT_RADIUS);
 
   return (
     <Formik
@@ -92,9 +106,11 @@ const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
                   error={touched.location && !!errors.location}
                   helperText={touched.location && errors.location}
                   onBlur={handleBlur}
-                  onChange={(newLocation) =>
-                    setFieldValue('location', newLocation)
-                  }
+                  onChange={(newLocation) => {
+                    setFieldValue('location', newLocation);
+                    setLocation(newLocation);
+                  }}
+                  markers={<VenueMarkers venues={venues} />}
                 />
               </Grid>
               <Grid item>

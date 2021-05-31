@@ -1,7 +1,7 @@
 import React from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { Link } from 'react-router-dom';
-import { Marker as PinIcon } from '../../components/Map/icons';
+import { Marker as PinIcon } from '../Map/icons';
 import { Venue } from '../../types';
 import { toLeaflet } from '../../utils/leaflet';
 

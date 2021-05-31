@@ -10,6 +10,7 @@ import Counter from '../Counter';
 interface VenueWithMapFieldProps {
   value: Venue | null;
   onChange: (venue: Venue | null) => void;
+  onNewVenue: () => void;
   disabled?: boolean;
   name?: string;
   error?: boolean;
@@ -20,6 +21,7 @@ interface VenueWithMapFieldProps {
 const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
   value,
   onChange,
+  onNewVenue,
   name,
   disabled = false,
   error = false,
@@ -48,6 +50,7 @@ const VenueWithMapField: React.FC<VenueWithMapFieldProps> = ({
               options={venues || []}
               loading={loadingVenues}
               onChange={onChange}
+              onNewVenue={onNewVenue}
               disabled={disabled}
               required
               name={name}

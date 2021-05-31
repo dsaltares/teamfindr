@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
@@ -20,6 +20,7 @@ import {
 import CurrencySelect from '../CurrencySelect';
 import Counter from '../Counter';
 import Currencies from '../../utils/currencies';
+import NewVenueDialog from '../NewVenueDialog';
 
 interface NewEventFormValues {
   venue: Venue | null;
@@ -81,6 +82,14 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
     [currency]
   );
 
+  const [newVenueOpen, setNewVenueOpen] = useState(false);
+  const handleNewVenueClose = useCallback(() => {
+    setNewVenueOpen(false);
+  }, [setNewVenueOpen]);
+  const handleNewVenueOpen = useCallback(() => {
+    setNewVenueOpen(true);
+  }, [setNewVenueOpen]);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -139,174 +148,197 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
         handleSubmit,
         setFieldValue,
       }) => (
-        <DialogForm onSubmit={handleSubmit}>
-          <DialogContent>
-            <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <SportsAutocomplete
-                  name="sport"
-                  value={values.sport}
-                  onChange={(value: any) => setFieldValue('sport', value)}
-                  onBlur={handleBlur}
-                  error={touched.sport && !!errors.sport}
-                />
-              </Grid>
-              <Grid item>
-                <VenueWithMapField
-                  name="venue"
-                  value={values.venue}
-                  onChange={(value) => setFieldValue('venue', value)}
-                  onBlur={handleBlur}
-                  error={touched.venue && !!errors.venue}
-                  helperText={touched.venue && errors.venue}
-                />
-              </Grid>
-              <Grid item>
-                <Grid container direction="row" spacing={1} alignItems="center">
-                  <Grid item xs={7}>
-                    <DateTimePicker
-                      name="startsAt"
-                      value={values.startsAt}
-                      onChange={(startsAt) =>
-                        setFieldValue('startsAt', startsAt)
-                      }
-                      onBlur={handleBlur}
-                      disablePast
-                      label="Start"
-                      error={touched.startsAt && !!errors.startsAt}
-                    />
+        <>
+          <DialogForm onSubmit={handleSubmit}>
+            <DialogContent>
+              <Grid container direction="column" spacing={1}>
+                <Grid item>
+                  <SportsAutocomplete
+                    name="sport"
+                    value={values.sport}
+                    onChange={(value: any) => setFieldValue('sport', value)}
+                    onBlur={handleBlur}
+                    error={touched.sport && !!errors.sport}
+                  />
+                </Grid>
+                <Grid item>
+                  <VenueWithMapField
+                    name="venue"
+                    value={values.venue}
+                    onChange={(value) => setFieldValue('venue', value)}
+                    onNewVenue={handleNewVenueOpen}
+                    onBlur={handleBlur}
+                    error={touched.venue && !!errors.venue}
+                    helperText={touched.venue && errors.venue}
+                  />
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                  >
+                    <Grid item xs={7}>
+                      <DateTimePicker
+                        name="startsAt"
+                        value={values.startsAt}
+                        onChange={(startsAt) =>
+                          setFieldValue('startsAt', startsAt)
+                        }
+                        onBlur={handleBlur}
+                        disablePast
+                        label="Start"
+                        error={touched.startsAt && !!errors.startsAt}
+                      />
+                    </Grid>
+                    <Grid item xs={5}>
+                      <Counter
+                        value={values.duration}
+                        onChange={(value) => setFieldValue('duration', value)}
+                        min={15}
+                        max={180}
+                        step={15}
+                        label="Minutes"
+                        name="duration"
+                        onBlur={handleBlur}
+                        error={touched.duration && !!errors.duration}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={5}>
-                    <Counter
-                      value={values.duration}
-                      onChange={(value) => setFieldValue('duration', value)}
-                      min={15}
-                      max={180}
-                      step={15}
-                      label="Minutes"
-                      name="duration"
-                      onBlur={handleBlur}
-                      error={touched.duration && !!errors.duration}
-                    />
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={1}
+                  >
+                    <Grid item xs={6}>
+                      <Counter
+                        value={values.teams}
+                        onChange={(value) => setFieldValue('teams', value)}
+                        min={2}
+                        max={4}
+                        step={1}
+                        name="teams"
+                        label="Teams"
+                        error={touched.teams && !!errors.teams}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Counter
+                        value={values.capacity}
+                        onChange={(value) => setFieldValue('capacity', value)}
+                        min={2}
+                        max={30}
+                        step={1}
+                        name="capacity"
+                        label="Players"
+                        error={touched.capacity && !!errors.capacity}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Grid container direction="row" spacing={1}>
+                    <Grid item xs={6}>
+                      <TextField
+                        name="amount"
+                        inputProps={{
+                          style: { textAlign: 'right' },
+                        }}
+                        value={values.amount}
+                        label="Price"
+                        type="number"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.amount && !!errors.amount}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <CurrencySelect
+                        name="currency"
+                        value={values.currency}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.currency && !!errors.currency}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <TextField
+                    name="description"
+                    label="Description"
+                    placeholder="Add indications or rules about the event."
+                    multiline
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.description && !!errors.description}
+                    helperText={touched.description && errors.description}
+                  />
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    spacing={2}
+                    alignItems="center"
+                  >
+                    <Grid item xs={6}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            name="autoJoin"
+                            checked={values.autoJoin}
+                            onChange={handleChange}
+                            color="primary"
+                          />
+                        }
+                        label={<Typography variant="body2">Join</Typography>}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            name="linkOnly"
+                            checked={values.linkOnly}
+                            onChange={handleChange}
+                            color="primary"
+                          />
+                        }
+                        label={
+                          <Typography variant="body2">
+                            Private (link-only)
+                          </Typography>
+                        }
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
-                <Grid container direction="row" alignItems="center" spacing={1}>
-                  <Grid item xs={6}>
-                    <Counter
-                      value={values.teams}
-                      onChange={(value) => setFieldValue('teams', value)}
-                      min={2}
-                      max={4}
-                      step={1}
-                      name="teams"
-                      label="Teams"
-                      error={touched.teams && !!errors.teams}
-                      onBlur={handleBlur}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Counter
-                      value={values.capacity}
-                      onChange={(value) => setFieldValue('capacity', value)}
-                      min={2}
-                      max={30}
-                      step={1}
-                      name="capacity"
-                      label="Players"
-                      error={touched.capacity && !!errors.capacity}
-                      onBlur={handleBlur}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container direction="row" spacing={1}>
-                  <Grid item xs={6}>
-                    <TextField
-                      name="amount"
-                      inputProps={{
-                        style: { textAlign: 'right' },
-                      }}
-                      value={values.amount}
-                      label="Price"
-                      type="number"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.amount && !!errors.amount}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <CurrencySelect
-                      name="currency"
-                      value={values.currency}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={touched.currency && !!errors.currency}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <TextField
-                  name="description"
-                  label="Description"
-                  placeholder="Add indications or rules about the event."
-                  multiline
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.description && !!errors.description}
-                  helperText={touched.description && errors.description}
-                />
-              </Grid>
-              <Grid item>
-                <Grid container direction="row" spacing={2} alignItems="center">
-                  <Grid item xs={6}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="autoJoin"
-                          checked={values.autoJoin}
-                          onChange={handleChange}
-                          color="primary"
-                        />
-                      }
-                      label={<Typography variant="body2">Join</Typography>}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="linkOnly"
-                          checked={values.linkOnly}
-                          onChange={handleChange}
-                          color="primary"
-                        />
-                      }
-                      label={
-                        <Typography variant="body2">
-                          Private (link-only)
-                        </Typography>
-                      }
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions
-            actions={[
-              {
-                key: 'create',
-                label: 'Create',
-                loading: createEvent.isLoading,
-                type: 'submit',
-              },
-            ]}
+            </DialogContent>
+            <DialogActions
+              actions={[
+                {
+                  key: 'create',
+                  label: 'Create',
+                  loading: createEvent.isLoading,
+                  type: 'submit',
+                },
+              ]}
+            />
+          </DialogForm>
+          <NewVenueDialog
+            open={newVenueOpen}
+            onClose={handleNewVenueClose}
+            onCreate={(newVenue) => setFieldValue('venue', newVenue)}
           />
-        </DialogForm>
+        </>
       )}
     </Formik>
   );

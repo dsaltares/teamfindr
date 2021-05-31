@@ -9,7 +9,7 @@ import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
 import { useCurrentLocation, useVenues } from '../../hooks';
 import VenueList from './VenueList';
-import VenueMarkers from './VenueMarkers';
+import VenueMarkers from '../../components/VenueMarkers';
 import useStyles from './Venues.styles';
 import NoResults from '../../components/NoResults';
 

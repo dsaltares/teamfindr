@@ -1,14 +1,19 @@
 import React from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete, {
+  createFilterOptions,
+} from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Divider from '@material-ui/core/Divider';
 import { Venue } from '../../types';
 
 interface VenueAutocompleteProps {
   value: Venue | null;
   onChange: (value: Venue | null) => void;
+  onNewVenue?: () => void;
   options: Venue[];
   disabled?: boolean;
   required?: boolean;
@@ -32,9 +37,24 @@ const optionsForValue = (value: Venue | null, options: Venue[]): Venue[] => {
   return options;
 };
 
+const defaultFilterOptions = createFilterOptions<Venue>();
+
+const NewVenue: Venue = {
+  id: 'new_venue',
+  name: 'new_venue',
+  images: [],
+  location: {
+    geo: { type: 'Point', coordinates: [0, 0] },
+    name: '',
+    country: '',
+    type: 'country',
+  },
+};
+
 const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
   value,
   onChange,
+  onNewVenue,
   options,
   loading,
   disabled,
@@ -46,7 +66,15 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
 }) => (
   <Autocomplete
     value={value}
-    onChange={(_event, newValue) => onChange(newValue)}
+    onChange={(_event, newValue) => {
+      if (newValue?.id === 'new_venue') {
+        if (onNewVenue) {
+          onNewVenue();
+        }
+      } else {
+        onChange(newValue);
+      }
+    }}
     disabled={disabled}
     options={optionsForValue(value, options)}
     loading={loading}
@@ -63,23 +91,57 @@ const VenueAutocomplete: React.FC<VenueAutocompleteProps> = ({
         label="Venue"
       />
     )}
-    renderOption={(option) => (
-      <Grid container alignItems="center" spacing={1}>
-        <Grid item>
-          <Typography color="primary">
-            <LocationOnIcon />
-          </Typography>
+    renderOption={(option) => {
+      if (option.id === 'new_venue') {
+        return (
+          <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <Grid container direction="row" alignItems="center" spacing={1}>
+                <Grid item>
+                  <Typography color="primary">
+                    <AddCircleOutlineIcon />
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography
+                    variant="body1"
+                    color="textPrimary"
+                    component="div"
+                  >
+                    Add new venue
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Divider />
+            </Grid>
+          </Grid>
+        );
+      }
+
+      return (
+        <Grid container alignItems="center" spacing={1}>
+          <Grid item>
+            <Typography color="primary">
+              <LocationOnIcon />
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Typography variant="body1" color="textPrimary">
+              {option.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              {option.location.description || ''}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs>
-          <Typography variant="body1" color="textPrimary">
-            {option.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            {option.location.description || ''}
-          </Typography>
-        </Grid>
-      </Grid>
-    )}
+      );
+    }}
+    filterOptions={(options, state) => [
+      NewVenue,
+      ...defaultFilterOptions(options, state),
+    ]}
   />
 );
 
