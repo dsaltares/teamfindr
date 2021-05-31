@@ -10,7 +10,6 @@ const participantRoutes: RouteDefinitions = {
       method: 'get',
       path: ':eventId',
       controller: GetParticipantsController,
-      requiresAuthentication: true,
     },
     {
       method: 'post',

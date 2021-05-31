@@ -17,13 +17,11 @@ const eventRoutes: RouteDefinitions = {
       method: 'get',
       path: '',
       controller: GetEventsController,
-      requiresAuthentication: true,
     },
     {
       method: 'get',
       path: ':eventId',
       controller: GetEventController,
-      requiresAuthentication: true,
     },
     {
       method: 'patch',

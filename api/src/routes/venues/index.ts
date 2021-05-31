@@ -16,13 +16,11 @@ const venueRoutes: RouteDefinitions = {
       method: 'get',
       path: '',
       controller: GetVenuesController,
-      requiresAuthentication: true,
     },
     {
       method: 'get',
       path: ':venueId',
       controller: GetVenueController,
-      requiresAuthentication: true,
     },
   ],
 };
