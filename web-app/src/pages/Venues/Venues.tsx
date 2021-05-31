@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
@@ -8,7 +7,7 @@ import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
-import { useCurrentLocation, useUser, useVenues } from '../../hooks';
+import { useCurrentLocation, useVenues } from '../../hooks';
 import VenueList from './VenueList';
 import VenueMarkers from './VenueMarkers';
 import useStyles from './Venues.styles';
@@ -18,7 +17,6 @@ const Venues = () => {
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number | undefined>(5);
   const { venues } = useVenues(location, radius);
-  const { user } = useUser();
   const currentLocation = useCurrentLocation();
   const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
   const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
@@ -52,23 +50,21 @@ const Venues = () => {
     );
   }
 
-  const isAdmin = user && user.roles.includes('admin');
-  const titleActions = isAdmin
-    ? [
+  return (
+    <Page
+      title="Venues"
+      titleActions={[
         {
           key: 'newVenue',
           label: 'New venue',
           icon: <AddIcon />,
           onClick: handleNewVenueDialogOpen,
         },
-      ]
-    : [];
-
-  return (
-    <Page title="Venues" titleActions={titleActions}>
+      ]}
+    >
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <Paper className={clsx(classes.paper, classes.filters)}>
+          <Paper className={classes.filters}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
                 <LocationWithMapField
