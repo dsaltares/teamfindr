@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
@@ -57,34 +57,29 @@ const NewEventDialogContent: React.FC<NewEventDialogContentProps> = ({
   onClose,
 }) => {
   const history = useHistory();
-  const createEvent = useCreateEvent();
   const { enqueueSnackbar } = useSnackbar();
   const enqueueEnablePushSnackbar = useEnablePushSnackbar();
+
+  const onSuccess = useCallback(
+    (data) => {
+      onClose();
+      history.push(`/events/${data.id}`);
+      enqueueSnackbar('Event created', { variant: 'success' });
+      enqueueEnablePushSnackbar();
+    },
+    [onClose, history, enqueueSnackbar, enqueueEnablePushSnackbar]
+  );
+
+  const onError = useCallback(() => {
+    enqueueSnackbar('Failed to create event', { variant: 'error' });
+  }, [enqueueSnackbar]);
+
+  const createEvent = useCreateEvent({ onSuccess, onError });
   const currency = useCurrencyFromCurrentLocation();
   const initialValues = useMemo<NewEventFormValues>(
     () => getInitialValues(currency),
     [currency]
   );
-
-  useEffect(() => {
-    if (createEvent.isSuccess) {
-      onClose();
-      history.push(`/events/${createEvent.data?.id}`);
-      enqueueSnackbar('Event created', { variant: 'success' });
-      enqueueEnablePushSnackbar();
-    }
-    if (createEvent.isError) {
-      enqueueSnackbar('Failed to create event', { variant: 'error' });
-    }
-  }, [
-    enqueueSnackbar,
-    enqueueEnablePushSnackbar,
-    createEvent.isSuccess,
-    createEvent.isError,
-    createEvent.data,
-    onClose,
-    history,
-  ]);
 
   return (
     <Formik
