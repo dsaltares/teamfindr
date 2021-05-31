@@ -1,7 +1,15 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useServices } from '../../providers/ServicesProvider';
 
-const useRemoveParticipant = () => {
+interface UseRemoveParticipantParams {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+const useRemoveParticipant = ({
+  onSuccess,
+  onError,
+}: UseRemoveParticipantParams) => {
   const queryClient = useQueryClient();
   const services = useServices();
   const mutation = useMutation(services.events.deleteParticipant, {
@@ -11,7 +19,11 @@ const useRemoveParticipant = () => {
         `participants/${data.event.id}`,
         data.participants
       );
+      if (onSuccess) {
+        onSuccess();
+      }
     },
+    onError,
   });
   return mutation;
 };

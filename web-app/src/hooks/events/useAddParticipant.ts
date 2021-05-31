@@ -1,7 +1,12 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useServices } from '../../providers/ServicesProvider';
 
-const useAddParticipant = () => {
+interface UseAddParticipantParams {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+const useAddParticipant = ({ onSuccess, onError }: UseAddParticipantParams) => {
   const queryClient = useQueryClient();
   const services = useServices();
   const mutation = useMutation(services.events.addParticipant, {
@@ -11,7 +16,11 @@ const useAddParticipant = () => {
         `participants/${data.event.id}`,
         data.participants
       );
+      if (onSuccess) {
+        onSuccess();
+      }
     },
+    onError,
   });
   return mutation;
 };

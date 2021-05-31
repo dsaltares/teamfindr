@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import Dialog, { DialogContent, DialogActions } from '../../components/Dialog';
 import { useCancelEvent } from '../../hooks';
@@ -36,21 +36,19 @@ const CancelEventDialogContent: React.FC<CancelEventDialogContentProps> = ({
   onClose,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const cancelEvent = useCancelEvent();
+  const onSuccess = useCallback(() => {
+    enqueueSnackbar('Event canceled', { variant: 'success' });
+    onClose();
+  }, [enqueueSnackbar, onClose]);
+  const onError = useCallback(() => {
+    enqueueSnackbar('Failed to cancel event', { variant: 'error' });
+    onClose();
+  }, [enqueueSnackbar, onClose]);
+
+  const cancelEvent = useCancelEvent({ onSuccess, onError });
   const handleCancelClick = () => {
     cancelEvent.mutate(eventId);
   };
-
-  useEffect(() => {
-    if (cancelEvent.isSuccess) {
-      enqueueSnackbar('Event canceled', { variant: 'success' });
-      onClose();
-    }
-    if (cancelEvent.isError) {
-      enqueueSnackbar('Failed to cancel event', { variant: 'error' });
-      onClose();
-    }
-  }, [cancelEvent.isError, cancelEvent.isSuccess, onClose, enqueueSnackbar]);
 
   return (
     <>

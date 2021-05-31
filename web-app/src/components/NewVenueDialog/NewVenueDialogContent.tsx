@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
@@ -27,18 +27,15 @@ interface NewVenueDialogContentProps {
 const NewVenueDialogContent: React.FC<NewVenueDialogContentProps> = ({
   onClose,
 }) => {
-  const createVenue = useCreateVenue();
   const { enqueueSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (createVenue.isSuccess) {
-      onClose();
-      enqueueSnackbar('Venue created', { variant: 'success' });
-    }
-    if (createVenue.isError) {
-      enqueueSnackbar('Failed to create venue', { variant: 'error' });
-    }
-  }, [enqueueSnackbar, createVenue.isSuccess, createVenue.isError, onClose]);
+  const onSuccess = useCallback(() => {
+    onClose();
+    enqueueSnackbar('Venue created', { variant: 'success' });
+  }, [onClose, enqueueSnackbar]);
+  const onError = useCallback(() => {
+    enqueueSnackbar('Failed to create venue', { variant: 'error' });
+  }, [enqueueSnackbar]);
+  const createVenue = useCreateVenue({ onSuccess, onError });
 
   return (
     <Formik

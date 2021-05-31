@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -30,8 +30,29 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const { participants, isLoading: loadingParticipants } = useParticipants(
     eventId
   );
-  const addParticipant = useAddParticipant();
-  const removeParticipant = useRemoveParticipant();
+
+  const onAddSuccess = useCallback(() => {
+    enqueueSnackbar('Joined event!', { variant: 'success' });
+    enqueueEnablePushSnackbar();
+  }, [enqueueSnackbar, enqueueEnablePushSnackbar]);
+  const onAddError = useCallback(() => {
+    enqueueSnackbar('Failed to join event', { variant: 'error' });
+  }, [enqueueSnackbar]);
+  const addParticipant = useAddParticipant({
+    onSuccess: onAddSuccess,
+    onError: onAddError,
+  });
+
+  const onRemoveSuccess = useCallback(() => {
+    enqueueSnackbar('Left event!', { variant: 'success' });
+  }, [enqueueSnackbar]);
+  const onRemoveError = useCallback(() => {
+    enqueueSnackbar('Failed to leave event', { variant: 'error' });
+  }, [enqueueSnackbar]);
+  const removeParticipant = useRemoveParticipant({
+    onSuccess: onRemoveSuccess,
+    onError: onRemoveError,
+  });
   const isFull = !!event && event.numParticipants >= event.capacity;
   const isParticipant =
     !!participants &&
@@ -39,30 +60,6 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
     !!participants.find((p) => p.user.id === user.id);
   const isPast = Boolean(event && event.startsAt < new Date().toISOString());
   const isCanceled = !!event?.canceledAt;
-
-  useEffect(() => {
-    if (addParticipant.isSuccess) {
-      enqueueSnackbar('Joined event!', { variant: 'success' });
-      enqueueEnablePushSnackbar();
-    }
-    if (addParticipant.isError) {
-      enqueueSnackbar('Failed to join event', { variant: 'error' });
-    }
-  }, [
-    enqueueSnackbar,
-    enqueueEnablePushSnackbar,
-    addParticipant.isSuccess,
-    addParticipant.isError,
-  ]);
-
-  useEffect(() => {
-    if (removeParticipant.isSuccess) {
-      enqueueSnackbar('Left event!', { variant: 'success' });
-    }
-    if (removeParticipant.isError) {
-      enqueueSnackbar('Failed to leave event', { variant: 'error' });
-    }
-  }, [enqueueSnackbar, removeParticipant.isSuccess, removeParticipant.isError]);
 
   return (
     <Paper className={classes.paper}>
