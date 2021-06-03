@@ -10,7 +10,7 @@ import withTimeout from '../utils/withTimeout';
 
 const PHOTON_API = 'https://photon.komoot.io';
 const GEOLOCATION_API =
-  'https://geolocation-db.com/json/85249190-4601-11eb-9067-21b51bc8dee3';
+  'https://geolocation-db.com/json/e4f42070-ad2d-11eb-adf1-cf51da9b3410';
 
 type DescriptionProperty =
   | 'number'
