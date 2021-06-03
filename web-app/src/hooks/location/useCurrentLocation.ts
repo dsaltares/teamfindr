@@ -20,6 +20,7 @@ const useCurrentIpLocation = () => {
     'ipLocation',
     services.location.getLocationFromIp,
     {
+      staleTime: 12 * 60 * 60 * 1000,
       retry: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
