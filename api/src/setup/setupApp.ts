@@ -54,6 +54,7 @@ const setupApp = (config: Config, logger: Logger) => {
   app.use(passport.session());
   app.use(helmet());
   app.use(requestLogger(logger));
+  app.set('trust proxy', true);
   app.enable('trust proxy');
 
   return app;
