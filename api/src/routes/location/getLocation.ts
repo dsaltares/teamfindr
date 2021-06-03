@@ -6,7 +6,7 @@ const GetLocationController: ControllerCreator = () => async ({
   connection,
 }) => {
   const ip = headers['x-forwarded-for'] || connection.remoteAddress;
-  const geo = geoip.lookup(ip as string);
+  const geo = geoip.lookup((ip as string).split(',')[1]);
 
   if (!geo) {
     return {

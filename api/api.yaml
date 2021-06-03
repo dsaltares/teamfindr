@@ -491,6 +491,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocationResponse'
+        '404':
+          description: location from ip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     VerifySuccessResponse:
@@ -681,10 +687,10 @@ components:
     LocationResponse:
       type: object
       required:
-        - location
+        - coordinates
       properties:
-        location:
-          $ref: '#/components/schemas/Location'
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
     User:
       type: object
       required:
