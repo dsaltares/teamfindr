@@ -18,7 +18,7 @@ const useCurrentIpLocation = () => {
   const services = useServices();
   const { isLoading, error, data } = useQuery(
     'ipLocation',
-    () => services.location.getLocationFromIp(),
+    services.location.getLocationFromIp,
     {
       retry: false,
       refetchOnWindowFocus: false,
@@ -40,7 +40,7 @@ const useCurrentGeoLocation = () => {
   const enabled = permission === 'granted';
   const { isLoading, error, data } = useQuery(
     'geoLocation',
-    () => services.location.getLocationFromGeolocation(),
+    services.location.getLocationFromGeolocation,
     {
       enabled,
       retry: false,
