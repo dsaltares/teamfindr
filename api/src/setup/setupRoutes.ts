@@ -2,6 +2,7 @@ import authRoutes from '../routes/auth';
 import usersRoutes from '../routes/users';
 import venueRoutes from '../routes/venues';
 import eventRoutes from '../routes/events';
+import locationRoutes from '../routes/location';
 import participantRoutes from '../routes/participants';
 import makeController from './makeController';
 import withAuthenticatedUser from '../utils/withAuthenticatedUser';
@@ -65,6 +66,7 @@ const allRoutes = [
   venueRoutes,
   eventRoutes,
   participantRoutes,
+  locationRoutes,
 ];
 
 interface SetupRouteArgs {

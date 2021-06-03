@@ -480,6 +480,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /location:
+    get:
+      summary: approximates the location of the user via IP
+      operationId: getLocation
+      responses:
+        '200':
+          description: user location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponse'
 components:
   schemas:
     VerifySuccessResponse:
@@ -667,6 +678,13 @@ components:
           $ref: '#/components/schemas/Event'
         participants:
           $ref: '#/components/schemas/Participants'
+    LocationResponse:
+      type: object
+      required:
+        - location
+      properties:
+        location:
+          $ref: '#/components/schemas/Location'
     User:
       type: object
       required:

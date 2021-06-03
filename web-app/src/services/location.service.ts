@@ -7,10 +7,9 @@ import {
   GeoType,
 } from '../types';
 import withTimeout from '../utils/withTimeout';
+import { API_URL } from '../endpoints';
 
 const PHOTON_API = 'https://photon.komoot.io';
-const GEOLOCATION_API =
-  'https://geolocation-db.com/json/e4f42070-ad2d-11eb-adf1-cf51da9b3410';
 
 type DescriptionProperty =
   | 'number'
@@ -128,9 +127,9 @@ const getLocationFromGeolocation = async (): Promise<Location> => {
 
 const getLocationFromIp = async (): Promise<Location> => {
   const {
-    data: { latitude, longitude },
-  } = await axios.get(GEOLOCATION_API);
-  return getLocationFromCoordinates([longitude, latitude]);
+    data: { coordinates },
+  } = await axios.get(`${API_URL}/location`);
+  return getLocationFromCoordinates(coordinates);
 };
 
 const filterByType = (restrictToType?: LocationType) => (
