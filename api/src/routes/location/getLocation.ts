@@ -1,12 +1,10 @@
+import requestIp from 'request-ip';
 import geoip from 'geoip-lite';
 import { ControllerCreator } from '../controller';
 
-const GetLocationController: ControllerCreator = () => async ({
-  headers,
-  connection,
-}) => {
-  const ip = headers['x-forwarded-for'] || connection.remoteAddress;
-  const geo = geoip.lookup((ip as string).split(',')[0]);
+const GetLocationController: ControllerCreator = () => async (req) => {
+  const ip = requestIp.getClientIp(req);
+  const geo = geoip.lookup(ip);
 
   if (!geo) {
     return {
