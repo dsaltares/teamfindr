@@ -1,15 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    height: '100%',
+  root: {},
+  cardContent: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(3),
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:last-child': {
+      paddingBottom: theme.spacing(2),
+    },
   },
-  media: {
-    maxWidth: '100%',
+  link: {
+    textDecoration: 'none',
   },
 }));
 

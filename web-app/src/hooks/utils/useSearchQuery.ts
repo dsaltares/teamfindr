@@ -1,9 +1,9 @@
 import { useLocation } from 'react-router';
 import qs from 'qs';
 
-const useLocationQuery = () => {
+const useSearchQuery = () => {
   const { search } = useLocation();
   return qs.parse(search, { ignoreQueryPrefix: true });
 };
 
-export default useLocationQuery;
+export default useSearchQuery;

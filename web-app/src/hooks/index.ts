@@ -14,7 +14,7 @@ export { default as useChangeAvatar } from './user/useChangeAvatar';
 // Utils
 export { default as useDeferredState } from './utils/useDeferredState';
 export { default as useWindowSize } from './utils/useWindowSize';
-export { default as useLocationQuery } from './utils/useLocationQuery';
+export { default as useSearchQuery } from './utils/useSearchQuery';
 export { default as useUploadImage } from './utils/useUploadImage';
 
 // Venues

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { useSnackbar } from 'notistack';
 import GroupIcon from '@material-ui/icons/Group';
-
+import { useHistory } from 'react-router';
 import ParticipantTable from './ParticipantTable';
 import {
   useEvent,
@@ -25,6 +25,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
   const classes = useStyles();
   const { event } = useEvent(eventId);
   const { user } = useUser();
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const enqueueEnablePushSnackbar = useEnablePushSnackbar();
   const { participants, isLoading: loadingParticipants } = useParticipants(
@@ -53,6 +54,26 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
     onSuccess: onRemoveSuccess,
     onError: onRemoveError,
   });
+
+  const onJoin = useCallback(
+    (team?: number) => {
+      if (user) {
+        addParticipant.mutate({ event: eventId, team });
+      } else {
+        history.push(
+          `/login?redirect=${encodeURIComponent(
+            window.location.href
+          )}&action=joinEvent`
+        );
+      }
+    },
+    [addParticipant, eventId, history, user]
+  );
+
+  const onLeave = useCallback(() => {
+    removeParticipant.mutate(eventId);
+  }, [removeParticipant, eventId]);
+
   const isFull = !!event && event.numParticipants >= event.capacity;
   const isParticipant =
     !!participants &&
@@ -97,8 +118,8 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             </Grid>
             <Grid item>
               <ToggleParticipationButton
-                onJoin={() => addParticipant.mutate({ event: eventId })}
-                onLeave={() => removeParticipant.mutate(eventId)}
+                onJoin={onJoin}
+                onLeave={onLeave}
                 onJoinWaitlist={() => {}}
                 isFull={isFull}
                 isParticipant={isParticipant}
@@ -115,7 +136,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             participants={participants}
             teams={event ? event.teams : []}
             isParticipant={isParticipant}
-            onJoin={(team) => addParticipant.mutate({ event: eventId, team })}
+            onJoin={onJoin}
             loading={addParticipant.isLoading}
             capacity={event ? event.capacity : 0}
           />

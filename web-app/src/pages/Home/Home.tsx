@@ -1,20 +1,12 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Page from '../../components/Page';
-import UserInfoPanel from './UserInfoPanel';
-import UserEventsPanel from './UserEventsPanel';
+import LandingHome from './LandingHome';
+import LoggedInHome from './LoggedInHome';
+import { useUser } from '../../hooks';
 
-const Home = () => (
-  <Page title="Home" smallScreenTitle="TeamFindr" showLogo>
-    <Grid container direction="row" spacing={2}>
-      <Grid item xs={12} md={6}>
-        <UserInfoPanel />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <UserEventsPanel />
-      </Grid>
-    </Grid>
-  </Page>
-);
+const Home = () => {
+  const { user } = useUser();
+
+  return !!user ? <LoggedInHome /> : <LandingHome />;
+};
 
 export default React.memo(Home);

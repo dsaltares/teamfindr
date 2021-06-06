@@ -10,14 +10,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HttpsIcon from '@material-ui/icons/Https';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import GavelIcon from '@material-ui/icons/Gavel';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 import Avatar from '../Avatar';
 import useStyles from './AvatarMenu.styles';
 import { useUser, useLogout } from '../../hooks';
-import { User } from '../../types';
 import Policies from '../../utils/policies';
 
 const AvatarMenu = () => {
-  const user = useUser().user as User;
+  const { user } = useUser();
   const logout = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -60,19 +60,32 @@ const AvatarMenu = () => {
       href: Policies.Cookies,
     },
     { key: 'divider', divider: true },
-    {
-      key: 'logout',
-      label: 'Log out',
-      onClick: handleLogout,
-      Icon: ExitToAppIcon,
-      danger: true,
-    },
+    ...(user
+      ? [
+          {
+            key: 'logout',
+            label: 'Log out',
+            onClick: handleLogout,
+            Icon: ExitToAppIcon,
+            danger: true,
+          },
+        ]
+      : [
+          {
+            key: 'login',
+            label: 'Log in',
+            href: '/login',
+            newTab: false,
+            Icon: LockOpenIcon,
+            onlyLoggedOut: true,
+          },
+        ]),
   ];
 
   return (
     <>
       <Button className={classes.fullHeight} onClick={handleClick}>
-        <Avatar avatar={user.avatar} size="large" />
+        <Avatar avatar={user?.avatar} size="large" />
       </Button>
       <Menu
         id="avatar-menu"
@@ -100,9 +113,10 @@ const AvatarMenu = () => {
               onClick={handleClose}
               component={Link}
               href={item.href}
+              target={item.newTab === false ? '_self' : '_blank'}
             >
               <ListItemIcon className={classes.itemIcon}>
-                <item.Icon />
+                <item.Icon color="primary" />
               </ListItemIcon>
               <ListItemText>{item.label}</ListItemText>
             </MenuItem>

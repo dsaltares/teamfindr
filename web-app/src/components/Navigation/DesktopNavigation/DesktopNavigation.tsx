@@ -13,8 +13,10 @@ import AvatarMenu from '../../AvatarMenu/AvatarMenu';
 import useStyles from './DesktopNavigation.styles';
 import NavigationItems from '../navigationItems';
 import { ReactComponent as LogoImg } from '../../Icons/logo_simple.svg';
+import { useUser } from '../../../hooks';
 
 const DesktopNavigation = () => {
+  const { user } = useUser();
   const classes = useStyles();
   const location = useLocation();
   const selectedValue = location.pathname.split('/')[1];
@@ -45,21 +47,24 @@ const DesktopNavigation = () => {
                 </Grid>
                 <Grid item className={classes.fullHeight}>
                   <List className={classes.list} component="nav">
-                    {NavigationItems.map((item) => (
-                      <ListItem
-                        key={item.value}
-                        className={classes.item}
-                        selected={item.value === selectedValue}
-                        button
-                        component={Link}
-                        to={`/${item.value}`}
-                      >
-                        <ListItemIcon className={classes.icon}>
-                          <item.icon />
-                        </ListItemIcon>
-                        <ListItemText>{item.label}</ListItemText>
-                      </ListItem>
-                    ))}
+                    {NavigationItems.map(
+                      (item) =>
+                        (!item.loggedInOnly || !!user) && (
+                          <ListItem
+                            key={item.value}
+                            className={classes.item}
+                            selected={item.value === selectedValue}
+                            button
+                            component={Link}
+                            to={`/${item.value}`}
+                          >
+                            <ListItemIcon className={classes.icon}>
+                              <item.icon />
+                            </ListItemIcon>
+                            <ListItemText>{item.label}</ListItemText>
+                          </ListItem>
+                        )
+                    )}
                   </List>
                 </Grid>
               </Grid>

@@ -21,7 +21,7 @@ interface SearchEventParams {
     before?: string;
     isParticipant?: boolean;
   };
-  userId: string;
+  userId?: string;
 }
 
 const searchEvents = ({

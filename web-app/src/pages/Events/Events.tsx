@@ -9,9 +9,15 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
+import { useHistory } from 'react-router';
 import useStyles from './Events.styles';
 import { Location, Sport } from '../../types';
-import { useCurrentLocation, useEvents } from '../../hooks';
+import {
+  useCurrentLocation,
+  useEvents,
+  useSearchQuery,
+  useUser,
+} from '../../hooks';
 import NewEventDialog from '../../components/NewEventDialog';
 import EventList from '../../components/EventList/EventList';
 import EventMarkers from './EventMarkers';
@@ -22,9 +28,14 @@ import DateShortcuts from '../../components/DateShortcuts';
 
 const Events = () => {
   const classes = useStyles();
+  const { sport: sportQuery } = useSearchQuery();
+  const { user } = useUser();
+  const history = useHistory();
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number | undefined>(10);
-  const [sports, setSports] = useState<Sport[]>([]);
+  const [sports, setSports] = useState<Sport[]>(
+    sportQuery ? [sportQuery as Sport] : []
+  );
   const [date, setDate] = useState<Date | null>(todayAtMidnight());
   const [excludeFull, setNotFull] = useState<boolean>(false);
   const currentLocation = useCurrentLocation();
@@ -37,7 +48,17 @@ const Events = () => {
   });
 
   const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
-  const handleNewEventDialogOpen = () => setNewEventDialogOpen(true);
+  const handleNewEventDialogOpen = () => {
+    if (user) {
+      setNewEventDialogOpen(true);
+    } else {
+      history.push(
+        `/login?redirect=${encodeURIComponent(
+          window.location.href
+        )}&action=newEvent`
+      );
+    }
+  };
   const handleNewEventDialogClose = () => setNewEventDialogOpen(false);
 
   const handleNotFullChange = (e: React.ChangeEvent<{}>, value: boolean) =>
@@ -48,6 +69,12 @@ const Events = () => {
       setLocation(currentLocation.location);
     }
   }, [currentLocation, location]);
+
+  useEffect(() => {
+    if (sportQuery) {
+      history.replace('/events');
+    }
+  }, [sportQuery, history]);
 
   const [filtersExpanded, setFiltersExpanded] = useState(false);
   const onToggleFilters = useCallback(() => {

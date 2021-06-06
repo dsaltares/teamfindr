@@ -11,7 +11,7 @@ import Event from './pages/Event';
 import Venues from './pages/Venues';
 import Venue from './pages/Venue';
 import Settings from './pages/Settings';
-import Landing from './pages/Landing';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import PageTracker from './components/PageTracker';
 
@@ -28,16 +28,18 @@ const App: React.FC = () => {
       <PageTracker />
       <Switch>
         <Route path="/_=_" exact>
-          <Redirect to="/" />
+          <Redirect to="/home" />
         </Route>
-        <Route path="/home" component={withAuthentication(Home)} />
-        <Route path="/events" exact component={withAuthentication(Events)} />
-        <Route path="/events/:eventId" component={withAuthentication(Event)} />
-        <Route path="/venues" exact component={withAuthentication(Venues)} />
-        <Route path="/venues/:venueId" component={withAuthentication(Venue)} />
+        <Route path="/" exact>
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/home" component={Home} />
+        <Route path="/events" exact component={Events} />
+        <Route path="/events/:eventId" component={Event} />
+        <Route path="/venues" exact component={Venues} />
+        <Route path="/venues/:venueId" component={Venue} />
         <Route path="/settings" component={withAuthentication(Settings)} />
-        <Route path="/login" exact component={withNoAuthentication(Landing)} />
-        <Route path="/" exact component={withNoAuthentication(Landing)} />
+        <Route path="/login" exact component={withNoAuthentication(Login)} />
         <Route exact component={NotFound} />
       </Switch>
     </HashRouter>

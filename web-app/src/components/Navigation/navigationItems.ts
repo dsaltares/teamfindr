@@ -23,6 +23,7 @@ const NavigationItems = [
     value: 'settings',
     label: 'Settings',
     icon: SettingsIcon,
+    loggedInOnly: true,
   },
 ];
 

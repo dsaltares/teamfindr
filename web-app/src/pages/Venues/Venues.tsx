@@ -3,24 +3,37 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { useHistory } from 'react-router';
 import Page from '../../components/Page';
 import LocationWithMapField from '../../components/NewVenueDialog/LocationWithMapField';
 import NewVenueDialog from '../../components/NewVenueDialog';
 import { Location } from '../../types';
-import { useCurrentLocation, useVenues } from '../../hooks';
+import { useCurrentLocation, useUser, useVenues } from '../../hooks';
 import VenueList from './VenueList';
 import VenueMarkers from '../../components/VenueMarkers';
 import useStyles from './Venues.styles';
 import NoResults from '../../components/NoResults';
 
 const Venues = () => {
+  const { user } = useUser();
+  const history = useHistory();
   const [location, setLocation] = useState<Location | null>(null);
   const [radius, setRadius] = useState<number | undefined>(5);
   const { venues } = useVenues(location, radius);
   const currentLocation = useCurrentLocation();
   const [newVenueDialogOpen, setNewVenueDialogOpen] = useState(false);
   const handleNewVenueDialogClose = () => setNewVenueDialogOpen(false);
-  const handleNewVenueDialogOpen = () => setNewVenueDialogOpen(true);
+  const handleNewVenueDialogOpen = () => {
+    if (user) {
+      setNewVenueDialogOpen(true);
+    } else {
+      history.push(
+        `/login?redirect=${encodeURIComponent(
+          window.location.href
+        )}&action=newVenue`
+      );
+    }
+  };
 
   useEffect(() => {
     if (currentLocation.location && !location) {

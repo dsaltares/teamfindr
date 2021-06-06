@@ -4,12 +4,14 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { useHistory, useLocation } from 'react-router-dom';
 import useStyles from './MobileNavigation.styles';
 import NavigationItems from '../navigationItems';
+import { useUser } from '../../../hooks';
 
 const MobileNavigation = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
   const selectedValue = location.pathname.split('/')[1];
+  const { user } = useUser();
 
   const handleNavigationChange = (
     _event: React.ChangeEvent<{}>,
@@ -26,14 +28,17 @@ const MobileNavigation = () => {
         value={selectedValue}
         onChange={handleNavigationChange}
       >
-        {NavigationItems.map((item) => (
-          <BottomNavigationAction
-            key={item.value}
-            value={item.value}
-            label={item.label}
-            icon={<item.icon />}
-          />
-        ))}
+        {NavigationItems.map(
+          (item) =>
+            (!item.loggedInOnly || !!user) && (
+              <BottomNavigationAction
+                key={item.value}
+                value={item.value}
+                label={item.label}
+                icon={<item.icon />}
+              />
+            )
+        )}
       </BottomNavigationBase>
     </>
   );

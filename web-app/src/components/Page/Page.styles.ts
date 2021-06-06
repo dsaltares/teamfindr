@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  content: {
+  paddedContent: {
     padding: theme.spacing(2),
   },
   pageContainer: {
