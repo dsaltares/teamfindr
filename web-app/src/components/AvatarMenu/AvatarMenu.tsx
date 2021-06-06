@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HttpsIcon from '@material-ui/icons/Https';
@@ -74,7 +75,7 @@ const AvatarMenu = () => {
           {
             key: 'login',
             label: 'Log in',
-            href: '/login',
+            to: '/login',
             newTab: false,
             Icon: LockOpenIcon,
             onlyLoggedOut: true,
@@ -107,20 +108,43 @@ const AvatarMenu = () => {
           if (item.divider) {
             return <Divider key={item.key} />;
           }
-          return item.href ? (
-            <MenuItem
-              key={item.key}
-              onClick={handleClose}
-              component={Link}
-              href={item.href}
-              target={item.newTab === false ? '_self' : '_blank'}
-            >
-              <ListItemIcon className={classes.itemIcon}>
-                <item.Icon color="primary" />
-              </ListItemIcon>
-              <ListItemText>{item.label}</ListItemText>
-            </MenuItem>
-          ) : (
+
+          if (item.href) {
+            return (
+              <MenuItem
+                key={item.key}
+                onClick={handleClose}
+                component={Link}
+                href={item.href}
+                target={item.newTab === false ? '_self' : '_blank'}
+              >
+                <ListItemIcon className={classes.itemIcon}>
+                  <item.Icon color="primary" />
+                </ListItemIcon>
+                <ListItemText>{item.label}</ListItemText>
+              </MenuItem>
+            );
+          }
+
+          if (item.to) {
+            return (
+              <MenuItem
+                className={classes.routerLink}
+                key={item.key}
+                onClick={handleClose}
+                component={RouterLink}
+                to={item.to}
+                target={item.newTab === false ? '_self' : '_blank'}
+              >
+                <ListItemIcon className={classes.itemIcon}>
+                  <item.Icon color="primary" />
+                </ListItemIcon>
+                <ListItemText>{item.label}</ListItemText>
+              </MenuItem>
+            );
+          }
+
+          return (
             <MenuItem key={item.key} onClick={item.onClick}>
               <ListItemIcon className={classes.itemIcon}>
                 {item.Icon && (
