@@ -1,35 +1,32 @@
 {
   "files": {
     "main.css": "/static/css/main.598f9b4f.chunk.css",
-    "main.js": "/static/js/main.3fca2cc3.chunk.js",
-    "main.js.map": "/static/js/main.3fca2cc3.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.362a4659.js",
-    "runtime-main.js.map": "/static/js/runtime-main.362a4659.js.map",
+    "main.js": "/static/js/main.246f75ce.chunk.js",
+    "main.js.map": "/static/js/main.246f75ce.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.07356e5c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.07356e5c.js.map",
     "static/css/2.ffc6cdd7.chunk.css": "/static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.e583c013.chunk.js": "/static/js/2.e583c013.chunk.js",
-    "static/js/2.e583c013.chunk.js.map": "/static/js/2.e583c013.chunk.js.map",
-    "static/js/3.960f7999.chunk.js": "/static/js/3.960f7999.chunk.js",
-    "static/js/3.960f7999.chunk.js.map": "/static/js/3.960f7999.chunk.js.map",
+    "static/js/2.4a94ada7.chunk.js": "/static/js/2.4a94ada7.chunk.js",
+    "static/js/2.4a94ada7.chunk.js.map": "/static/js/2.4a94ada7.chunk.js.map",
+    "static/js/3.0c7a314d.chunk.js": "/static/js/3.0c7a314d.chunk.js",
+    "static/js/3.0c7a314d.chunk.js.map": "/static/js/3.0c7a314d.chunk.js.map",
     "index.html": "/index.html",
     "service-worker.js": "/service-worker.js",
     "service-worker.js.map": "/service-worker.js.map",
     "static/css/2.ffc6cdd7.chunk.css.map": "/static/css/2.ffc6cdd7.chunk.css.map",
     "static/css/main.598f9b4f.chunk.css.map": "/static/css/main.598f9b4f.chunk.css.map",
-    "static/js/2.e583c013.chunk.js.LICENSE.txt": "/static/js/2.e583c013.chunk.js.LICENSE.txt",
+    "static/js/2.4a94ada7.chunk.js.LICENSE.txt": "/static/js/2.4a94ada7.chunk.js.LICENSE.txt",
     "static/media/logo.9730d2c8.svg": "/static/media/logo.9730d2c8.svg",
     "static/media/logo_simple.ca08351d.svg": "/static/media/logo_simple.ca08351d.svg",
     "static/media/no_results.299e0041.svg": "/static/media/no_results.299e0041.svg",
     "static/media/index.css": "/static/media/poppins-latin-ext-400-normal.53f1614b.woff2",
-    "static/media/undraw_basketball.fccfb1b1.svg": "/static/media/undraw_basketball.fccfb1b1.svg",
-    "static/media/undraw_not_found.a1b41825.svg": "/static/media/undraw_not_found.a1b41825.svg",
-    "static/media/undraw_soccer.f9d06e91.svg": "/static/media/undraw_soccer.f9d06e91.svg",
-    "static/media/undraw_tennis.7bd09e44.svg": "/static/media/undraw_tennis.7bd09e44.svg"
+    "static/media/undraw_not_found.a1b41825.svg": "/static/media/undraw_not_found.a1b41825.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.362a4659.js",
+    "static/js/runtime-main.07356e5c.js",
     "static/css/2.ffc6cdd7.chunk.css",
-    "static/js/2.e583c013.chunk.js",
+    "static/js/2.4a94ada7.chunk.js",
     "static/css/main.598f9b4f.chunk.css",
-    "static/js/main.3fca2cc3.chunk.js"
+    "static/js/main.246f75ce.chunk.js"
   ]
 }
