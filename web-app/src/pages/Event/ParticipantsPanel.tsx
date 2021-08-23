@@ -55,7 +55,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
     onError: onRemoveError,
   });
 
-  const onJoin = useCallback(
+  const onJoinTeam = useCallback(
     (team?: number) => {
       if (user) {
         addParticipant.mutate({ event: eventId, team });
@@ -69,6 +69,8 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
     },
     [addParticipant, eventId, history, user]
   );
+
+  const onJoinAnyTeam = useCallback(() => onJoinTeam(), [onJoinTeam]);
 
   const onLeave = useCallback(() => {
     removeParticipant.mutate(eventId);
@@ -118,7 +120,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             </Grid>
             <Grid item>
               <ToggleParticipationButton
-                onJoin={onJoin}
+                onJoin={onJoinAnyTeam}
                 onLeave={onLeave}
                 onJoinWaitlist={() => {}}
                 isFull={isFull}
@@ -136,7 +138,7 @@ const ParticipantsPanel: React.FC<ParticipantsPanelProps> = ({ eventId }) => {
             participants={participants}
             teams={event ? event.teams : []}
             isParticipant={isParticipant}
-            onJoin={onJoin}
+            onJoin={onJoinTeam}
             loading={addParticipant.isLoading}
             capacity={event ? event.capacity : 0}
           />
