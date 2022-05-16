@@ -34,6 +34,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       autoOk
       disablePast={disablePast}
       fullWidth
+      ampm={false}
       error={error}
       helperText={helperText}
       required={required}
