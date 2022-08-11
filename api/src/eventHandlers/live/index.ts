@@ -1,5 +1,5 @@
 import { Services } from '../../setup/setupServices';
-import { AppEvent, EventHandler, Subscriber } from '../../utils/eventEmitter';
+import { AppEvent, EventHandler, Subscriber } from '@lib/utils/eventEmitter';
 import withInstrumentation from '../withInstrumentation';
 
 const live = (subscribe: Subscriber) => ({

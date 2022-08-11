@@ -1,4 +1,4 @@
-import { Participant, Event } from '../../types';
+import { Participant, Event } from '@lib/types';
 import { ControllerCreator } from '../controller';
 
 const selectTeam = (

@@ -1,5 +1,5 @@
 import { EventHandlerCreator } from '../eventHandler';
-import { Event } from '../../types';
+import { Event } from '@lib/types';
 
 const onEventCanceled: EventHandlerCreator = ({
   config,

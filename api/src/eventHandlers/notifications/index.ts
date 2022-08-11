@@ -1,5 +1,5 @@
 import { Services } from '../../setup/setupServices';
-import { Subscriber } from '../../utils/eventEmitter';
+import { Subscriber } from '@lib/utils/eventEmitter';
 import onParticipantsJoined from './onParticipantsJoined';
 import onParticipantsLeft from './onParticipantsLeft';
 import onEventCanceled from './onEventCanceled';

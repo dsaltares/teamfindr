@@ -4,7 +4,7 @@ import PostPushController from './postPush';
 import FailedController from './failed';
 import LogoutController from './logout';
 import { RouteDefinitions } from '../routeDef';
-import { Request } from '../../types';
+import { Request } from '@lib/types';
 
 const getRedirect = (req: Request) =>
   req.query.redirect ? (req.query.redirect as string) : undefined;
