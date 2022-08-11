@@ -1,3 +1,5 @@
+export {};
+
 declare module '@analytics/google-analytics' {
   interface GoogleAnalyticsConfig {
     trackingId: string;
@@ -8,4 +10,12 @@ declare module '@analytics/google-analytics' {
   ): Record<string, unknown>;
 
   export default googleAnalytics;
+}
+
+declare global {
+  interface Window {
+    wpcc: {
+      init: (config: object) => void;
+    };
+  }
 }
