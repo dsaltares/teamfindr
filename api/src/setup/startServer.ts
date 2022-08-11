@@ -1,4 +1,3 @@
-import 'newrelic';
 import { createServer } from 'http';
 import getConfig from './getConfig';
 import setupLogger from './setupLogger';
@@ -8,8 +7,6 @@ import setupServices from './setupServices';
 import setupPassport from './setupPassport';
 import setupApp from './setupApp';
 import setupRoutes from './setupRoutes';
-import setupEventHandlers from './setupEventHandlers';
-import setupSocket from './setupSocket';
 
 const startServer = async () => {
   const config = await getConfig();
@@ -20,10 +17,8 @@ const startServer = async () => {
   const app = setupApp(config, logger);
   const server = createServer(app);
 
-  setupSocket(dependencies, server);
   setupPassport(services);
   setupRoutes({ app, services });
-  setupEventHandlers(dependencies.subscribe, services);
 
   const port = config.port;
   server.listen(port, () => logger.info(`server started on port ${port}`));

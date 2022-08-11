@@ -13,6 +13,8 @@ import requestLogger from '../middlewares/requestLogger';
 const setupApp = (config: Config, logger: Logger) => {
   logger.info('setting up app');
 
+  console.log(config.clientUrl);
+
   const app = express();
   app.use(
     cors({

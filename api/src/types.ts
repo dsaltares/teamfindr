@@ -1,5 +1,4 @@
 import express from 'express';
-import WebPush from 'web-push';
 
 type PassportProviderConfig = {
   clientID: string;
@@ -105,13 +104,6 @@ export type Participant = {
   event: string;
   user: User;
   team?: number;
-};
-
-export type PushDevice = {
-  id: string;
-  createdAt: string;
-  user: string;
-  subscription: WebPush.PushSubscription;
 };
 
 export type Request = express.Request & {

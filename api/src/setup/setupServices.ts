@@ -15,10 +15,6 @@ import GetParticipant from '../services/getParticipant';
 import CreateParticipant from '../services/createParticipant';
 import DeleteParticipant from '../services/deleteParticipant';
 import GetEventIdsForUser from '../services/getEventIdsForUser';
-import UpsertPushDevice from '../services/upsertPushDevice';
-import GetPushDevicesForUser from '../services/getPushDevicesForUser';
-import DeletePushDeviceByEndpoint from '../services/deletePushDeviceByEndpoint';
-import SendPushNotificationToUser from '../services/sendPushNotificationToUser';
 
 const setupServices = (deps: ServiceDependencies) => {
   deps.logger.info('setting up services');
@@ -28,8 +24,6 @@ const setupServices = (deps: ServiceDependencies) => {
   return {
     config: deps.config,
     logger: deps.logger,
-    getSocketsForUserIds: deps.socketStore.getSocketsForUserIds,
-    pushEvent: deps.pushEvent,
     createUser: CreateUser(deps),
     getUserByEmail: GetUserByEmail(deps),
     getUserById: GetUserById(deps),
@@ -49,12 +43,6 @@ const setupServices = (deps: ServiceDependencies) => {
     getParticipant: GetParticipant(deps),
     createParticipant: CreateParticipant(deps),
     deleteParticipant: DeleteParticipant(deps),
-    upsertPushDevice: UpsertPushDevice(deps),
-    sendPushNotificationToUser: SendPushNotificationToUser({
-      ...deps,
-      getPushDevicesForUser: GetPushDevicesForUser(deps),
-      deletePushDeviceByEndpoint: DeletePushDeviceByEndpoint(deps),
-    }),
   };
 };
 

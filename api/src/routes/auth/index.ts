@@ -1,10 +1,9 @@
 import passport from 'passport';
 import VerifyController from './verify';
-import PostPushController from './postPush';
 import FailedController from './failed';
 import LogoutController from './logout';
 import { RouteDefinitions } from '../routeDef';
-import { Request } from '@lib/types';
+import { Request } from '../../types';
 
 const getRedirect = (req: Request) =>
   req.query.redirect ? (req.query.redirect as string) : undefined;
@@ -18,12 +17,6 @@ const authRoutes: RouteDefinitions = {
       controller: VerifyController,
       requiresAuthentication: true,
       renewSession: true,
-    },
-    {
-      method: 'post',
-      path: 'push',
-      controller: PostPushController,
-      requiresAuthentication: true,
     },
     {
       method: 'get',
