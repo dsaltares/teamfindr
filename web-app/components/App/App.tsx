@@ -1,3 +1,4 @@
+import '@fontsource/poppins';
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ReactQueryDevtools } from 'react-query/devtools';

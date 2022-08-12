@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 import Authenticating from '@components/Authenticating';
 import withAuthentication from '@components/WithAuthentication';
 import withNoAuthentication from '@components/WithNoAuthentication';
@@ -14,7 +14,7 @@ import Login from '@components/Login';
 import NotFound from '@components/NotFound';
 import PageTracker from '@components/PageTracker';
 
-const App: React.FC = () => {
+const Routes: React.FC = () => {
   const { user, isLoading } = useUser();
 
   if (!user && isLoading) {
@@ -44,4 +44,4 @@ const App: React.FC = () => {
   );
 };
 
-export default React.memo(App);
+export default React.memo(Routes);
