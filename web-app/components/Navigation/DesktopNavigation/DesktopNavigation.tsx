@@ -40,7 +40,6 @@ const DesktopNavigation = () => {
                 <Grid item className={classes.logo}>
                   <Link to="/">
                     <Image
-                      aria-hidden="true"
                       alt=""
                       src="/logo_simple.svg"
                       width={40}

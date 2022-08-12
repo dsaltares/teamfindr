@@ -29,7 +29,7 @@ const NoResults: React.FC<NoResultsProps> = ({
     >
       <Grid item>
         <Image
-          src="/no-results.svg"
+          src="/no_results.svg"
           aria-hidden="true"
           alt=""
           width={width}
