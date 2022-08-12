@@ -1,7 +1,7 @@
 import GetLocationController from './getLocation';
 import { RouteDefinitions } from '../routeDef';
 
-const participantRoutes: RouteDefinitions = {
+const locationRoutes: RouteDefinitions = {
   basePath: '/location',
   routes: () => [
     {
@@ -12,4 +12,4 @@ const participantRoutes: RouteDefinitions = {
   ],
 };
 
-export default participantRoutes;
+export default locationRoutes;
