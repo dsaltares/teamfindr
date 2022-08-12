@@ -16,7 +16,7 @@ const setupServiceDependencies = async ({
     useUnifiedTopology: true,
   });
   await client.connect();
-  const db = client.db();
+  const db = client.db('teamfindr');
 
   return {
     config,
