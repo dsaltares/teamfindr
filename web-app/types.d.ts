@@ -1,3 +1,6 @@
+import type { User } from '@lib/types';
+
+/* eslint-disable no-var */
 export {};
 
 declare module '@analytics/google-analytics' {
@@ -17,5 +20,18 @@ declare global {
     wpcc: {
       init: (config: object) => void;
     };
+  }
+}
+declare global {
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
+}
+
+declare module 'next' {
+  interface NextApiRequest {
+    session: {
+      forceRenew: boolean;
+      redirect?: string;
+    };
+    user?: User;
   }
 }
