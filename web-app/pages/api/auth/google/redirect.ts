@@ -1,15 +1,17 @@
 import passport from 'passport';
 import Config from '@lib/config';
-import withPassport from '@lib/passport/withPassport';
+import { authRoute } from '@lib/api/createRoute';
 
-export default withPassport((req, res) => {
+export default authRoute((req, res) => {
   passport.authenticate(
     'google',
     {
       failureRedirect: '/api/auth/failed',
     },
-    () => {
-      res.redirect(req.session.redirect || Config.hostUrl);
+    (_err, user) => {
+      req.login(user, () =>
+        res.redirect(req.session.redirect || Config.hostUrl)
+      );
     }
   )(req, res);
 });

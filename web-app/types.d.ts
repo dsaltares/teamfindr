@@ -26,12 +26,14 @@ declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-declare module 'next' {
-  interface NextApiRequest {
+declare module 'http' {
+  interface IncomingMessage {
     session: {
-      forceRenew: boolean;
+      forceRenew?: Date;
       redirect?: string;
     };
     user?: User;
+    logout: () => void;
+    login: (user: User, cb: (err: any) => void) => void;
   }
 }

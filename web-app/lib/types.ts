@@ -81,3 +81,5 @@ export type Participant = {
   user: User;
   team?: number;
 };
+
+export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete';

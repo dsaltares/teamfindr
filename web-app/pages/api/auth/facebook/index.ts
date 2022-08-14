@@ -1,7 +1,7 @@
 import passport from 'passport';
-import withPassport from '@lib/passport/withPassport';
+import { authRoute } from '@lib/api/createRoute';
 
-export default withPassport((req, res) => {
+export default authRoute((req, res) => {
   req.session.redirect = req.query.redirect as string;
   passport.authenticate('facebook', { scope: ['email'] })(req, res);
 });

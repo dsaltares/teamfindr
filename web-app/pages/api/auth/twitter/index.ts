@@ -1,7 +1,15 @@
 import passport from 'passport';
-import withPassport from '@lib/passport/withPassport';
+import createRoute from '@lib/api/createRoute';
 
-export default withPassport((req, res) => {
-  req.session.redirect = req.query.redirect as string;
-  passport.authenticate('twitter')(req, res);
+export default createRoute({
+  requireAuth: false,
+  endpoints: [
+    {
+      method: 'get',
+      rawHandler: (req, res) => {
+        req.session.redirect = req.query.redirect as string;
+        passport.authenticate('twitter')(req, res);
+      },
+    },
+  ],
 });

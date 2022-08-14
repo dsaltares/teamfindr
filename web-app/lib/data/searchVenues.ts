@@ -1,18 +1,14 @@
-import { ServiceDependencies } from '../setup/setupServiceDependencies';
-import { Venue } from '../types';
-import formatVenue from '../utils/formatVenue';
+import type { Venue } from '@lib/types';
+import formatVenue from '@lib/utils/formatVenue';
+import mongodb from './mongodb';
 
-export interface SearchVenuesParams {
+interface SearchVenuesParams {
   lat?: number;
   lon?: number;
   radius?: number;
 }
 
-const searchVenues = ({ venueCollection }: ServiceDependencies) => async ({
-  lat,
-  lon,
-  radius,
-}: SearchVenuesParams) => {
+const searchVenues = async ({ lat, lon, radius }: SearchVenuesParams) => {
   const query: any = {};
   if (lat && lon && radius) {
     query['location.geo'] = {
@@ -26,7 +22,8 @@ const searchVenues = ({ venueCollection }: ServiceDependencies) => async ({
       },
     };
   }
-  const mongoVenues = await venueCollection.find(query).toArray();
+  const db = await mongodb;
+  const mongoVenues = await db.collection('Venue').find(query).toArray();
   return mongoVenues.map(formatVenue) as Venue[];
 };
 

@@ -3,10 +3,10 @@ import createRoute from '@lib/api/createRoute';
 export default createRoute([
   {
     method: 'get',
-    handler: () => ({
-      status: 401,
-      body: { message: 'Failed to authenticate' },
+    handler: ({ user }) => ({
+      status: 200,
+      body: { user },
     }),
-    requiresAuth: false,
+    requiresAuth: true,
   },
 ]);

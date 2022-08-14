@@ -1,16 +1,5 @@
-type MongoRecord = {
-  _id: string;
-} & object;
-
-type FormattedMongoRecord = {
-  id: string;
-} & object;
-
-const formatMongoRecord = ({
-  _id,
-  ...otherFields
-}: MongoRecord): FormattedMongoRecord => ({
-  id: _id,
+const formatMongoRecord = ({ _id, ...otherFields }: any) => ({
+  id: _id as unknown as string,
   ...Object.entries(otherFields).reduce(
     (acc, [key, value]) => ({
       ...acc,
