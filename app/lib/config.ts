@@ -16,6 +16,7 @@ const Config = {
     },
     cookieKey: process.env.COOKIE_KEY as string,
   },
+  isDevelopment: process.env.NODE_ENV === 'development',
 };
 
 export default Config;
