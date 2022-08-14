@@ -1,9 +1,10 @@
 import passport from 'passport';
+import type { NextHandler } from 'next-connect';
 import connect from 'next-connect';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
-import type { NextApiHandler, NextApiRequest } from 'next';
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import Config from '@lib/config';
 import setUpPassport from '@lib/passport/setUpPassport';
 import logger from '@lib/logger';
@@ -26,7 +27,13 @@ const cookieSessionMiddleware = cookieSession({
   overwrite: true,
 });
 
-export const authRoute = (handler: NextApiHandler) => {
+type AuthHandler = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  next: NextHandler
+) => void;
+
+export const authRoute = (handler: AuthHandler) => {
   setUpPassport();
   return connect()
     .use(corsMiddleware)
@@ -35,7 +42,7 @@ export const authRoute = (handler: NextApiHandler) => {
     .use(passport.initialize())
     .use(passport.session())
     .use(requestLogger)
-    .all(handler);
+    .get(handler);
 };
 
 const createRoute = (endpoints: EndpointDefinition[]) => {
