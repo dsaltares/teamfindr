@@ -12,7 +12,7 @@ App to organise your amateur sport events with friends.
 
 TeamFindr is written in Typescript using:
 
-- Express
+- Next.js
 - MongoDb
 - ReactJS
 - react-query
@@ -20,16 +20,9 @@ TeamFindr is written in Typescript using:
 
 ### Development
 
-Start the backend locally:
+Start the app:
 
 ```
-cd api
+cd app
 yarn && yarn dev
-```
-
-Start the web app:
-
-```
-cd web-app
-yarn && yarn start
 ```
