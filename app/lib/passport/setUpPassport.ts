@@ -18,7 +18,7 @@ const setUpPassport = () => {
       {
         consumerKey: Config.authentication.twitter.clientId,
         consumerSecret: Config.authentication.twitter.clientSecret,
-        callbackURL: '/api/auth/twitter/redirect',
+        callbackURL: `${Config.hostUrl}/api/auth/twitter/redirect`,
         includeEmail: true,
         includeEntities: false,
         includeStatus: false,
@@ -32,7 +32,7 @@ const setUpPassport = () => {
       {
         clientID: Config.authentication.facebook.clientId,
         clientSecret: Config.authentication.facebook.clientSecret,
-        callbackURL: '/api/auth/facebook/redirect',
+        callbackURL: `${Config.hostUrl}/api/auth/facebook/redirect`,
         profileFields: ['id', 'displayName', 'photos', 'email'],
       },
       verifyFacebook
@@ -44,7 +44,7 @@ const setUpPassport = () => {
       {
         clientID: Config.authentication.google.clientId,
         clientSecret: Config.authentication.google.clientSecret,
-        callbackURL: '/api/auth/google/redirect',
+        callbackURL: `${Config.hostUrl}/api/auth/google/redirect`,
       },
       verifyGoogle
     )
