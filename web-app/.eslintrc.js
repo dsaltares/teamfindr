@@ -73,8 +73,8 @@ module.exports = {
     ],
     // Allow non-null assertions
     '@typescript-eslint/no-non-null-assertion': 'off',
-    // Disallow using 'any' explicitly in annotations
-    '@typescript-eslint/no-explicit-any': 'error',
+    // Allow using 'any' explicitly in annotations
+    '@typescript-eslint/no-explicit-any': 'off',
     // Require promise outcomes to be properly handled
     '@typescript-eslint/no-floating-promises': 'error',
     // Disallow unused variables
