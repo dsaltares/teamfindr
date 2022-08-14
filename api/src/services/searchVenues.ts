@@ -2,7 +2,7 @@ import { ServiceDependencies } from '../setup/setupServiceDependencies';
 import { Venue } from '../types';
 import formatVenue from '../utils/formatVenue';
 
-export interface SearchVenuesParams {
+interface SearchVenuesParams {
   lat?: number;
   lon?: number;
   radius?: number;

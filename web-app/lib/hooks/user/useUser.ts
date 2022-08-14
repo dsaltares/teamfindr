@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
+import GoogleAnalytics from 'react-ga';
 import { useServices } from '@components/providers/ServicesProvider';
-import { useAnalytics } from '../../../components/providers/AnalyticsProvider';
 
 const useUser = () => {
   const services = useServices();
-  const analytics = useAnalytics();
   const { isLoading, error, data } = useQuery(
     'user',
     () => services.user.verify(),
@@ -21,13 +20,11 @@ const useUser = () => {
     if (!data?.user) {
       return;
     }
-    const { user } = data;
-    void analytics.identify(user.id, {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    });
-  }, [data, analytics]);
+    const {
+      user: { id, email, firstName, lastName },
+    } = data;
+    GoogleAnalytics.set({ userId: id, email, firstName, lastName });
+  }, [data]);
 
   return {
     isLoading,

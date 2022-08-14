@@ -2,7 +2,7 @@ import type { Venue } from '@lib/types';
 import formatVenue from '@lib/utils/formatVenue';
 import mongodb from './mongodb';
 
-interface SearchVenuesParams {
+export interface SearchVenuesParams {
   lat?: number;
   lon?: number;
   radius?: number;
